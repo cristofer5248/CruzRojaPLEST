@@ -8,6 +8,7 @@ package sv.com.cruzplest.www.beans;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.UsersEntity;
 import sv.com.cruzplest.www.model.UserModel;
@@ -35,30 +36,48 @@ public class Login {
             UserModel model = new UserModel();
             UsersEntity user;
             user = null;
-            UsersEntity usernivel1;
-            usernivel1 = null;
-            user = model.login();
+            user = model.login(getUser(),getPass());
             if (user != null) {
                 if (user.getPass().equals(pass)) {
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", user);
 //                    usernivel1 = model.verificarnivel(user);
 //Descomentariar y hacer funcionar si existe falla de re-autentificacion de usuarios
-//                    if (user.getTipou().getCodigousertype() == 1) {
-//                        System.out.println("Usuario nivel 1 iniciado");
-//                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", usernivel1);
-//                        return "user1/index";
+                    if (user.getTipou().getCodigousertype() == 1) {
+                        System.out.println("Usuario nivel 1 iniciado.....");
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", user);
+                        return "user1/index";
 //
-//                    }
+                    }
 
                 }
             }
             System.out.print("entrando al metodo del iniciar session");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El usuario no existe"));
-            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml?error=ErrU");
-            return null;
+//            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml?error=ErrU");
+            return "PLEST/index?error=ErrU";
         } catch (Exception e) {
             return null;
         }
+
+    }
+        public String logut() {
+//        UsuariosModel model = new UsuariosModel();
+//        UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+//        System.out.println(us);
+//        UsersEntity usuario = new UsersEntity();
+//        usuario.setIdusuario(us.getIdusuario());
+//        usuario.setNombres(us.getNombres());
+//        usuario.setPass(us.getPass());
+//        usuario.setGenero(us.getGenero());
+//        usuario.setTipousuario(us.getTipousuario());
+//        usuario.setActivo(Boolean.FALSE);
+//        model.modificarUsuarios(usuario);
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        Object session = externalContext.getSession(false);
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+
+        return "login";
 
     }
 

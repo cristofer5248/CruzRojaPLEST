@@ -28,7 +28,7 @@
         </style>
     </h:head>
     <h:body>
-        
+
         <b:container>
             <div class="background"></div>
             <div class="title">
@@ -54,36 +54,36 @@
 
         </b:container>
 
-        <!--        <h:outputScript>
-                    <c:set var="message" value='$ {param.error}' />
-                    <c:set var="variable" scope="session" value="# {verificarsesion.dameeltipo()}"/>
-        
-                    <c:if test = "$ {message=='true'}">
-                        alertify
-                        .alert("Acceso no permitido, Inicia sesion primero.", function(){
-                        alertify.message('OK');
-                        });  
-                    </c:if>
-                    <c:if test = "$ {message=='ErrU'}">
-                        alertify
-                        .alert("Usuario no existe o las credenciales no son correctas.", function(){
-                        alertify.message('OK');
-                        });  
-                    </c:if>
-                    <c:if test = "$ {message=='BDD'}">
-                        alertify
-                        .alert("Hubo un error al conectarse a la base de datos.", function(){
-                        alertify.message('OK');
-                        });  
-                    </c:if>
-                    <c:if test="$ {variable==2}">                
-                        window.location.replace("principalTec.xhtml");
-                    </c:if>
-                    <c:if test="$ {(variable==1) || (variable ==3)}"> 
-                        window.location.replace("principalAd.xhtml"); 
-                    </c:if>
-        
-        
-                </h:outputScript>-->
+        <h:outputScript>
+            <c:set var="message" value='${param.error}' />
+            <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
+
+            <c:if test = "${message=='true'}">
+                alertify
+                .alert("Acceso no permitido, Inicia sesion primero.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='ErrU'}">
+                alertify
+                .alert("Usuario no existe o las credenciales no son correctas.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='BDD'}">
+                alertify
+                .alert("Hubo un error al conectarse a la base de datos.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test="${variable==2}">                
+                window.location.replace("PLEST/user2/principalTec.xhtml");
+            </c:if>
+            <c:if test="${(variable==1) || (variable ==3)}"> 
+                window.location.replace("user1/index.xhtml"); 
+            </c:if>
+
+
+        </h:outputScript>
     </h:body>
 </html> 

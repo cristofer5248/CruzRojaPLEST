@@ -18,10 +18,10 @@ import javax.persistence.Query;
  */
 public class UserModel {
 
-    public UsersEntity login() {
+    public UsersEntity login(String user, String pass) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query consulta = em.createNamedQuery("UsersEntities.findAll");
+            Query consulta = em.createNamedQuery("UsersEntity.findByAuten").setParameter("codigouser", user).setParameter("pass", pass);
 //            primer createnamedquery ejecutado
             List<UsersEntity> listado = consulta.getResultList();
             if (!listado.isEmpty()) {
