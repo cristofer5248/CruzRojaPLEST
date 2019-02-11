@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    " http :// www .w3. org /TR/ xhtml1 / DTD / xhtml1 - transitional . dtd ">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
@@ -10,120 +10,80 @@
     <h:head>
 
         <link rel="icon" href="../resources/img/icono.png"></link>
+        <!--alertefy too-->
         <h:outputStylesheet name="css/alertify.core.css" />
+        <!--alertefy too-->
         <h:outputStylesheet name="css/bootstrap.min.css" /> 
+        <!--alertefy-->
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
-        <h:outputScript name="js/jquery.table2excel.js"/>                        
+        <!--alertefy-->
+        <!--jquery for exporting table only using jquery-->
+        <h:outputScript name="js/jquery.table2excel.js"/>  
+        <!--jquery for exporting table only using jquery-->
         <h:outputStylesheet name="css/globalcss.css" /> 
+        <!--jquery for exporting table only using jquery-->
         <!--        animacion para eliminar bonita chida-->
         <h:outputStylesheet name="css/deleteanimated_js.css" /> 
         <h:outputScript name="js/animeddelete.js"/>
         <!--        animacion para eliminar bonita chida-->
+        <!--New template menu from code pen-->
+        <h:outputStylesheet name="css/styletemplate.css"/>
+        <h:outputStylesheet name="css/animatenewtemplate.min.css"/>
+        <h:outputScript name="js/newtemplatemenu.js"/>
+        <!--New template menu from code pen-->
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
-        <ui:insert name="title">
 
-        </ui:insert>    
+        <!--        <ui:insert name="title">
+        
+                </ui:insert>    -->
 
 
     </h:head>
 
     <h:body>
         <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
-        <p:growl id="growl" showDetail="false" sticky="false" life="4000"/>
-        <ui:insert name="menu">
-            <b:navBar brandHref="principalAd.xhtml" brand-img="../resources/img/logo.png" inverse="true" style="background-color: #05235b">
-                <b:navbarLinks>
-                    <b:dropMenu value="Personas" icon-awesome="fa-user">
-                        <b:navLink value="Usuarios" outcome="usuarios" icon-awesome="fa-user-secret"></b:navLink>
-                        <c:if test = "${variable== 1}">
-                            <b:navLink value="Beneficiados" outcome="registroBeneficiado" icon-awesome="fa-users"></b:navLink>
-                        </c:if>
-                        <c:if test = "${variable== 3}">
-                            <b:navLink value="Beneficiados" outcome="registroBeneficiadoJefes" icon-awesome="fa-users"></b:navLink>
-                        </c:if>                        
-                    </b:dropMenu>
-                    <b:dropMenu value="Datos" icon-awesome="fa-table">
-                        <!--<b:navLink value="Financiamiento" outcome="financiamiento" icon-awesome="fa-dollar"></b:navLink>-->
-                        <b:navLink value="Estadisticas" outcome="Estadisticas" icon-awesome="fa-line-chart"></b:navLink>                        
-                        <b:navLink value="Sociedad" outcome="sociedad" icon-awesome="fa-institution"></b:navLink>                        
-                    </b:dropMenu>
-                    <b:dropMenu value="Proyectos" icon-awesome="fa-ambulance">
-                        <b:navLink value="Todos los proyetos" outcome="proyectos" icon-awesome="fa-align-justify"></b:navLink>
-                        <b:navLink value="Todas las Actividades" outcome="Actividades" icon-awesome="fa-child"></b:navLink>
-                        <b:dropMenu value="Localizaciones" icon-awesome="fa-sitemap">
-                            <b:navLink value="Todas los localizaciones" outcome="registroLugar" icon-awesome="fa-sitemap"></b:navLink>
-                            <b:navLink value="Localizacion de proyectos" outcome="lugarproyecto" icon-awesome="fa-thumb-tack"></b:navLink>
-                            <b:navLink value="Departamentos" outcome="departamentos" icon-awesome="fa-globe"></b:navLink>
-                        </b:dropMenu>
 
-                        <b:navLink value="Area Misional"  outcome="areamisional" icon-awesome="fa-list-ol"></b:navLink>
-                    </b:dropMenu>
-                </b:navbarLinks>
+        <ul class="nav">
+            <li>
+                <i class="fa fa-home"></i>
+                <div class="animated slideInLeft">Home</div>
+            </li>
+            <li>
+                <i class="fa fa-user"></i>
+                <div class="animated slideInLeft">About</div>
+            </li>
+            <li>
+                <i class="fa fa-certificate"></i>
+                <div class="animated slideInLeft">Skills</div>
+            </li>
+            <li>
+                <i class="fa fa-desktop"></i>
+                <div class="animated slideInLeft">Projects</div>
+            </li>
+            <li>
+                <i class="fa fa-align-right"></i>
+                <div class="animated slideInLeft">Articles</div>
+            </li>
+            <li>
+                <i class="fa fa-phone"></i>
+                <div class="animated slideInLeft">Contact</div>
+            </li>
+        </ul>    
 
-                <b:navbarLinks pull="right">
-
-                    <c:if test = "${variable== 1}">
-                        <b:dropMenu icon="globe" value="Cordinador: #{verificarsesion.mensaje}">
-                            <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>
-                            <br></br>
-                            <b:form>
-                                <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
-                                </b:navCommandLink>
-                            </b:form>
-                        </b:dropMenu>
-                    </c:if>
-                    <c:if test = "${variable== 3}">
-                        <b:dropMenu icon="globe" value="Jefe: #{verificarsesion.mensaje}">
-                            <b:navLink value="Editar Perfil" outcome="sociedad"></b:navLink>
-                            <br></br>
-                            <b:form>
-                                <b:navCommandLink  value="Cerrar session" action="#{login.logut()}" style="padding-left: 20px; color: black;">
-                                </b:navCommandLink>
-                            </b:form>
-                        </b:dropMenu>
-                    </c:if>
-                </b:navbarLinks>
-
-
-
-            </b:navBar>
-        </ui:insert>
-
-        <div class="container"> 
-            <div class="row">
-                <div class="col-md-2 col-sm-2 hidden-xs">
-                    <ui:insert name="sidebar">
-                        <!--   <b:panel look="primary" title="Sidebar" >
-                               <b:listLinks>
-                                   <b:navLink header="BootsFaces" />
-                                   <b:navLink href="http://www.bootsfaces.net" value="BootsFaces"
-                                              icon="globe" iconAlign="right"/>
-                                   <b:navLink outcome="index" value="Blog Original"
-                                              icon="folder-open" iconAlign="right"/>
-                               </b:listLinks>
-   
-                           </b:panel> -->
-                    </ui:insert>
-                </div>
-                <div class="col-md-12 col-sm-4" style="padding-bottom: 60px;" >
-                    <ui:insert name="contenido" >
-                        CONTENIDO POR DEFECTO
-                    </ui:insert>
-                </div>    
-
+        <div class="hero">
+            <h1>CSS3 Side Menu</h1>
+            <div class="col-md-12 col-sm-4" style="padding-bottom: 60px;" >
+                <ui:insert name="contenido" >
+                    CONTENIDO POR DEFECTO
+                </ui:insert>
             </div>
         </div>
-    </h:body>
-    <footer style="background-color: #05235b">
-
-
-        <div id="divinterno">
-            <p><strong><a href="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=1" style="color: white; padding-top: 10px;">©2018 Cruz Roja Salvadoreña </a></strong></p>                    
-
-            <!--                <p><a href="mailto:cristofr5248@gmail.com" target="_top" >cristofr5248@gmail.com</a></p>-->
-            <!--<a ref="http://www.cruzrojasal.org.sv/seccion-es.php?seccion=2&amp;cat=19"><img src="../resources/img/logo2.png"  alt="Ùnete a la Cruz Roja Salvadoreña" /></a>-->
+        <div class="credits">
+            <a href="https://twitter.com/arximughal"><i class="fa fa-twitter"></i></a>
+            <a href="https://facebook.com/arximughal"><i class="fa fa-facebook"></i></a>
+            <a href="https://arslanaslam.me"><i class="fa fa-globe"></i></a>
         </div>
-    </footer>
+    </h:body>
 </html>
 

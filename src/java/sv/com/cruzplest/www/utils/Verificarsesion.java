@@ -40,7 +40,7 @@ public class Verificarsesion implements Serializable {
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml?error=true");
 //            return "/PLEST/inffffdex";
             } else {
-                FacesContext.getCurrentInstance().getExternalContext().redirect("user1/index.xhtml");
+//                FacesContext.getCurrentInstance().getExternalContext().redirect("user1/index.xhtml");
             }
         } catch (Exception e) {
 //            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
