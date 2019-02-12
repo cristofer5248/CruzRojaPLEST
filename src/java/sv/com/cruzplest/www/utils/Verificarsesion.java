@@ -31,7 +31,7 @@ public class Verificarsesion implements Serializable {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nivel");
-            UsersEntity usuario = new UsersEntity();
+//            UsersEntity usuario = new UsersEntity();
             String nombre = null;
 
             if (us == null) {
@@ -56,7 +56,9 @@ public class Verificarsesion implements Serializable {
         try {
             UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
             devolver = us.getTipou().getCodigousertype();
+            System.out.print("El tipo de usuario es ===> "+devolver);
         } catch (Exception e) {
+            
         }
 
         return devolver;

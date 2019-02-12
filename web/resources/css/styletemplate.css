@@ -4,11 +4,11 @@
 body {
   background: #f2f2f2;
 }
-body,
+/*body,
 * {
   padding: 0;
   margin: 0;
-}
+}*/
 .nav {
   list-style: none;
   padding: 0;
@@ -36,10 +36,11 @@ body,
   text-align: center;
   animation-duration: 0.34s;
 }
-.nav li div {
-  margin-left: 80px;
+.nav li div  {
+  margin-left: 50%;
   text-align: center;
-  width: 160px;
+  width: 275px;
+  /*aqui*/
 }
 .nav li i {
   line-height: 60px;

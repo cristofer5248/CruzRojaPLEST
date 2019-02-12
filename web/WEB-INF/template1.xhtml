@@ -9,7 +9,7 @@
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
 
-        <link rel="icon" href="../resources/img/icono.png"></link>
+        <link rel="shortcut icon"  href="#{resource['images/calendarico.ico']}"  type="image/x-icon"/>
         <!--alertefy too-->
         <h:outputStylesheet name="css/alertify.core.css" />
         <!--alertefy too-->
@@ -33,11 +33,13 @@
         <h:outputScript name="js/newtemplatemenu.js"/>
         <!--New template menu from code pen-->
         <!--more https://codepen.io/kazzkiq/pen/pvqvxO-->
+        <!--Own style button-->
+        <h:outputStylesheet name="css/ownChangesStyle.css"/>
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
 
-        <!--        <ui:insert name="title">
+                <ui:insert name="title">
             
-                </ui:insert>    -->
+                </ui:insert>    
 
 
     </h:head>
@@ -48,27 +50,43 @@
         <ul class="nav">
             <li>
                 <i class="fa fa-home"></i>
-                <div class="animated slideInLeft">Home</div>
+                <div class="animated slideInLeft">Inicio</div>
             </li>
             <li>
                 <i class="fa fa-user"></i>
-                <div class="animated slideInLeft">About</div>
+                <div class="animated slideInLeft " style="padding-bottom: 0px; margin-bottom: 0px; height: 80px">
+
+                    <h:button value="Perfil  " outcome="about" class="ownbutton" ><i class="fa fa-user-secret"></i></h:button>
+                    <h:form id="logout" class="ownform">
+                        <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton>
+                    </h:form>
+
+                    <br></br>
+
+                </div>
+
+            </li>
+            <li> 
+                <i class="fa fa-newspaper-o "></i>
+                <div class="animated slideInLeft">PED</div>
             </li>
             <li>
-                <i class="fa fa-certificate"></i>
-                <div class="animated slideInLeft">Skills</div>
-            </li>
-            <li>
-                <i class="fa fa-desktop"></i>
-                <div class="animated slideInLeft">Projects</div>
+                <i class="fa fa-list-alt"></i>
+                <div class="animated slideInLeft">POA</div>
             </li>
             <li>
                 <i class="fa fa-align-right"></i>
-                <div class="animated slideInLeft">Articles</div>
+                <div class="animated slideInLeft">AREA DE GESTION</div>
             </li>
             <li>
-                <i class="fa fa-phone"></i>
-                <div class="animated slideInLeft">Contact</div>
+                <c:if test="${variable==1}">
+                    <i class="fa fa-search "></i>
+                    <div class="animated slideInLeft">Avances</div>
+                </c:if>
+                <c:if test="${variable!=1}">
+                    <i class="fa fa-pencil-square-o"></i>
+                    <div class="animated slideInLeft">Enviar progreso</div>
+                </c:if>
             </li>
         </ul>    
 
@@ -81,9 +99,9 @@
             </div>
         </div>
         <div class="credits">
-            <a href="https://twitter.com/arximughal"><i class="fa fa-twitter"></i></a>
-            <a href="https://facebook.com/arximughal"><i class="fa fa-facebook"></i></a>
-            <a href="https://arslanaslam.me"><i class="fa fa-globe"></i></a>
+            <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
+            <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
+            <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
         </div>
     </h:body>
 </html>
