@@ -51,6 +51,9 @@ public class UsersEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "pass", nullable = false, length = 20)
     private String pass;
+    @Basic(optional = false)
+    @Column(name = "correo", nullable = false, length = 20)
+    private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PrivilegesuserEntity> privilegesuserEntityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encargado")
@@ -139,6 +142,20 @@ public class UsersEntity implements Serializable {
 
     public void setTipou(UsertypeEntity tipou) {
         this.tipou = tipou;
+    }
+
+    /**
+     * @return the correo
+     */
+    public String getCorreo() {
+        return correo;
+    }
+
+    /**
+     * @param correo the correo to set
+     */
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     @Override
