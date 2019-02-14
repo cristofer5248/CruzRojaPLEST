@@ -3,10 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition 
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="../WEB-INF/template1.xhtml"
-    xmlns:h="http://xmlns.jcp.org/jsf/html"
-    xmlns:f="http://xmlns.jcp.org/jsf/core"
-    xmlns:b="http://bootsfaces.net/ui">
+    template="../WEB-INF/template1.xhtml">
 
     <ui:define name="title">
         <title>Perfil - Planificacion y Desarrollo</title>
@@ -15,28 +12,10 @@
     <ui:define name="contenido">
         <div class="card">
             <div class="content">
-                <b:dataTable value="${usersBean.listarAll()}" var="us" rendered="${usersBean.listarAll().size()>0}">
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Nombre"/>
-                        </f:facet>
-                        <h:outputText value="#{us.nombre}"/>                          
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header">
-                            <h:outputLabel value="Apellido"/>
-                        </f:facet>
-                        <h:outputText value="#{us.apellidos}"/>                          
-                    </h:column>
-                </b:dataTable>
-
             </div>
             <div class="fabs">
                 <div class="fab"></div>
-
-                <h:commandButton class="avatar zmdi zmdi-account">
-                    <f:ajax render="@form"/>
-                </h:commandButton>
+                <i class="avatar zmdi zmdi-account"></i>
             </div>
             <div class="user">
                 <div class="socials">

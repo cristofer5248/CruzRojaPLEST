@@ -18,19 +18,25 @@
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
         <!--alertefy-->
+
+        <!--Jquery and Materialiaze-->
+        <h:outputStylesheet name="css/profilematerialize.css" />
+        <h:outputStylesheet name="css/materializeprofile.css"/>
+        <!--<h:outputStylesheet name="css/materialize.css"/>-->
+        <h:outputStylesheet name="css/globalcss.css" /> 
+
+
+        <!--jQuery and Materializez-->
+
         <!--jquery for exporting table only using jquery-->
         <h:outputScript name="js/jquery.table2excel.js"/> 
         <!--jquery for exporting table only using jquery-->
-        
-        <h:outputScript name="js/jquery.js"/>
-        <h:outputScript name="js/materializeprofile.js"/>
-        <h:outputStylesheet name="css/materializeprofile.css"/>
-        <h:outputStylesheet name="css/globalcss.css" /> 
-        <!--jquery for exporting table only using jquery-->
+
         <!--        animacion para eliminar bonita chida-->
         <h:outputStylesheet name="css/deleteanimated_js.css" /> 
         <h:outputScript name="js/animeddelete.js"/>
         <!--        animacion para eliminar bonita chida-->
+
         <!--New template menu from code pen-->
         <h:outputStylesheet name="css/styletemplate.css"/>
         <h:outputStylesheet name="css/animatenewtemplate.min.css"/>
@@ -41,9 +47,9 @@
         <h:outputStylesheet name="css/ownChangesStyle.css"/>
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
 
-                <ui:insert name="title">
-            
-                </ui:insert>    
+        <ui:insert name="title">
+
+        </ui:insert>    
 
 
     </h:head>
@@ -94,13 +100,12 @@
             </li>
         </ul>    
 
-        <div class="hero">
-            <h1>CSS3 Side Menu</h1>
-            <div class="col-md-12 col-sm-4" style="padding-bottom: 60px;" >
+        <div class="container">          
+         
                 <ui:insert name="contenido" >
                     CONTENIDO POR DEFECTO
                 </ui:insert>
-            </div>
+            
         </div>
         <div class="credits">
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
@@ -108,5 +113,7 @@
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
         </div>
     </h:body>
+    <h:outputScript name="js/jquery.js"/>
+    <h:outputScript name="js/materializeprofile.js"/>
 </html>
 
