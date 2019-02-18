@@ -10,6 +10,7 @@ import sv.com.cruzplest.www.utils.JpaUtil;
 import sv.com.cruzplest.www.entities.UsersEntity;
 //import sv.com.cruzplest.www.entities.UsersEntity;C
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 /**
@@ -44,5 +45,20 @@ public class UserModel {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public int changeEmail(UsersEntity user) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            tran.begin();
+            em.merge(user);
+            tran.commit();
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 }

@@ -11,30 +11,28 @@
     template="../WEB-INF/template1.xhtml"
     >
 
-        <ui:define name="title">
-            <title>Inicio - Planificacion y Desarrollo</title>
-        </ui:define>
+    <ui:define name="title">
+        <title>Inicio - Planificacion y Desarrollo</title>
+    </ui:define>
 
-    <ui:define name="contenido">  
-        <H1>:(</H1>
-        
-        <!--        <h:outputScript>
-                    <c:if test = "# {not empty flash.exito}" >
-                        alertify.success('# {flash.exito}');               
-                    </c:if>
-                    function confirmarEliminacion(){
-                    return confirm("¿Está seguro que desea eliminar este estudiante");
-                    }
-                    function confirmarGuardar(){
-                    return confirm("¿Está seguro de los datos ingresados?");
-                    }
-                    function timeAlert() {
-                    alertify
-                    .alert("Abre el registro para editarlo.", function(){
-                    alertify.message('OK');
-                    });            
-                    }
-                </h:outputScript>-->
+    <ui:define name="contenido"> 
+        <b:panel title=">Abrir registro de areas misionales" look="success" collapsed="true" iconAwesome="fa-briefcase">
+            <h:form>
+                <h:panelGroup layout="block" styleClass="alert alert-danger" 
+                              rendered="#{not empty facesContext.messageList}">
+                    <h:messages  />
+                </h:panelGroup>
+                <h:panelGrid columns="4" styleClass="table">            
+                    <h:outputLabel value="Nombres" />
+                    <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}"/>
+                    <h:outputLabel value="Apellidos"/>
+                    <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}"/>
+                    <h:outputLabel value="Correo" />
+                    <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email"/>
+                </h:panelGrid>
+            </h:form>
+        </b:panel>
+
 
 
 
