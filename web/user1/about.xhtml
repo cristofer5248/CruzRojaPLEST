@@ -28,7 +28,7 @@
             </div>
             <h:form id="form1">
                 <b:panelGrid columns="4" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px" >
-                    <h:outputLabel value="Nombres" class="profile"/>
+                    <h:outputLabel value="Nombres" class="profile" style="margin-bottom: 20px"/>
                     <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile"/>
                     <h:outputLabel value="Apellidos" class="profile"/>
                     <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}" class="profile"/>
@@ -43,6 +43,7 @@
                     <!--                    <h:commandButton action="$ {usersBean.changeEmail}" value="Solicitar" class="profile btn btn-info">
                         <f:ajax execute="@form"/>
                     </h:commandButton>-->
+                    <b:commandButton action="${usersBean.updateUser()}" value="Enviar" class="profile btn" style="color:white; background-color: #448aff"/>
                 </b:panelGrid>
             </h:form>   
 

@@ -46,6 +46,9 @@ public class UsersBean {
         model.changeEmail(usersMail);
     }
 
+    public void updateUser() {
+    }
+
     /**
      * @return the users
      */

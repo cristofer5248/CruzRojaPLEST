@@ -52,7 +52,7 @@ public class UsersEntity implements Serializable {
     @Column(name = "pass", nullable = false, length = 20)
     private String pass;
     @Basic(optional = false)
-    @Column(name = "correo", nullable = false, length = 20)
+    @Column(name = "correo", nullable = false, length = 40)
     private String correo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PrivilegesuserEntity> privilegesuserEntityList;
