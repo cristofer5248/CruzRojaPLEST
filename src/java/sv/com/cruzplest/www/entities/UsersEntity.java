@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Christopher
+ * @author RRDESC04
  */
 @Entity
 @Table(name = "users")
@@ -32,10 +32,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "UsersEntity.findAll", query = "SELECT u FROM UsersEntity u")
     , @NamedQuery(name = "UsersEntity.findByCodigouser", query = "SELECT u FROM UsersEntity u WHERE u.codigouser = :codigouser")
     , @NamedQuery(name = "UsersEntity.findByNombre", query = "SELECT u FROM UsersEntity u WHERE u.nombre = :nombre")
-    , @NamedQuery(name = "UsersEntity.findByTypeU", query = "SELECT u FROM UsersEntity u WHERE u.tipou.codigousertype = 1 AND  u.codigouser = :codigouser")
-    , @NamedQuery(name = "UsersEntity.findByAuten", query = "SELECT u FROM UsersEntity u WHERE u.codigouser = :codigouser AND  u.pass = :pass")
     , @NamedQuery(name = "UsersEntity.findByApellidos", query = "SELECT u FROM UsersEntity u WHERE u.apellidos = :apellidos")
-    , @NamedQuery(name = "UsersEntity.findByPass", query = "SELECT u FROM UsersEntity u WHERE u.pass = :pass")})
+    , @NamedQuery(name = "UsersEntity.findByAuten", query = "SELECT u FROM UsersEntity u WHERE u.pass = :pass AND u.codigouser  = :codigouser")
+    , @NamedQuery(name = "UsersEntity.findByPass", query = "SELECT u FROM UsersEntity u WHERE u.pass = :pass")
+    , @NamedQuery(name = "UsersEntity.findByCorreo", query = "SELECT u FROM UsersEntity u WHERE u.correo = :correo")})
 public class UsersEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,15 +54,22 @@ public class UsersEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "correo", nullable = false, length = 40)
     private String correo;
+    @Basic(optional = false)
+    private int telefono;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PrivilegesuserEntity> privilegesuserEntityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encargado")
     private List<PoTableEntity> poTableEntityList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private List<NotificationsEntity> notificationsEntityList;
+    @JoinColumn(name = "genero", referencedColumnName = "codgenero")
+    @ManyToOne
+    private GeneroEntity genero;
     @JoinColumn(name = "tipou", referencedColumnName = "codigousertype", nullable = false)
     @ManyToOne(optional = false)
     private UsertypeEntity tipou;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userintentos")
+    private List<IntentosEntity> intentosEntityList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<NotificationsEntity> notificationsEntityList;
 
     public UsersEntity() {
     }
@@ -71,10 +78,11 @@ public class UsersEntity implements Serializable {
         this.codigouser = codigouser;
     }
 
-    public UsersEntity(String codigouser, String nombre, String pass) {
+    public UsersEntity(String codigouser, String nombre, String pass, String correo) {
         this.codigouser = codigouser;
         this.nombre = nombre;
         this.pass = pass;
+        this.correo = correo;
     }
 
     public String getCodigouser() {
@@ -109,6 +117,14 @@ public class UsersEntity implements Serializable {
         this.pass = pass;
     }
 
+    public String getCorreo() {
+        return correo;
+    }
+
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
     @XmlTransient
     public List<PrivilegesuserEntity> getPrivilegesuserEntityList() {
         return privilegesuserEntityList;
@@ -127,13 +143,12 @@ public class UsersEntity implements Serializable {
         this.poTableEntityList = poTableEntityList;
     }
 
-    @XmlTransient
-    public List<NotificationsEntity> getNotificationsEntityList() {
-        return notificationsEntityList;
+    public GeneroEntity getGenero() {
+        return genero;
     }
 
-    public void setNotificationsEntityList(List<NotificationsEntity> notificationsEntityList) {
-        this.notificationsEntityList = notificationsEntityList;
+    public void setGenero(GeneroEntity genero) {
+        this.genero = genero;
     }
 
     public UsertypeEntity getTipou() {
@@ -143,19 +158,24 @@ public class UsersEntity implements Serializable {
     public void setTipou(UsertypeEntity tipou) {
         this.tipou = tipou;
     }
+    
 
-    /**
-     * @return the correo
-     */
-    public String getCorreo() {
-        return correo;
+    @XmlTransient
+    public List<IntentosEntity> getIntentosEntityList() {
+        return intentosEntityList;
     }
 
-    /**
-     * @param correo the correo to set
-     */
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setIntentosEntityList(List<IntentosEntity> intentosEntityList) {
+        this.intentosEntityList = intentosEntityList;
+    }
+
+    @XmlTransient
+    public List<NotificationsEntity> getNotificationsEntityList() {
+        return notificationsEntityList;
+    }
+
+    public void setNotificationsEntityList(List<NotificationsEntity> notificationsEntityList) {
+        this.notificationsEntityList = notificationsEntityList;
     }
 
     @Override
@@ -181,6 +201,20 @@ public class UsersEntity implements Serializable {
     @Override
     public String toString() {
         return "sv.com.cruzplest.www.entities.UsersEntity[ codigouser=" + codigouser + " ]";
+    }
+
+    /**
+     * @return the telefono
+     */
+    public int getTelefono() {
+        return telefono;
+    }
+
+    /**
+     * @param telefono the telefono to set
+     */
+    public void setTelefono(int telefono) {
+        this.telefono = telefono;
     }
 
 }

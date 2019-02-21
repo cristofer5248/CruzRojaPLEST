@@ -27,16 +27,25 @@ public class UsersBean {
     private String pass2;
     private String oldpass;
     private int genero;
+    private UsersEntity userSession;
 
     /**
      * Creates a new instance of UsersBean
      */
     public UsersBean() {
         users = new UsersEntity();
+        FacesContext context = FacesContext.getCurrentInstance();
+        userSession = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+
     }
 
     public List<UsersEntity> listarAll() {
         return model.listarAll();
+    }
+
+    public List<UsersEntity> listarInfo() {
+        users = userSession;
+        return model.listarInfo(userSession.getCodigouser());
     }
 
     public void changeEmail() {
@@ -48,6 +57,15 @@ public class UsersBean {
     }
 
     public void updateUser() {
+        try {
+            System.out.print("Iniciando updateUsder");
+            FacesContext context = FacesContext.getCurrentInstance();
+            UsersEntity usersMail = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+            users = usersMail;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**

@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Christopher
+ * @author RRDESC04
  */
 @Entity
 @Table(name = "indicatorpo")

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Christopher
+ * @author RRDESC04
  */
 @Entity
 @Table(name = "po_table")
@@ -46,8 +46,6 @@ public class PoTableEntity implements Serializable {
     @Basic(optional = false)
     @Column(name = "meta_global", nullable = false)
     private int metaGlobal;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoPO")
-    private List<ConsolidatorpoEntity> consolidatorpoEntityList;
     @JoinColumn(name = "indicatores", referencedColumnName = "codigoind", nullable = false)
     @ManyToOne(optional = false)
     private IndicatorpoEntity indicatores;
@@ -60,6 +58,8 @@ public class PoTableEntity implements Serializable {
     @JoinColumn(name = "areaest", referencedColumnName = "codigostr", nullable = false)
     @ManyToOne(optional = false)
     private StrategicareasEntity areaest;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "codigoPO")
+    private List<ConsolidatorpoEntity> consolidatorpoEntityList;
 
     public PoTableEntity() {
     }
@@ -98,15 +98,6 @@ public class PoTableEntity implements Serializable {
         this.metaGlobal = metaGlobal;
     }
 
-    @XmlTransient
-    public List<ConsolidatorpoEntity> getConsolidatorpoEntityList() {
-        return consolidatorpoEntityList;
-    }
-
-    public void setConsolidatorpoEntityList(List<ConsolidatorpoEntity> consolidatorpoEntityList) {
-        this.consolidatorpoEntityList = consolidatorpoEntityList;
-    }
-
     public IndicatorpoEntity getIndicatores() {
         return indicatores;
     }
@@ -137,6 +128,15 @@ public class PoTableEntity implements Serializable {
 
     public void setAreaest(StrategicareasEntity areaest) {
         this.areaest = areaest;
+    }
+
+    @XmlTransient
+    public List<ConsolidatorpoEntity> getConsolidatorpoEntityList() {
+        return consolidatorpoEntityList;
+    }
+
+    public void setConsolidatorpoEntityList(List<ConsolidatorpoEntity> consolidatorpoEntityList) {
+        this.consolidatorpoEntityList = consolidatorpoEntityList;
     }
 
     @Override

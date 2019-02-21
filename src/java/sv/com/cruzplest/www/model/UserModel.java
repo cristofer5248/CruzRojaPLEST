@@ -47,6 +47,16 @@ public class UserModel {
         }
     }
 
+    public List<UsersEntity> listarInfo(String codigo) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("UsersEntity.findByCodigouser").setParameter("codigouser", codigo);
+            return consulta.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public int changeEmail(UsersEntity user) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tran = em.getTransaction();
