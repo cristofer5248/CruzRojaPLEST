@@ -26,6 +26,7 @@ public class UsersBean {
     private String pass;
     private String pass2;
     private String oldpass;
+    private int genero;
 
     /**
      * Creates a new instance of UsersBean
@@ -103,6 +104,20 @@ public class UsersBean {
      */
     public void setOldpass(String oldpass) {
         this.oldpass = oldpass;
+    }
+
+    /**
+     * @return the genero
+     */
+    public int getGenero() {
+        return genero;
+    }
+
+    /**
+     * @param genero the genero to set
+     */
+    public void setGenero(int genero) {
+        this.genero = genero;
     }
 
 }

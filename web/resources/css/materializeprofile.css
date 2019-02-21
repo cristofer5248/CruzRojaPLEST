@@ -250,7 +250,7 @@
 }
 
 .profile {
-  width: 50%;
+/*  width: 50%;*/
   height: auto;
   transform: translate(0px, -10px);
   opacity: 0;
