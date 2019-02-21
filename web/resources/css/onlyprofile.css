@@ -19,7 +19,7 @@
 body {
   font-family: "open sans";
   color: #444;
-  font-size: 1em;
+  font-size: 2em;
 }
 .container {
   padding: 15px;
@@ -42,7 +42,7 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 25px;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
-  font-size: 0.9em;
+  font-size: 1.2em;
   transition: all 0.2s ease-in-out;
   text-align: center;
 }
