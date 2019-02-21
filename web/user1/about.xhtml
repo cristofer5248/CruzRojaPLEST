@@ -51,11 +51,11 @@
                     <h:outputLabel value="Correo:" class="profile"/>
                     <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
                     <h:outputLabel value="Nueva contraseña:" class="profile"/>
-                    <b:inputText value="${usersBean.pass}" maxlength="40" class="profile" placeholder="********"/>
+                    <b:inputSecret value="${usersBean.pass}" maxlength="40" class="profile" placeholder="********"/>
                     <h:outputLabel value="Repetir contraseña:" class="profile"/>
-                    <b:inputText value="${usersBean.pass2}" maxlength="40" class="profile" placeholder="********"/>
+                    <b:inputSecret value="${usersBean.pass2}" maxlength="40" class="profile" placeholder="********"/>
                     <h:outputLabel value="Contraseña anterior:" class="profile"/>
-                    <b:inputText value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
+                    <b:inputSecret value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
                     <h:outputLabel value="Sexo:" class="profile"/>
                     <b:selectOneMenu value="${usersBean.genero}" required="true" class="profile">
                         <f:selectItem itemLabel="Masculino" itemValue="1"/>

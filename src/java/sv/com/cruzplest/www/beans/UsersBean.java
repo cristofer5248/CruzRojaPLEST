@@ -58,10 +58,7 @@ public class UsersBean {
 
     public void updateUser() {
         try {
-            System.out.print("Iniciando updateUsder");
-            FacesContext context = FacesContext.getCurrentInstance();
-            UsersEntity usersMail = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
-            users = usersMail;
+            model.updateUser(users);            
         } catch (Exception e) {
             e.printStackTrace();
         }

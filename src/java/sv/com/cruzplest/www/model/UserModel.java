@@ -71,4 +71,19 @@ public class UserModel {
         }
         return 0;
     }
+
+    public int updateUser(UsersEntity user) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            tran.begin();
+            em.merge(user);
+            tran.commit();
+            em.close();
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
