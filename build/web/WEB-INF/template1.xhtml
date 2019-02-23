@@ -47,7 +47,7 @@
         <!--more https://codepen.io/kazzkiq/pen/pvqvxO-->
         <!--Own style button-->
         <h:outputStylesheet name="css/ownChangesStyle.css"/>
-        
+
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
 
         <ui:insert name="title">
@@ -113,6 +113,9 @@
             </div>   
         </div>
         <div class="credits">
+            <div class="spinner-border text-danger" role="status" style="padding: 20px; display: none;" id="progressbar" >
+                <span class="sr-only">Loading...</span>
+            </div>
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
             <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>

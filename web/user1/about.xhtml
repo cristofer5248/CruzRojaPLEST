@@ -6,6 +6,7 @@
     template="../WEB-INF/template1.xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:b="http://bootsfaces.net/ui">
 
@@ -16,7 +17,8 @@
 
     <ui:define name="contenido">
         <div class="card" style="text-align: center;">
-            <div class="content">
+            <div class="content">                
+
                 <ul class="cards">
                     <li><img src="https://www.pngarts.com/files/3/Avatar-PNG-Download-Image.png"/>
                         <div class="details">
@@ -62,14 +64,33 @@
                         <f:selectItem itemLabel="Femenino" itemValue="2"/>
                     </b:selectOneMenu>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <h:commandButton class="btn btn-outline-success waves-effect profile" action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px">
+                        <h:commandButton class="btn btn-outline-success waves-effect profile" action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 
                         </h:commandButton>
                     </div>
                 </b:panelGrid>
 
             </h:form>   
-
         </div>
+        <c:set var="message" value='${param.op}' />
+        <h:outputScript>
+            <c:if test = "${message=='yes'}">
+                alertify
+                .alert("Perfil actualizado.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='pne'}">
+                alertify
+                .alert("Verifica las contraseñas.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            function verprogress(){
+            document.getElementById('progressbar').style.display='block';
+            }
+
+
+        </h:outputScript>
     </ui:define>
 </ui:composition>

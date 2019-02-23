@@ -33,7 +33,7 @@ public class UsersBean {
      * Creates a new instance of UsersBean
      */
     public UsersBean() {
-        users = new UsersEntity();
+        UsersEntity users = new UsersEntity();
         FacesContext context = FacesContext.getCurrentInstance();
         userSession = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 
@@ -56,11 +56,22 @@ public class UsersBean {
         model.changeEmail(usersMail);
     }
 
-    public void updateUser() {
+    public String updateUser() {
         try {
-            model.updateUser(users);            
+            if (!getPass().equals(getPass2())) {
+                return "about?faces-redirect=true&op=pne";
+            }
+            if (!getOldpass().equals(this.userSession.getPass())) {
+                return "about?faces-redirect=true&op=pne";
+            }
+            
+            users.setPass(getOldpass());
+            model.updateUser(users);
+            return "about?faces-redirect=true&op=yes";
+
         } catch (Exception e) {
             e.printStackTrace();
+            return "";
         }
 
     }

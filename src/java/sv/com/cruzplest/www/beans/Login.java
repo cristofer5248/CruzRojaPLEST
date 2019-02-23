@@ -37,7 +37,7 @@ public class Login {
             UsersEntity user;
             user = null;
             user = model.login(getUser(),getPass());
-            System.out.print("LOGIN.JAVA. Usuario nivel----> "+user.getTipou().getCodigousertype());
+//            System.out.print("LOGIN.JAVA. Usuario nivel----> "+user.getTipou().getCodigousertype());
             if (user != null) {
                 if (user.getPass().equals(pass)) {
                     FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("usuario", user);
@@ -54,11 +54,11 @@ public class Login {
             }
             System.out.print("entrando al metodo del iniciar session");
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error", "El usuario no existe"));
-//            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml?error=ErrU");
-            return "PLEST/index?error=ErrU";
-        } catch (Exception e) {
-            e.printStackTrace();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml?error=ErrU");
             return null;
+        } catch (Exception e) {
+            
+            return "PLEST/index?error=ErrU";
         }
 
     }
