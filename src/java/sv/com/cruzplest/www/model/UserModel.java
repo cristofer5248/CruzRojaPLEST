@@ -33,7 +33,39 @@ public class UserModel {
             em.close();
             return null;
         } catch (Exception e) {
+            e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean verificarcontraseña(String user, String pass) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNativeQuery("select s.codigouser from users s where s.pass='" + pass + "' AND s.codigouser='" + user + "'");
+            int querySize = consulta.getResultList().size();
+            if (querySize > 0) {
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+    }
+
+    public int verificarIntentos(String user) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNativeQuery("select count(i.userintentos) from intentos i where i.userintentos='" + user + "'");
+            List countAttemptsList = consulta.getResultList();
+            int countAttempts = Integer.parseInt(countAttemptsList.get(0).toString());
+            return countAttempts;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
         }
     }
 

@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.model.UserModel;
 import sv.com.cruzplest.www.entities.UsersEntity;
 import sv.com.cruzplest.www.utils.JsfUtil;
+import sv.com.cruzplest.www.utils.LimitAttempts;
 
 /**
  *
@@ -28,6 +29,7 @@ public class UsersBean {
     private String oldpass;
     private int genero;
     private UsersEntity userSession;
+    private LimitAttempts limits = new LimitAttempts();
 
     /**
      * Creates a new instance of UsersBean
@@ -61,11 +63,15 @@ public class UsersBean {
             if (!getPass().equals(getPass2())) {
                 return "about?faces-redirect=true&op=pne";
             }
-            if (!getOldpass().equals(this.userSession.getPass())) {
-                return "about?faces-redirect=true&op=pne";
+            if (!model.verificarcontraseña(userSession.getCodigouser(), getOldpass())) {
+                return "about?faces-redirect=true&op=one";
             }
-            
-            users.setPass(getOldpass());
+            //Si se quiere cambiar los limites de intentos para un usuarios se cambia en la clase LimitAttempts
+            int userLimit = limits.getAttemptsUser();
+            if (model.verificarIntentos(userSession.getCodigouser()) >= userLimit) {
+                return "about?faces-redirect=true&op=limit";
+            }
+            users.setPass(getPass());
             model.updateUser(users);
             return "about?faces-redirect=true&op=yes";
 
