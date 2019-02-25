@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="../WEB-INF/template1.xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="title">
+        <title>Areas Estrategicas - Planificacion y Desarrollo</title>        
+        <h:outputScript name="js/utils.js"/>
+    </ui:define>
+
+    <ui:define name="contenido">
+        <b:dataTable value="${areasBean.listAll()}" var="a" searching="true">
+            <b:dataTableColumn value="${a.codigostr}" label="Codigo"/>
+            <b:dataTableColumn value="${a.nombre}" label="Nombre"/>
+        </b:dataTable>
+        <div class="card" style="text-align: center;">
+            <div class="content1">
+
+
+
+            </div>
+            <div class="fabs">
+                <div class="fab"></div>
+                <i class="avatar zmdi zmdi-border-color"></i>
+                <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                    <f:ajax render="@form"/>
+                                    DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                                </h:commandButton>-->
+            </div>
+
+            <h:form id="form1">
+                <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px" >
+                    <h:outputLabel value="Nombres:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile" id="nombreform"/>
+                    <h:outputLabel value="Apellidos:" class="profile"/>
+                    <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}" class="profile"/>
+                    <h:outputLabel value="Correo:" class="profile"/>
+                    <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
+                    <h:outputLabel value="Nueva contraseña:" class="profile"/>
+                    <b:inputSecret value="${usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();"/>                    
+                    <h:outputLabel value="Repetir contraseña:" class="profile"/>               
+                    <h:panelGroup>
+                        <b:inputSecret value="${usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******"/>
+                        <span id='message' class="profile"></span>
+                    </h:panelGroup>
+                    <h:outputLabel value="Contraseña anterior:" class="profile"/>
+                    <b:inputSecret value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
+                    <h:outputLabel value="Sexo:" class="profile"/>
+                    <b:selectOneMenu value="${usersBean.genero}" required="true" class="profile">
+                        <f:selectItem itemLabel="Masculino" itemValue="1"/>
+                        <f:selectItem itemLabel="Femenino" itemValue="2"/>
+                    </b:selectOneMenu>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <h:commandButton class="btn btn-outline-success waves-effect profile" action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+
+                        </h:commandButton>
+                    </div>
+                </b:panelGrid>
+
+            </h:form>   
+        </div>
+        <c:set var="message" value='${param.op}' />
+        <h:outputScript>
+            <c:if test = "${message=='yes'}">
+                alertify
+                .alert("Perfil actualizado.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='pne'}">
+                alertify
+                .alert("Verifica las contraseñas.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='one'}">
+                alertify
+                .alert("La contraseña antigua no coincide.", function(){
+                alertify.message('OK');
+                });  
+            </c:if>
+            <c:if test = "${message=='limit'}">
+                alertify
+                .alert("Usted ha sobrepasado el limite de intentos de cambios a su perfil.", function(){
+                alertify.message('OK :(');
+                });  
+            </c:if>
+
+
+
+        </h:outputScript>
+    </ui:define>
+</ui:composition>

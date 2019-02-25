@@ -1,10 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     " http :// www .w3. org /TR/ xhtml1 / DTD / xhtml1 - transitional . dtd ">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:b="http://bootsfaces.net/ui"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-
+      xmlns:h="http://xmlns.jcp.org/jsf/html"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
@@ -71,9 +70,9 @@
                 <i class="fa fa-user"></i>
                 <div class="animated slideInLeft " style="padding-bottom: 0px; margin-bottom: 0px; height: 80px">
 
-                    <h:button value="Perfil  " outcome="about" class="ownbutton" ><i class="fa fa-user-secret"></i></h:button>
+                    <h:button value="Perfil  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button>
                     <h:form id="logout" class="ownform">
-                        <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton>
+                        <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" onclick="verprogress();" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton>
                     </h:form>
 
                     <br></br>
@@ -91,7 +90,9 @@
             </li>
             <li>
                 <i class="fa fa-align-right"></i>
-                <div class="animated slideInLeft">AREA DE GESTION</div>
+                <div class="animated slideInLeft">
+                    <h:button value="AREA DE GESTION" outcome="area" class="ownbutton" onclick="verprogress();"><i class="fa fa-gears"></i></h:button>
+                </div>
             </li>
             <li>
                 <c:if test="${variable==1}">
@@ -106,7 +107,7 @@
         </ul>    
 
         <div class="container">          
-            <div  class="col-md-12 col-sm-4" style="padding-bottom: 60px;">
+            <div  class="col-md-12 col-sm-12" style="padding-bottom: 60px;">
                 <ui:insert name="contenido" >
                     CONTENIDO POR DEFECTO
                 </ui:insert>
@@ -122,9 +123,16 @@
         </div>
     </h:body>
     <h:outputScript name="js/jquery-3.3.1.min.js"/>
-    <h:outputScript name="js/materializeprofile.js"/>
-    <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/bootstrap.min.js"/>
+    <h:outputScript name="js/mdb.js"/>
+    <h:outputScript name="js/materializeprofile.js"/>
+    
+    
     <h:outputScript name="js/popper.min.js"/>
+    <h:outputScript>
+        function verprogress(){
+        document.getElementById('progressbar').style.display='block';
+        }
+    </h:outputScript>
 </html>
 

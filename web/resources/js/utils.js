@@ -13,3 +13,4 @@ var samepass = function () {
         document.getElementById('message').innerHTML = 'Las contraseñas no coinciden';
     }
 };
+

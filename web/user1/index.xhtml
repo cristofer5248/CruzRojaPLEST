@@ -8,6 +8,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://java.sun.com/jsp/jstl/core"
     xmlns:b="http://bootsfaces.net/ui"
+    xmlns:p="http://primefaces.org/ui"
     template="../WEB-INF/template1.xhtml"
     >
 
@@ -17,20 +18,15 @@
 
     <ui:define name="contenido"> 
         <b:panel title=">Abrir registro de areas misionales" look="success" collapsed="true" iconAwesome="fa-briefcase">
-            <h:form>
-                <h:panelGroup layout="block" styleClass="alert alert-danger" 
-                              rendered="#{not empty facesContext.messageList}">
-                    <h:messages  />
-                </h:panelGroup>
-                <h:panelGrid columns="4" styleClass="table">            
-                    <h:outputLabel value="Nombres" />
-                    <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}"/>
-                    <h:outputLabel value="Apellidos"/>
-                    <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}"/>
-                    <h:outputLabel value="Correo" />
-                    <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email"/>
-                </h:panelGrid>
-            </h:form>
+            <b:dataTable value="${areasBean.listAll()}" var="a" class="table-bordered" >
+                <p:column headerText="Id">
+                    <h:outputText value="#{a.codigostr}" />
+                </p:column>
+                <p:column headerText="Nombres">
+                    <h:outputText value="#{a.nombre}" />
+                </p:column>
+
+            </b:dataTable>
         </b:panel>
 
 
