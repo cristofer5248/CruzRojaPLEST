@@ -13,6 +13,7 @@
     <ui:define name="title">
         <title>Perfil - Planificacion y Desarrollo</title>
         <h:outputStylesheet name="css/onlyprofile.css"/>
+        <h:outputScript name="js/utils.js"/>
     </ui:define>
 
     <ui:define name="contenido">
@@ -53,9 +54,12 @@
                     <h:outputLabel value="Correo:" class="profile"/>
                     <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
                     <h:outputLabel value="Nueva contraseña:" class="profile"/>
-                    <b:inputSecret value="${usersBean.pass}" maxlength="40" class="profile" placeholder="********"/>
-                    <h:outputLabel value="Repetir contraseña:" class="profile"/>
-                    <b:inputSecret value="${usersBean.pass2}" maxlength="40" class="profile" placeholder="********"/>
+                    <b:inputSecret value="${usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();"/>                    
+                    <h:outputLabel value="Repetir contraseña:" class="profile"/>               
+                    <h:panelGroup>
+                        <b:inputSecret value="${usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******"/>
+                        <span id='message' class="profile"></span>
+                    </h:panelGroup>
                     <h:outputLabel value="Contraseña anterior:" class="profile"/>
                     <b:inputSecret value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
                     <h:outputLabel value="Sexo:" class="profile"/>
