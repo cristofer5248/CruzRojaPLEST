@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="CruzRojaPLESTPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>sv.com.cruzplest.www.entities.NotificationsEntity</class>
+    <class>sv.com.cruzplest.www.entities.StrategicareasEntity</class>
+    <class>sv.com.cruzplest.www.entities.MeasurementunitsEntity</class>
+    <class>sv.com.cruzplest.www.entities.IntentosEntity</class>
+    <class>sv.com.cruzplest.www.entities.PoTableEntity</class>
+    <class>sv.com.cruzplest.www.entities.ConsolidatorpoEntity</class>
+    <class>sv.com.cruzplest.www.entities.UsertypeEntity</class>
+    <class>sv.com.cruzplest.www.entities.GeneroEntity</class>
+    <class>sv.com.cruzplest.www.entities.ResultsEntity</class>
+    <class>sv.com.cruzplest.www.entities.UsersEntity</class>
+    <class>sv.com.cruzplest.www.entities.PrivilegesuserEntity</class>
+    <class>sv.com.cruzplest.www.entities.IndicatorpoEntity</class>
+    <class>sv.com.cruzplest.www.entities.PhysicalGoalEntity</class>
+    <class>sv.com.cruzplest.www.entities.TypenotiEntity</class>
+    <class>sv.com.cruzplest.www.entities.CategoriaintentosEntity</class>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cruzples?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="javax.persistence.jdbc.password" value=""/>
+    </properties>
+  </persistence-unit>
+</persistence>
