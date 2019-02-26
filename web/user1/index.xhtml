@@ -18,10 +18,14 @@
 
     <ui:define name="contenido"> 
         <b:panel title=">Abrir registro de areas misionales" look="success" collapsed="false" iconAwesome="fa-briefcase">
-            <b:dataTable value="#{areasBean.listAll()}" var="a" class="table-bordered" >
-                <b:dataTableColumn value="#{a.codigostr}"/>
-                <b:dataTableColumn value="#{a.nombre}"/>
-            </b:dataTable>
+            <p:dataTable value="#{areasBean.listAll()}" var="a" class="table-bordered" >
+                <p:column headerText="ID">
+                    <h:outputText value="#{a.codigostr}" />
+                </p:column>
+                <p:column headerText="NOMBRE">
+                    <h:outputText  value="#{a.nombre}"/>
+                </p:column>
+            </p:dataTable>
         </b:panel>
 
 

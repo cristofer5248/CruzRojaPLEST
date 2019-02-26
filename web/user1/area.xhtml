@@ -8,6 +8,7 @@
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui"
     xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="title">
@@ -15,29 +16,60 @@
         <h:outputScript name="js/utils.js"/>
     </ui:define>
 
-    <ui:define name="contenido">
-        <b:panel class="content1">
-            
-                <b:row>
-                    <b:dataTable value="${areasBean.listAll()}" var="a" responsive="true" paginated="true" class="ownWhitoutBootstrap">
-                        <b:dataTableColumn value="${a.codigostr}" label="Codigo"/>
-                        <b:dataTableColumn value="${a.nombre}" label="Nombre"/>
-                    </b:dataTable>
-                </b:row>
 
-            
-        </b:panel>
+    <ui:define name="contenido">
+        <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
+            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+            <f:facet name="footer">
+                <b:button value="Close" dismiss="modal" />
+                <b:button value="Ok" look="primary" dismiss="modal" />
+            </f:facet>
+        </b:modal>
+        <div class="content1">
+            <h:form>
+                <p:dataTable value="#{areasBean.strategicAreas}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
+                             filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <h:outputText value="Filtrar:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('areasvar').filter()" style="width:150px" placeholder=""/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="ID" filterBy="#{a.codigostr}">
+                        <h:outputText value="#{a.codigostr}" />
+                    </p:column>
+                    <p:column headerText="NOMBRE" filterBy="#{a.nombre}">
+                        <h:outputText  value="#{a.nombre}"/>
+                    </p:column>
+                    <p:column headerText="ACCIONES">
+                        <h:commandButton action="#{areasBean.loadPoa()}" value="POA">
+                            <f:param rendered="POA"/>
+                        </h:commandButton>
+
+                        <b:button value="Trigger (JSF passthrough)" look="warning" p:data-target="#amodal" p:data-toggle="modal" size="lg"/>
+
+
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+        </div>
         <div class="fabs">
             <div class="fab"></div>
-            <i class="avatar zmdi zmdi-border-color"></i>
+            <i class="avatar zmdi zmdi-border-color" onclick="mostrar('form1');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
                                 <f:ajax render="@form"/>
                                 DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
                             </h:commandButton>-->
         </div>
 
-        <h:form id="form1">
-            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px" >
+        <h:form id="form1" style="display:none;">
+            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
                 <h:outputLabel value="Nombres:" class="profile" style="margin-bottom: 25px;"/>
                 <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile" id="nombreform"/>
                 <h:outputLabel value="Apellidos:" class="profile"/>
@@ -66,7 +98,6 @@
             </b:panelGrid>
 
         </h:form>   
-
         <c:set var="message" value='${param.op}' />
         <h:outputScript>
             <c:if test = "${message=='yes'}">

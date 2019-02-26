@@ -7,7 +7,8 @@ package sv.com.cruzplest.www.beans;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+
+import javax.faces.bean.ViewScoped;
 import sv.com.cruzplest.www.entities.StrategicareasEntity;
 import sv.com.cruzplest.www.model.AreasModel;
 import sv.com.cruzplest.www.utils.JsfUtil;
@@ -17,11 +18,13 @@ import sv.com.cruzplest.www.utils.JsfUtil;
  * @author RRDESC04
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class AreasBean {
 
     public AreasModel model = new AreasModel();
     private StrategicareasEntity strategicareas;
+    private List<StrategicareasEntity> strategicAreas;
+    public List<StrategicareasEntity> areasfiltered;
 //    private StrategicareasEntity strategicareas = new StrategicareasEntity();
     private boolean areasL = true;
 
@@ -29,7 +32,12 @@ public class AreasBean {
      * Creates a new instance of AreasBean
      */
     public AreasBean() {
+        strategicAreas = listAll();
 
+    }
+
+    public void loadPoa() {
+        int cod = Integer.parseInt(JsfUtil.getRequest().getParameter("idSA"));
     }
 
     public List<StrategicareasEntity> listAll() {
@@ -70,6 +78,34 @@ public class AreasBean {
      */
     public void setAreasL(boolean areasL) {
         this.areasL = areasL;
+    }
+
+    /**
+     * @return the areasfiltered
+     */
+    public List<StrategicareasEntity> getAreasfiltered() {
+        return areasfiltered;
+    }
+
+    /**
+     * @param areasfiltered the areasfiltered to set
+     */
+    public void setAreasfiltered(List<StrategicareasEntity> areasfiltered) {
+        this.areasfiltered = areasfiltered;
+    }
+
+    /**
+     * @return the strategicAreas
+     */
+    public List<StrategicareasEntity> getStrategicAreas() {
+        return strategicAreas;
+    }
+
+    /**
+     * @param strategicAreas the strategicAreas to set
+     */
+    public void setStrategicAreas(List<StrategicareasEntity> strategicAreas) {
+        this.strategicAreas = strategicAreas;
     }
 
 }

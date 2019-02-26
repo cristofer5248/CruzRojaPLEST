@@ -12,7 +12,7 @@
         <!--alertefy too-->
         <h:outputStylesheet name="css/alertify.core.css" />
         <!--alertefy too-->
-<!--        <h:outputStylesheet name="css/bootstrap.min.css" /> -->
+        <h:outputStylesheet name="css/bootstrap.min.css" /> 
         <h:outputStylesheet name="css/mdb.min.css" /> 
 
         <!--alertefy-->
@@ -38,10 +38,11 @@
         <h:outputScript name="js/animeddelete.js"/>
         <!--        animacion para eliminar bonita chida-->
 
-        <!--New template menu from code pen-->
+        <!--New template menu from code pen and loader-->
         <h:outputStylesheet name="css/styletemplate.css"/>
+        <h:outputStylesheet name="css/loader.css"/>
         <h:outputStylesheet name="css/animatenewtemplate.min.css"/>
-        <h:outputScript name="js/newtemplatemenu.js"/>
+        <h:outputScript name="js/newtemplatemenu.js"/>        
         <!--New template menu from code pen-->
         <!--more https://codepen.io/kazzkiq/pen/pvqvxO-->
         <!--Own style button-->
@@ -63,7 +64,7 @@
             <li>
                 <i class="fa fa-home"></i>
                 <div class="animated slideInLeft" >
-                    <h:button value="Inicio  " outcome="index" class="ownbutton"></h:button>
+                    <h:button value="Inicio  " outcome="index" class="ownbutton" onclick="verprogress();" ></h:button>
                 </div>
             </li>
             <li>
@@ -114,24 +115,33 @@
             </div>   
         </div>
         <div class="credits">
-            <div class="spinner-border text-danger" role="status" style="padding: 20px; display: none;" id="progressbar" >
-                <span class="sr-only">Loading...</span>
+            <div style="padding: 20px; display: none;" id="progressbar" class="loader" >
+                <svg class="circular" viewBox="25 25 50 50">
+                    <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+                </svg>
             </div>
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
             <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
         </div>
     </h:body>
-    <!--<h:outputScript name="js/jquery-3.3.1.min.js"/>-->
+    <h:outputScript name="js/jquery-3.3.1.min.js"/>
     <h:outputScript name="js/bootstrap.min.js"/>
     <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/materializeprofile.js"/>
-    
-    
+
+
     <h:outputScript name="js/popper.min.js"/>
     <h:outputScript>
         function verprogress(){
         document.getElementById('progressbar').style.display='block';
+        }
+        function mostrar(form1) {
+        var e = document.getElementById(form1);
+        if(e.style.display == 'block')
+        e.style.display = 'none';
+        else
+        e.style.display = 'block';
         }
     </h:outputScript>
 </html>
