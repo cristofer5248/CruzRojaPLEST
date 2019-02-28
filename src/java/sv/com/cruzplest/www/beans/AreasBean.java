@@ -5,13 +5,20 @@
  */
 package sv.com.cruzplest.www.beans;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.primefaces.context.RequestContext;
 import sv.com.cruzplest.www.entities.StrategicareasEntity;
 import sv.com.cruzplest.www.model.AreasModel;
 import sv.com.cruzplest.www.utils.JsfUtil;
+
+import org.primefaces.event.SelectEvent;
 
 /**
  *
@@ -50,6 +57,16 @@ public class AreasBean {
             return null;
         }
 
+    }
+
+    public void openLevel1() {
+        Map<String, Object> options = new HashMap<String, Object>();
+        options.put("modal", true);
+        RequestContext.getCurrentInstance().openDialog("level1", options, null);
+    }
+
+    public void onReturnFromLevel1(SelectEvent event) {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Data Returned", event.getObject().toString()));
     }
 
     /**
