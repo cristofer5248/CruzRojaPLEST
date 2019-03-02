@@ -13,19 +13,28 @@
 
     <ui:define name="title">
         <title>Areas Estrategicas - Planificacion y Desarrollo</title>        
-        <h:outputScript name="js/utils.js"/>
+        <!--        <h:outputScript name="js/utils.js"/>-->
+        <!--<h:outputStylesheet name="css/selectcool.css"/>-->
     </ui:define>
 
 
     <ui:define name="contenido">
-        <p:dialog header="Modal Dialog" widgetVar="dlg2" modal="true" height="100" class="modal-content1 ownModelstyle">
-            <div class="md-form">
-                <input placeholder="Selected date" type="text" id="date-picker-example" class="form-control datepicker"/>
-                <b:selectOneMenu value="#{areasBean.yearSelected}">
-                    <f:selectItem itemLabel="2019">
-                </b:selectOneMenu>
-                <label for="date-picker-example">Try me...</label>
-            </div>
+        <p:dialog header="POA" widgetVar="dlg2" modal="true" height="200" width="300" class="modal-content1 ownModelstyle">            
+                <h:form>                                       
+                    <h2 style="font-family: Roboto;">Seleciona un año</h2>
+                    <p:selectOneMenu value="#{areasBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">
+                        <f:selectItem itemLabel="2020" itemValue="2020"/>
+                        <f:selectItem itemLabel="2019" itemValue="2019"/>
+                        <f:selectItem itemLabel="2018" itemValue="2018"/>
+                        <f:selectItem itemLabel="2017" itemValue="2017"/>
+                        <f:selectItem itemLabel="2016" itemValue="2016"/>
+                        <f:selectItem itemLabel="2015" itemValue="2015"/>
+                        <f:selectItem itemLabel="2014" itemValue="2014"/>
+                        <f:selectItem itemLabel="2013" itemValue="2013"/>
+                        <f:selectItem itemLabel="2012" itemValue="2012"/>
+                        <f:selectItem itemLabel="2011" itemValue="2011"/>
+                    </p:selectOneMenu>
+                </h:form>            
         </p:dialog>        
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
@@ -37,7 +46,7 @@
                              filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:commandButton value="Año" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
+                            <p:commandButton value="POA" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
                             <h:outputText value="Filtrar:" />
                             <p:inputText id="globalFilter" onkeyup="PF('areasvar').filter()" style="width:150px" placeholder=""/>
                         </p:outputPanel>
@@ -126,9 +135,7 @@
                 alertify.message('OK :(');
                 });  
             </c:if>
-            
-
-
         </h:outputScript>
+        <h:outputScript name="js/selectcool.js"/>
     </ui:define>
 </ui:composition>

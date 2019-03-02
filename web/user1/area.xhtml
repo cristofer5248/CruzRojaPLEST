@@ -13,55 +13,70 @@
 
     <ui:define name="title">
         <title>Areas Estrategicas - Planificacion y Desarrollo</title>        
-        <h:outputScript name="js/utils.js"/>
+        <!--        <h:outputScript name="js/utils.js"/>-->
+        <!--<h:outputStylesheet name="css/selectcool.css"/>-->
     </ui:define>
 
 
     <ui:define name="contenido">
-        <b:modal id="amodal" title="Modal Example" styleClass="modalPseudoClass">
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
-            <p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
-            <f:facet name="footer">
-                <b:button value="Close" dismiss="modal" />
-                <b:button value="Ok" look="primary" dismiss="modal" />
-            </f:facet>
-        </b:modal>
+        <p:dialog header="POA" widgetVar="dlg2" modal="true" position="center center" height="200" width="300" class="modal-content1 ownModelstyle">            
+            <h:form>                                       
+                <h2 style="font-family: Roboto;">Seleciona un año</h2>
+                <p:selectOneMenu value="#{areasBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">
+                    <f:selectItem itemLabel="2020" itemValue="2020"/>
+                    <f:selectItem itemLabel="2019" itemValue="2019"/>
+                    <f:selectItem itemLabel="2018" itemValue="2018"/>
+                    <f:selectItem itemLabel="2017" itemValue="2017"/>
+                    <f:selectItem itemLabel="2016" itemValue="2016"/>
+                    <f:selectItem itemLabel="2015" itemValue="2015"/>
+                    <f:selectItem itemLabel="2014" itemValue="2014"/>
+                    <f:selectItem itemLabel="2013" itemValue="2013"/>
+                    <f:selectItem itemLabel="2012" itemValue="2012"/>
+                    <f:selectItem itemLabel="2011" itemValue="2011"/>
+                </p:selectOneMenu>
+            </h:form>            
+        </p:dialog>        
         <div class="content1">
+            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
+                <p:menuitem value="Categories" url="#" />
+                <p:menuitem value="Area" url="#" />
+                <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
+            </p:breadCrumb>            
             <h:form>
                 <p:dataTable value="#{areasBean.strategicAreas}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
                              filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
                     <f:facet name="header">
                         <p:outputPanel>
+                            <p:commandButton value="PED" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
                             <h:outputText value="Filtrar:" />
                             <p:inputText id="globalFilter" onkeyup="PF('areasvar').filter()" style="width:150px" placeholder=""/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="ID" filterBy="#{a.codigostr}">
+                    <p:column headerText="ID" filterBy="#{a.codigostr}" id="idcambio" width="20%">
                         <h:outputText value="#{a.codigostr}" />
                     </p:column>
-                    <p:column headerText="NOMBRE" filterBy="#{a.nombre}">
+                    <p:column headerText="NOMBRE" filterBy="#{a.nombre}" style="text-align: left;">
                         <h:outputText  value="#{a.nombre}"/>
                     </p:column>
-                    <p:column headerText="ACCIONES">
-                        <h:commandButton action="#{areasBean.loadPoa()}" value="POA">
-                            <f:param rendered="POA"/>
-                        </h:commandButton>
-
-                        <b:button value="Trigger (JSF passthrough)" look="warning" p:data-target="#amodal" p:data-toggle="modal" size="lg"/>
-
-
+                    <p:column headerText="" width="20%">
+                        <p:commandButton value="ver POA" type="button" onclick="PF('dlg3').show();" class="green1"/>
                     </p:column>
+                    <!--                    <p:column headerText="ACCIONES">
+                                            <h:commandButton action="# {areasBean.loadPoa()}" value="POA">
+                                                <f:param rendered="POA"/>
+                                            </h:commandButton>
+                    
+                                            <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();" class="red1"/>
+                    
+                    
+                                        </p:column>-->
                 </p:dataTable>
             </h:form>
 
         </div>
         <div class="fabs">
             <div class="fab"></div>
-            <i class="avatar zmdi zmdi-border-color" onclick="mostrar('form1');"></i>
+            <i class="avatar zmdi zmdi-plus" onclick="mostrar('form1');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
                                 <f:ajax render="@form"/>
                                 DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
@@ -91,42 +106,36 @@
                     <f:selectItem itemLabel="Femenino" itemValue="2"/>
                 </b:selectOneMenu>
                 <div class="col-lg-6" style="margin-top: 30px;">
-                    <h:commandButton class="btn btn-outline-success waves-effect profile" action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                    <h:commandButton  action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 
                     </h:commandButton>
                 </div>
             </b:panelGrid>
-
         </h:form>   
-        <c:set var="message" value='${param.op}' />
-        <h:outputScript>
-            <c:if test = "${message=='yes'}">
-                alertify
-                .alert("Perfil actualizado.", function(){
-                alertify.message('OK');
-                });  
-            </c:if>
-            <c:if test = "${message=='pne'}">
-                alertify
-                .alert("Verifica las contraseñas.", function(){
-                alertify.message('OK');
-                });  
-            </c:if>
-            <c:if test = "${message=='one'}">
-                alertify
-                .alert("La contraseña antigua no coincide.", function(){
-                alertify.message('OK');
-                });  
-            </c:if>
-            <c:if test = "${message=='limit'}">
-                alertify
-                .alert("Usted ha sobrepasado el limite de intentos de cambios a su perfil.", function(){
-                alertify.message('OK :(');
-                });  
-            </c:if>
+        <p:dialog header="Detalles" widgetVar="dlg3" modal="true" width="auto" height="auto" position="center center" class="modal-content3 ownModelstyle">            
+            <p:dataTable var="poa" value="#{poaBean.listPoaSA}" filteredValue="#{poaBean.listPoaSAFiltered}" widgetVar="poListvar"
+                         paginator="true" rows="10" emptyMessage="No hay informacion que mostrar">                
+                <f:facet name="header">
+                    <p:outputPanel>
+                        <h:outputText value="Filtrar"/>
+                        <p:inputText id="globalFilter" onkeyup="PF('poListvar').filter()" style="width: 150px" placeholder="Here"/>
+                    </p:outputPanel>
+                </f:facet>
+                <p:column headerText="ID" filterBy="#{poa.codigopo}" width="20%">
+                    <h:outputText value="#{poa.codigopo}"/>
+                </p:column>
+                <p:column headerText="Actividad" filterBy="#{poa.actividad}" width="20%" style="text-align: left;">
+                    <h:outputText value="#{poa.actividad}"/>
+                </p:column>
+                <p:column headerText="Indicadores" filterBy="#{poa.indicatores.detalle}" style="text-align: left;">
+                    <h:outputText value="#{poa.indicatores.detalle}"/>
+                </p:column>
+                <p:column headerText="Meta Global">
+                    <h:outputText value="#{poa.metaGlobal}%"/>
+                </p:column>
+            </p:dataTable>
+        </p:dialog>
 
-
-
-        </h:outputScript>
+        <h:outputScript name="js/selectcool.js"/>
     </ui:define>
 </ui:composition>

@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "PoTableEntity.findAll", query = "SELECT p FROM PoTableEntity p")
     , @NamedQuery(name = "PoTableEntity.findByCodigopo", query = "SELECT p FROM PoTableEntity p WHERE p.codigopo = :codigopo")
+    , @NamedQuery(name = "PoTableEntity.findStrategicArea", query = "SELECT p FROM PoTableEntity p WHERE p.areaest.codigostr = :cod")
     , @NamedQuery(name = "PoTableEntity.findByActividad", query = "SELECT p FROM PoTableEntity p WHERE p.actividad = :actividad")
     , @NamedQuery(name = "PoTableEntity.findByMetaGlobal", query = "SELECT p FROM PoTableEntity p WHERE p.metaGlobal = :metaGlobal")})
 public class PoTableEntity implements Serializable {
@@ -163,5 +164,5 @@ public class PoTableEntity implements Serializable {
     public String toString() {
         return "sv.com.cruzplest.www.entities.PoTableEntity[ codigopo=" + codigopo + " ]";
     }
-    
+
 }

@@ -32,6 +32,7 @@ public class AreasBean {
     private StrategicareasEntity strategicareas;
     private List<StrategicareasEntity> strategicAreas;
     public List<StrategicareasEntity> areasfiltered;
+    private int yearselected;
 //    private StrategicareasEntity strategicareas = new StrategicareasEntity();
     private boolean areasL = true;
 
@@ -123,6 +124,20 @@ public class AreasBean {
      */
     public void setStrategicAreas(List<StrategicareasEntity> strategicAreas) {
         this.strategicAreas = strategicAreas;
+    }
+
+    /**
+     * @return the yearselected
+     */
+    public int getYearselected() {
+        return yearselected;
+    }
+
+    /**
+     * @param yearselected the year to set
+     */
+    public void setYearselected(int yearselected) {
+        this.yearselected = yearselected;
     }
 
 }
