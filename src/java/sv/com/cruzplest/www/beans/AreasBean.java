@@ -44,6 +44,12 @@ public class AreasBean {
 
     }
 
+    public String sendyear() {
+        System.out.print("Qye pasoooooooo");
+        this.yearselected = 2000;
+        return "poa";
+    }
+
     public void loadPoa() {
         int cod = Integer.parseInt(JsfUtil.getRequest().getParameter("idSA"));
     }

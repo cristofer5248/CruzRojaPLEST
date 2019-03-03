@@ -76,6 +76,12 @@ and open the template in the editor.
     padding: 20px;
     margin-bottom: 10px;
 }
+#ownbreadCrumb1
+{
+    padding: 20px;
+    margin-bottom: 10px;
+}
+
 
 .ui-menuitem-text{
     color:black;
@@ -101,8 +107,17 @@ and open the template in the editor.
     border-color: #ff3547  !important;
     background-color: transparent !important;
     color: #ff3547  !important;
-    margin-right: 100px;
-}.ui-button, ui-widget, ui-state-default, ui-corner-all, ui-button-text-only{
+    /*    margin-right: 100px;*/
+}
+
+.amber1{
+    background:#ffa000!important;
+    padding: .84rem 2.14rem;
+    font-size: .81rem;
+    color:#fff
+}
+
+.ui-button, ui-widget, ui-state-default, ui-corner-all, ui-button-text-only{
     margin-right: 100px;
 }
 /*filter column color*/
@@ -367,5 +382,5 @@ and open the template in the editor.
     background-color:black;
 }
 .ui-state-default, ui-filter-column{
-/*    width: 20%;*/
+    /*    width: 20%;*/
 }

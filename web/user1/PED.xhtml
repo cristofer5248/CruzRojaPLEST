@@ -44,24 +44,45 @@
                 <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
             </p:breadCrumb>            
             <h:form>
-                <p:dataTable value="#{areasBean.strategicAreas}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
-                             filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
+                <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" widgetVar="pedvar" 
+                             filteredValue="#{pEDbean.consolidatorListfiltered}" emptyMessage="No hay Areas Estrategicas" >
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:commandButton value="PED" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
                             <h:outputText value="Filtrar:" />
-                            <p:inputText id="globalFilter" onkeyup="PF('areasvar').filter()" style="width:150px" placeholder=""/>
+                            <p:inputText id="globalFilter" onkeyup="PF('pedvar').filter()" style="width:150px" placeholder=""/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="ID" filterBy="#{a.codigostr}" id="idcambio" width="20%">
-                        <h:outputText value="#{a.codigostr}" />
+                    <p:column headerText="ID" filterBy="#{p.codigocon}" id="idcambio" width="20%">
+                        <h:outputText value="#{p.codigocon}" />
                     </p:column>
-                    <p:column headerText="NOMBRE" filterBy="#{a.nombre}" style="text-align: left;">
-                        <h:outputText  value="#{a.nombre}"/>
+                    <p:column headerText="Actividad" filterBy="#{p.codigoPO.actividad}" style="text-align: left;">
+                        <h:outputText  value="#{p.codigoPO.actividad}"/>
                     </p:column>
+                    <p:column headerText="Indicadores" filterBy="#{p.codigoPO.indicatores.detalle}" style="text-align: left;">
+                        <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
+                    </p:column>
+                    <p:column headerText="Meta Fisica" filterBy="#{p.physicalgoal.meta}" style="text-align: left;">
+                        <h:outputText  value="#{p.physicalgoal.meta}"/>
+                    </p:column>
+                    <p:column headerText="Meta Global" filterBy="#{p.codigoPO.metaGlobal}" style="text-align: left;">
+                        <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
+                    </p:column>
+
+                    <p:column headerText="Trimestre" filterBy="#{p.trimestre}" style="text-align: left;">
+                        <h:outputText  value="#{p.trimestre}"/>
+                    </p:column>
+
+                    <p:column headerText="Año" filterBy="#{p.year}" style="text-align: left;">
+                        <h:outputText  value="#{p.year}"/>
+                    </p:column>
+
+
+
+
                     <p:column headerText="" width="20%">
                         <p:commandButton value="ver POA" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
-                            <f:param name="codigo" value="#{a.codigostr}"/>
+                            <f:param name="codigo"/>
                         </p:commandButton>
                     </p:column>
                     <!--                    <p:column headerText="ACCIONES">
@@ -116,6 +137,11 @@
             </b:panelGrid>
         </h:form>          
 
-        <h:outputScript name="js/selectcool.js"/>
+        <h:outputScript>
+            
+            
+            
+        </h:outputScript>
+
     </ui:define>
 </ui:composition>

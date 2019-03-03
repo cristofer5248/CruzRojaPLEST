@@ -6,20 +6,24 @@
 package sv.com.cruzplest.www.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author RRDESC04
+ * @author Christopher
  */
 @Entity
 @Table(name = "physical_goal")
@@ -32,15 +36,15 @@ public class PhysicalGoalEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigo", nullable = false)
     private Integer codigo;
     @Basic(optional = false)
     @Column(name = "meta", nullable = false, length = 80)
     private String meta;
-    @JoinColumn(name = "codigo", referencedColumnName = "codigoPO", nullable = false, insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private ConsolidatorpoEntity consolidatorpoEntity;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "physicalgoal")
+    private List<ConsolidatorpoEntity> consolidatorpoEntityList;
 
     public PhysicalGoalEntity() {
     }
@@ -70,12 +74,13 @@ public class PhysicalGoalEntity implements Serializable {
         this.meta = meta;
     }
 
-    public ConsolidatorpoEntity getConsolidatorpoEntity() {
-        return consolidatorpoEntity;
+    @XmlTransient
+    public List<ConsolidatorpoEntity> getConsolidatorpoEntityList() {
+        return consolidatorpoEntityList;
     }
 
-    public void setConsolidatorpoEntity(ConsolidatorpoEntity consolidatorpoEntity) {
-        this.consolidatorpoEntity = consolidatorpoEntity;
+    public void setConsolidatorpoEntityList(List<ConsolidatorpoEntity> consolidatorpoEntityList) {
+        this.consolidatorpoEntityList = consolidatorpoEntityList;
     }
 
     @Override

@@ -7,16 +7,16 @@
     <class>sv.com.cruzplest.www.entities.MeasurementunitsEntity</class>
     <class>sv.com.cruzplest.www.entities.IntentosEntity</class>
     <class>sv.com.cruzplest.www.entities.PoTableEntity</class>
-    <class>sv.com.cruzplest.www.entities.ConsolidatorpoEntity</class>
     <class>sv.com.cruzplest.www.entities.UsertypeEntity</class>
     <class>sv.com.cruzplest.www.entities.GeneroEntity</class>
     <class>sv.com.cruzplest.www.entities.ResultsEntity</class>
     <class>sv.com.cruzplest.www.entities.UsersEntity</class>
     <class>sv.com.cruzplest.www.entities.PrivilegesuserEntity</class>
     <class>sv.com.cruzplest.www.entities.IndicatorpoEntity</class>
-    <class>sv.com.cruzplest.www.entities.PhysicalGoalEntity</class>
     <class>sv.com.cruzplest.www.entities.TypenotiEntity</class>
     <class>sv.com.cruzplest.www.entities.CategoriaintentosEntity</class>
+    <class>sv.com.cruzplest.www.entities.ConsolidatorpoEntity</class>
+    <class>sv.com.cruzplest.www.entities.PhysicalGoalEntity</class>
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/cruzples?zeroDateTimeBehavior=convertToNull"/>

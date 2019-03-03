@@ -7,21 +7,21 @@ package sv.com.cruzplest.www.entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author RRDESC04
+ * @author Christopher
  */
 @Entity
 @Table(name = "consolidatorpo")
@@ -38,6 +38,7 @@ public class ConsolidatorpoEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "codigocon", nullable = false)
     private Integer codigocon;
@@ -54,13 +55,12 @@ public class ConsolidatorpoEntity implements Serializable {
     private Integer ejecutado;
     @Column(name = "comentario", length = 150)
     private String comentario;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "consolidatorpoEntity")
-    private PhysicalGoalEntity physicalGoalEntity;
     @JoinColumn(name = "codigoPO", referencedColumnName = "codigopo", nullable = false)
     @ManyToOne(optional = false)
     private PoTableEntity codigoPO;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "consolidatorpoEntity")
-    private ResultsEntity resultsEntity;
+    @JoinColumn(name = "physicalgoal", referencedColumnName = "codigo", nullable = false)
+    @ManyToOne(optional = false)
+    private PhysicalGoalEntity physicalgoal;
 
     public ConsolidatorpoEntity() {
     }
@@ -124,14 +124,6 @@ public class ConsolidatorpoEntity implements Serializable {
         this.comentario = comentario;
     }
 
-    public PhysicalGoalEntity getPhysicalGoalEntity() {
-        return physicalGoalEntity;
-    }
-
-    public void setPhysicalGoalEntity(PhysicalGoalEntity physicalGoalEntity) {
-        this.physicalGoalEntity = physicalGoalEntity;
-    }
-
     public PoTableEntity getCodigoPO() {
         return codigoPO;
     }
@@ -140,12 +132,12 @@ public class ConsolidatorpoEntity implements Serializable {
         this.codigoPO = codigoPO;
     }
 
-    public ResultsEntity getResultsEntity() {
-        return resultsEntity;
+    public PhysicalGoalEntity getPhysicalgoal() {
+        return physicalgoal;
     }
 
-    public void setResultsEntity(ResultsEntity resultsEntity) {
-        this.resultsEntity = resultsEntity;
+    public void setPhysicalgoal(PhysicalGoalEntity physicalgoal) {
+        this.physicalgoal = physicalgoal;
     }
 
     @Override

@@ -12,67 +12,48 @@
     xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="title">
-        <title>Areas Estrategicas - Planificacion y Desarrollo</title>        
+        <title>POA - Planificacion y Desarrollo</title>        
         <!--        <h:outputScript name="js/utils.js"/>-->
         <!--<h:outputStylesheet name="css/selectcool.css"/>-->
     </ui:define>
 
 
     <ui:define name="contenido">
-        <p:dialog header="POA" widgetVar="dlg2" modal="true" position="center center" height="200" width="300" class="modal-content1 ownModelstyle">            
-            <h:form>                                       
-                <h2 style="font-family: Roboto;">Seleciona un año</h2>
-                <p:selectOneMenu value="#{poaBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">                    
-                    <f:selectItem itemLabel="2020" itemValue="2020"/>
-                    <f:selectItem itemLabel="2019" itemValue="2019"/>
-                    <f:selectItem itemLabel="2018" itemValue="2018"/>
-                    <f:selectItem itemLabel="2017" itemValue="2017"/>
-                    <f:selectItem itemLabel="2016" itemValue="2016"/>
-                    <f:selectItem itemLabel="2015" itemValue="2015"/>
-                    <f:selectItem itemLabel="2014" itemValue="2014"/>
-                    <f:selectItem itemLabel="2013" itemValue="2013"/>
-                    <f:selectItem itemLabel="2012" itemValue="2012"/>
-                    <f:selectItem itemLabel="2011" itemValue="2011"/>
-                </p:selectOneMenu>
-                <p:commandButton class="btn btn-amber amber1" style="color:white" action="#{areasBean.sendyear()}" value="Enviar"/>
-            </h:form>            
-        </p:dialog>        
         <div class="content1">
-            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
-                <p:menuitem value="Categories" url="#" />
-                <p:menuitem value="Areas Estrategicas" url="#" />
-                <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
-            </p:breadCrumb>            
+            <div>
+                <p:breadCrumb id="ownbreadCrumb" class="z-depth-4" rendered="#{poaBean.yearselected==0}">
+                    <p:menuitem value="Categories" url="#" />
+                    <p:menuitem value="POA" url="#" />               
+                </p:breadCrumb>
+                <p:breadCrumb id="ownbreadCrumb1" class="z-depth-4" rendered="#{poaBean.yearselected!=0}">
+                    <p:menuitem value="Categories" url="#" />
+                    <p:menuitem value="Areas Estrategicas" outcome="area"/>               
+                    <p:menuitem value="#{poaBean.poacod}" url="#" rendered="#{poaBean.poacod>0}" />
+                    <p:menuitem value="POA" outcome="poa" />              
+                    <p:menuitem value="#{poaBean.yearselected}" url="#" />    
+                </p:breadCrumb>            
+            </div>
             <h:form>
-                <p:dataTable value="#{areasBean.strategicAreas}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
-                             filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
+                <p:dataTable var="poa" value="#{poaBean.listPoaSA}" filteredValue="#{poaBean.listPoaSAFiltered}" widgetVar="poListvar"
+                             paginator="true" rows="10" emptyMessage="No hay informacion que mostrar">                
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:commandButton value="PED" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
-                            <h:outputText value="Filtrar:" />
-                            <p:inputText id="globalFilter" onkeyup="PF('areasvar').filter()" style="width:150px" placeholder=""/>
+                            <h:outputText value="Filtrar"/>
+                            <p:inputText id="globalFilter" onkeyup="PF('poListvar').filter()" style="width: 150px" placeholder="Here"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="ID" filterBy="#{a.codigostr}" id="idcambio" width="20%">
-                        <h:outputText value="#{a.codigostr}" />
+                    <p:column headerText="ID" filterBy="#{poa.codigopo}" width="20%">
+                        <h:outputText value="#{poa.codigopo}"/>
                     </p:column>
-                    <p:column headerText="NOMBRE" filterBy="#{a.nombre}" style="text-align: left;">
-                        <h:outputText  value="#{a.nombre}"/>
+                    <p:column headerText="Actividad" filterBy="#{poa.actividad}" width="20%" style="text-align: left;">
+                        <h:outputText value="#{poa.actividad}"/>
                     </p:column>
-                    <p:column headerText="" width="20%">
-                        <p:commandButton value="ver POA" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
-                            <f:param name="codigo" value="#{a.codigostr}"/>
-                        </p:commandButton>
+                    <p:column headerText="Indicadores" filterBy="#{poa.indicatores.detalle}" style="text-align: left;">
+                        <h:outputText value="#{poa.indicatores.detalle}"/>
                     </p:column>
-                    <!--                    <p:column headerText="ACCIONES">
-                                            <h:commandButton action="# {areasBean.loadPoa()}" value="POA">
-                                                <f:param rendered="POA"/>
-                                            </h:commandButton>
-                    
-                                            <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();" class="red1"/>
-                    
-                    
-                                        </p:column>-->
+                    <p:column headerText="Meta Global">
+                        <h:outputText value="#{poa.metaGlobal}%"/>
+                    </p:column>
                 </p:dataTable>
             </h:form>
 
@@ -114,7 +95,10 @@
                     </h:commandButton>
                 </div>
             </b:panelGrid>
-        </h:form>          
+        </h:form>   
+        <p:dialog header="Detalles" widgetVar="dlg3" modal="true" width="auto" height="auto" position="center center" class="modal-content3 ownModelstyle">            
+
+        </p:dialog>
 
         <h:outputScript name="js/selectcool.js"/>
     </ui:define>

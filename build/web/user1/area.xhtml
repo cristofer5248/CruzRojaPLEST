@@ -22,7 +22,7 @@
         <p:dialog header="POA" widgetVar="dlg2" modal="true" position="center center" height="200" width="300" class="modal-content1 ownModelstyle">            
             <h:form>                                       
                 <h2 style="font-family: Roboto;">Seleciona un año</h2>
-                <p:selectOneMenu value="#{areasBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">
+                <p:selectOneMenu value="#{poaBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">                    
                     <f:selectItem itemLabel="2020" itemValue="2020"/>
                     <f:selectItem itemLabel="2019" itemValue="2019"/>
                     <f:selectItem itemLabel="2018" itemValue="2018"/>
@@ -34,12 +34,13 @@
                     <f:selectItem itemLabel="2012" itemValue="2012"/>
                     <f:selectItem itemLabel="2011" itemValue="2011"/>
                 </p:selectOneMenu>
+                <p:commandButton class="btn btn-amber amber1" style="color:white" action="#{areasBean.sendyear()}" value="Enviar"/>
             </h:form>            
         </p:dialog>        
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
-                <p:menuitem value="Area" url="#" />
+                <p:menuitem value="Areas Estrategicas" url="#" />
                 <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
             </p:breadCrumb>            
             <h:form>
@@ -59,7 +60,9 @@
                         <h:outputText  value="#{a.nombre}"/>
                     </p:column>
                     <p:column headerText="" width="20%">
-                        <p:commandButton value="ver POA" type="button" onclick="PF('dlg3').show();" class="green1"/>
+                        <p:commandButton value="ver POA" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
+                            <f:param name="codigo" value="#{a.codigostr}"/>
+                        </p:commandButton>
                     </p:column>
                     <!--                    <p:column headerText="ACCIONES">
                                             <h:commandButton action="# {areasBean.loadPoa()}" value="POA">
@@ -111,30 +114,7 @@
                     </h:commandButton>
                 </div>
             </b:panelGrid>
-        </h:form>   
-        <p:dialog header="Detalles" widgetVar="dlg3" modal="true" width="auto" height="auto" position="center center" class="modal-content3 ownModelstyle">            
-            <p:dataTable var="poa" value="#{poaBean.listPoaSA}" filteredValue="#{poaBean.listPoaSAFiltered}" widgetVar="poListvar"
-                         paginator="true" rows="10" emptyMessage="No hay informacion que mostrar">                
-                <f:facet name="header">
-                    <p:outputPanel>
-                        <h:outputText value="Filtrar"/>
-                        <p:inputText id="globalFilter" onkeyup="PF('poListvar').filter()" style="width: 150px" placeholder="Here"/>
-                    </p:outputPanel>
-                </f:facet>
-                <p:column headerText="ID" filterBy="#{poa.codigopo}" width="20%">
-                    <h:outputText value="#{poa.codigopo}"/>
-                </p:column>
-                <p:column headerText="Actividad" filterBy="#{poa.actividad}" width="20%" style="text-align: left;">
-                    <h:outputText value="#{poa.actividad}"/>
-                </p:column>
-                <p:column headerText="Indicadores" filterBy="#{poa.indicatores.detalle}" style="text-align: left;">
-                    <h:outputText value="#{poa.indicatores.detalle}"/>
-                </p:column>
-                <p:column headerText="Meta Global">
-                    <h:outputText value="#{poa.metaGlobal}%"/>
-                </p:column>
-            </p:dataTable>
-        </p:dialog>
+        </h:form>          
 
         <h:outputScript name="js/selectcool.js"/>
     </ui:define>

@@ -16,7 +16,7 @@ import javax.persistence.Query;
  * @author Christopher
  */
 public class PoaModel {
-    
+
     public List<PoTableEntity> listSAreas(int cod) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -24,11 +24,32 @@ public class PoaModel {
             List<PoTableEntity> list = consulta.getResultList();
             System.out.print("Tamaño de la lista es iguaaaaaaaaal " + list.size());
             return list;
-            
+
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    
+
+    public List<PoTableEntity> listAll() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("PoTableEntity.findAll");
+            return consulta.getResultList();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List<PoTableEntity> listYear() {
+        try {
+            EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+            Query consulta = em.createNamedQuery("PoTableEntity.findStrategicArea");
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }
