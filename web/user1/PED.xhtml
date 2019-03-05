@@ -12,7 +12,7 @@
     xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="title">
-        <title>Areas Estrategicas - Planificacion y Desarrollo</title>        
+        <title>PED - Planificacion y Desarrollo</title>        
         <!--        <h:outputScript name="js/utils.js"/>-->
         <!--<h:outputStylesheet name="css/selectcool.css"/>-->
     </ui:define>
@@ -41,7 +41,10 @@
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
                 <p:menuitem value="Areas Estrategicas" url="#" />
-                <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
+                <p:menuitem value="Año" url="#" rendered="#{pEDbean.yearselected>0}"/>
+                <p:menuitem value="#{pEDbean.yearselected}" url="#" rendered="#{pEDbean.yearselected>0}"/>
+                <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
+                <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
             </p:breadCrumb>            
             <h:form>
                 <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" widgetVar="pedvar" 
@@ -53,34 +56,44 @@
                             <p:inputText id="globalFilter" onkeyup="PF('pedvar').filter()" style="width:150px" placeholder=""/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="ID" filterBy="#{p.codigocon}" id="idcambio" width="20%">
+                    <p:column headerText="ID" filterBy="#{p.codigocon}" width="5%">
                         <h:outputText value="#{p.codigocon}" />
                     </p:column>
-                    <p:column headerText="Actividad" filterBy="#{p.codigoPO.actividad}" style="text-align: left;">
+                    <p:column headerText="Actividad" filterBy="#{p.codigoPO.actividad}">
                         <h:outputText  value="#{p.codigoPO.actividad}"/>
                     </p:column>
-                    <p:column headerText="Indicadores" filterBy="#{p.codigoPO.indicatores.detalle}" style="text-align: left;">
+                    <p:column headerText="Area estrategica" filterBy="#{p.codigoPO.areaest.nombre}">
+                        <h:outputText value="#{p.codigoPO.areaest.nombre}"/>
+                    </p:column>                    
+                    <p:column headerText="Indicadores" filterBy="#{p.codigoPO.indicatores.detalle}">
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
                     </p:column>
-                    <p:column headerText="Meta Fisica" filterBy="#{p.physicalgoal.meta}" style="text-align: left;">
+                    <p:column headerText="Unidad de medida" filterBy="#{p.codigoPO.unidad.nombre}">
+                        <h:outputText value="#{p.codigoPO.unidad.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Meta Fisica" filterBy="#{p.physicalgoal.meta}">
                         <h:outputText  value="#{p.physicalgoal.meta}"/>
                     </p:column>
-                    <p:column headerText="Meta Global" filterBy="#{p.codigoPO.metaGlobal}" style="text-align: left;">
+                    <p:column headerText="Meta Global" filterBy="#{p.codigoPO.metaGlobal}">
                         <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
                     </p:column>
 
-                    <p:column headerText="Trimestre" filterBy="#{p.trimestre}" style="text-align: left;">
+                    <p:column headerText="Trimestre" filterBy="#{p.trimestre}">
                         <h:outputText  value="#{p.trimestre}"/>
                     </p:column>
-
-                    <p:column headerText="Año" filterBy="#{p.year}" style="text-align: left;">
+                    <p:column headerText="Año" filterBy="#{p.year}">
                         <h:outputText  value="#{p.year}"/>
                     </p:column>
-
-
-
-
-                    <p:column headerText="" width="20%">
+                    <p:column headerText="planificado">
+                        <h:outputText value="#{p.planificado}"/>
+                    </p:column>
+                    <p:column headerText="ejecutado">
+                        <h:outputText value="#{p.ejecutado}"/>
+                    </p:column>
+                    <p:column headerText="comentario">
+                        <h:outputText value="#{p.comentario}"/>
+                    </p:column>
+                    <p:column headerText="">
                         <p:commandButton value="ver POA" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
                             <f:param name="codigo"/>
                         </p:commandButton>
@@ -113,22 +126,6 @@
                 <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile" id="nombreform"/>
                 <h:outputLabel value="Apellidos:" class="profile"/>
                 <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}" class="profile"/>
-                <h:outputLabel value="Correo:" class="profile"/>
-                <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
-                <h:outputLabel value="Nueva contraseña:" class="profile"/>
-                <b:inputSecret value="${usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();"/>                    
-                <h:outputLabel value="Repetir contraseña:" class="profile"/>               
-                <h:panelGroup>
-                    <b:inputSecret value="${usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******"/>
-                    <span id='message' class="profile"></span>
-                </h:panelGroup>
-                <h:outputLabel value="Contraseña anterior:" class="profile"/>
-                <b:inputSecret value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
-                <h:outputLabel value="Sexo:" class="profile"/>
-                <b:selectOneMenu value="${usersBean.genero}" required="true" class="profile">
-                    <f:selectItem itemLabel="Masculino" itemValue="1"/>
-                    <f:selectItem itemLabel="Femenino" itemValue="2"/>
-                </b:selectOneMenu>
                 <div class="col-lg-6" style="margin-top: 30px;">
                     <h:commandButton  action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 

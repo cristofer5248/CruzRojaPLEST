@@ -31,6 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigocon", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigocon = :codigocon")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByTrimestre", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.trimestre = :trimestre")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByYear", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.year = :year")
+    , @NamedQuery(name = "ConsolidatorpoEntity.findByMeasurementU", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigoPO.unidad.codigomea = :cod")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByPlanificado", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.planificado = :planificado")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByEjecutado", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.ejecutado = :ejecutado")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByComentario", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.comentario = :comentario")})
@@ -164,5 +165,5 @@ public class ConsolidatorpoEntity implements Serializable {
     public String toString() {
         return "sv.com.cruzplest.www.entities.ConsolidatorpoEntity[ codigocon=" + codigocon + " ]";
     }
-    
+
 }

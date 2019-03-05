@@ -384,3 +384,6 @@ and open the template in the editor.
 .ui-state-default, ui-filter-column{
     /*    width: 20%;*/
 }
+/*.ui-dialog {
+    width: auto !important;
+}*/

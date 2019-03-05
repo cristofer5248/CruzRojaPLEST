@@ -23,6 +23,11 @@ public class PoaBean {
     public PoaModel model = new PoaModel();
     public List<PoTableEntity> listPoaSA;
     public List<PoTableEntity> listPoaSAFiltered;
+    private int trimestreselected;
+    private int metafisica;
+    private int indicador;
+    private int unidades;
+    private int area;
     private int yearselected;
     private int poacod;
 
@@ -119,5 +124,6 @@ public class PoaBean {
     public void setPoacod(int poacod) {
         this.poacod = poacod;
     }
+    
 
 }

@@ -19,6 +19,7 @@ import sv.com.cruzplest.www.model.AreasModel;
 import sv.com.cruzplest.www.utils.JsfUtil;
 
 import org.primefaces.event.SelectEvent;
+import org.primefaces.model.diagram.connector.StraightConnector;
 
 /**
  *
@@ -40,11 +41,18 @@ public class AreasBean {
      * Creates a new instance of AreasBean
      */
     public AreasBean() {
+        strategicareas = new StrategicareasEntity();
         strategicAreas = listAll();
 
     }
 
-    public String sendyear() {
+    public String goesToped() {
+        System.out.print("Qye pasoooooooo");
+        this.yearselected = 2000;
+        return "PED";
+    }
+
+    public String goesTopoa() {
         System.out.print("Qye pasoooooooo");
         this.yearselected = 2000;
         return "poa";
@@ -64,6 +72,20 @@ public class AreasBean {
             return null;
         }
 
+    }
+
+    public String newArea() {
+        try {
+            if (model.insertAreas(strategicareas)) {
+                JsfUtil.setFlashMessage("add", "Area Estrategica insertada satisfactoriamente!");
+            } else {
+                model.updateArea(strategicareas);
+                JsfUtil.setFlashMessage("update", "Area Estrategica actualizada satisfactoriamente!");
+            }
+            return "area";
+        } catch (Exception e) {
+        }
+        return "area";
     }
 
     public void openLevel1() {

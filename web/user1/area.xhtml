@@ -19,23 +19,42 @@
 
 
     <ui:define name="contenido">
-        <p:dialog header="POA" widgetVar="dlg2" modal="true" position="center center" height="200" width="300" class="modal-content1 ownModelstyle">            
+        <p:dialog header="PED" widgetVar="dlg2" modal="true" position="center center" height="300" width="400" class="modal-content1 ownModelstyle">            
+            <!--            <h2 style="font-family: Roboto;">Seleciona un año</h2>-->
             <h:form>                                       
-                <h2 style="font-family: Roboto;">Seleciona un año</h2>
-                <p:selectOneMenu value="#{poaBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">                    
-                    <f:selectItem itemLabel="2020" itemValue="2020"/>
-                    <f:selectItem itemLabel="2019" itemValue="2019"/>
-                    <f:selectItem itemLabel="2018" itemValue="2018"/>
-                    <f:selectItem itemLabel="2017" itemValue="2017"/>
-                    <f:selectItem itemLabel="2016" itemValue="2016"/>
-                    <f:selectItem itemLabel="2015" itemValue="2015"/>
-                    <f:selectItem itemLabel="2014" itemValue="2014"/>
-                    <f:selectItem itemLabel="2013" itemValue="2013"/>
-                    <f:selectItem itemLabel="2012" itemValue="2012"/>
-                    <f:selectItem itemLabel="2011" itemValue="2011"/>
-                </p:selectOneMenu>
-                <p:commandButton class="btn btn-amber amber1" style="color:white" action="#{areasBean.sendyear()}" value="Enviar"/>
+                <b:panelGrid columns="2" col-lg="4" style="text-align: left;">
+                    <h:outputLabel value="Año" style="margin-right: 10px;"/>
+                    <b:selectOneMenu id="year" value="#{pEDbean.yearselected}" style="width: 200px;" onchange="enabletrimestre()">                    
+                        <f:selectItem itemLabel="2020" itemValue="2020"/>
+                        <f:selectItem itemLabel="2019" itemValue="2019"/>
+                        <f:selectItem itemLabel="2018" itemValue="2018"/>
+                        <f:selectItem itemLabel="2017" itemValue="2017"/>
+                        <f:selectItem itemLabel="2016" itemValue="2016"/>
+                        <f:selectItem itemLabel="2015" itemValue="2015"/>
+                        <f:selectItem itemLabel="2014" itemValue="2014"/>
+                        <f:selectItem itemLabel="2013" itemValue="2013"/>
+                        <f:selectItem itemLabel="2012" itemValue="2012"/>
+                        <f:selectItem itemLabel="2011" itemValue="2011"/>
+                        <f:selectItem itemLabel="Ninguno" itemValue="0"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Trimestre" style="margin-right: 10px;"/>
+                    <b:selectOneMenu id="trimestre" value="#{pEDbean.trimestreselected}" onchange="enableyear()" style="width: 200px;">                    
+                        <f:selectItem itemLabel="Trimestre 1" itemValue="1"/>
+                        <f:selectItem itemLabel="Trimestre 2" itemValue="2"/>
+                        <f:selectItem itemLabel="Trimestre 3" itemValue="3"/>
+                        <f:selectItem itemLabel="Ninguno" itemValue="0"/>
+                    </b:selectOneMenu>
+
+                    <h:outputLabel value="Unidad" style="margin-right: 10px;"/>
+                    <b:selectOneMenu value="#{pEDbean.unidad}" required="true" select2="true" style="width: 200px" >
+                        <f:selectItems var="uni" value="#{measurementUBean.listAllSelect()}"
+                                       itemLabel="#{uni.nombre}" itemValue="#{uni.codigomea}"/>
+                    </b:selectOneMenu>        <br></br>
+                    <p:commandButton id="btnpoa" class="btn btn-amber amber1" style="color:white;" action="#{areasBean.goesToped()}" ajax="false" value="Enviar"/>
+
+                </b:panelGrid>                                
             </h:form>            
+
         </p:dialog>        
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
@@ -60,9 +79,13 @@
                         <h:outputText  value="#{a.nombre}"/>
                     </p:column>
                     <p:column headerText="" width="20%">
-                        <p:commandButton value="ver POA" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
+                        <p:commandButton value="ver PO" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
                             <f:param name="codigo" value="#{a.codigostr}"/>
                         </p:commandButton>
+                        <p:commandButton value="ver PED" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
+                            <f:param name="codigo" value="#{a.codigostr}"/>
+                        </p:commandButton>
+
                     </p:column>
                     <!--                    <p:column headerText="ACCIONES">
                                             <h:commandButton action="# {areasBean.loadPoa()}" value="POA">
@@ -88,34 +111,27 @@
 
         <h:form id="form1" style="display:none;">
             <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-                <h:outputLabel value="Nombres:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile" id="nombreform"/>
-                <h:outputLabel value="Apellidos:" class="profile"/>
-                <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}" class="profile"/>
-                <h:outputLabel value="Correo:" class="profile"/>
-                <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
-                <h:outputLabel value="Nueva contraseña:" class="profile"/>
-                <b:inputSecret value="${usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();"/>                    
-                <h:outputLabel value="Repetir contraseña:" class="profile"/>               
-                <h:panelGroup>
-                    <b:inputSecret value="${usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******"/>
-                    <span id='message' class="profile"></span>
-                </h:panelGroup>
-                <h:outputLabel value="Contraseña anterior:" class="profile"/>
-                <b:inputSecret value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
-                <h:outputLabel value="Sexo:" class="profile"/>
-                <b:selectOneMenu value="${usersBean.genero}" required="true" class="profile">
-                    <f:selectItem itemLabel="Masculino" itemValue="1"/>
-                    <f:selectItem itemLabel="Femenino" itemValue="2"/>
-                </b:selectOneMenu>
+                <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
+                <b:inputText value="${areasBean.strategicareas.nombre}" maxlength="80" mask="a{15,80}" class="profile" id="nombreform"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
-                    <h:commandButton  action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                    <p:commandButton type="submit" ajax="false" class="green1"  action="#{areasBean.newArea()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 
-                    </h:commandButton>
+                    </p:commandButton>
                 </div>
             </b:panelGrid>
-        </h:form>          
+        </h:form>              
+        <h:outputScript>
+            function enableyear(){
+            document.getElementById('j_idt50:yearInner').display = 'none';
+            document.getElementById('j_idt50:yearInner').value=0;
+            }
+            function enabletrimestre(){            
+            document.getElementById('j_idt50:trimestreInner').display= 'none';
+            document.getElementById('j_idt50:trimestreInner').value = 0;
+            }
+        </h:outputScript>
 
-        <h:outputScript name="js/selectcool.js"/>
+
+
     </ui:define>
 </ui:composition>

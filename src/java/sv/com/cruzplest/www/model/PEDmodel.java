@@ -30,4 +30,21 @@ public class PEDmodel {
             return null;
         }
     }
+
+    public List<ConsolidatorpoEntity> findMeasurementU(int cod) {
+        try {
+            EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+            Query consulta = em.createNamedQuery("ConsolidatorpoEntity.findByMeasurementU").setParameter("cod", cod);
+            List<ConsolidatorpoEntity> list = consulta.getResultList();
+            if (list.size() > 0) {
+                return list;
+            } else {
+                JsfUtil.setFlashMessage("null", "NO HAY REGISTROS");
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

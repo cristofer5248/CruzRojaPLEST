@@ -8,7 +8,6 @@ package sv.com.cruzplest.www.beans;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import org.primefaces.application.resource.barcode.EAN13Generator;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 
@@ -25,6 +24,11 @@ public class PEDbean {
     private List<ConsolidatorpoEntity> consolidatorListfiltered;
     PEDmodel model = new PEDmodel();
     private int yearselected;
+    private int trimestreselected;
+    private int metafisica;
+    private int indicador;
+    private int unidad;    
+    private int area;
     private int poacod;
 
     /**
@@ -32,6 +36,13 @@ public class PEDbean {
      */
     public PEDbean() {
         listAll();
+    }
+
+    public void listMeasurementU() {
+        try {
+            consolidatorList = model.findMeasurementU(getPoacod());
+        } catch (Exception e) {
+        }
     }
 
     public void listAll() {
@@ -112,5 +123,76 @@ public class PEDbean {
     public void setConsolidatorListfiltered(List<ConsolidatorpoEntity> consolidatorListfiltered) {
         this.consolidatorListfiltered = consolidatorListfiltered;
     }
+
+    /**
+     * @return the unidad
+     */
+    public int getUnidad() {
+        return unidad;
+    }
+
+    /**
+     * @param unidad the unidad to set
+     */
+    public void setUnidad(int unidad) {
+        this.unidad = unidad;
+    }
+
+    /**
+     * @return the trimestreselected
+     */
+    public int getTrimestreselected() {
+        return trimestreselected;
+    }
+
+    /**
+     * @param trimestreselected the trimestreselected to set
+     */
+    public void setTrimestreselected(int trimestreselected) {
+        this.trimestreselected = trimestreselected;
+    }
+
+    /**
+     * @return the metafisica
+     */
+    public int getMetafisica() {
+        return metafisica;
+    }
+
+    /**
+     * @param metafisica the metafisica to set
+     */
+    public void setMetafisica(int metafisica) {
+        this.metafisica = metafisica;
+    }
+
+    /**
+     * @return the indicador
+     */
+    public int getIndicador() {
+        return indicador;
+    }
+
+    /**
+     * @param indicador the indicador to set
+     */
+    public void setIndicador(int indicador) {
+        this.indicador = indicador;
+    }
+
+    /**
+     * @return the area
+     */
+    public int getArea() {
+        return area;
+    }
+
+    /**
+     * @param area the area to set
+     */
+    public void setArea(int area) {
+        this.area = area;
+    }
+    
 
 }
