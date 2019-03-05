@@ -5,6 +5,7 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"      
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"      
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
 
@@ -133,8 +134,6 @@
     <h:outputScript name="js/bootstrap.min.js"/>
     <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/materializeprofile.js"/>
-
-
     <h:outputScript name="js/popper.min.js"/>
     <h:outputScript>
         function verprogress(){
@@ -147,10 +146,17 @@
         else
         e.style.display = 'block';
         }
-        
+
         <c:if test="#{not empty flash.add}">
-        alertify.success('#{flash.add}'); 
+            alertify.success('#{flash.add}'); 
+        </c:if>
+        <c:if test="#{not empty flash.error}">
+            alertify.error('#{flash.error}'); 
         </c:if>
     </h:outputScript>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+    </p:confirmDialog>
 </html>
 

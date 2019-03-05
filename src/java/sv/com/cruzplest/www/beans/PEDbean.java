@@ -27,7 +27,7 @@ public class PEDbean {
     private int trimestreselected;
     private int metafisica;
     private int indicador;
-    private int unidad;    
+    private int unidad;
     private int area;
     private int poacod;
 
@@ -36,6 +36,13 @@ public class PEDbean {
      */
     public PEDbean() {
         listAll();
+        if (yearselected == 0) {
+        } else if (trimestreselected == 0) {
+
+        } else {
+            
+        }
+
     }
 
     public void listMeasurementU() {
@@ -193,6 +200,5 @@ public class PEDbean {
     public void setArea(int area) {
         this.area = area;
     }
-    
 
 }

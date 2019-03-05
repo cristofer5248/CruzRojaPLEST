@@ -14,6 +14,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.CloseEvent;
+import org.primefaces.event.MoveEvent;
 import sv.com.cruzplest.www.entities.StrategicareasEntity;
 import sv.com.cruzplest.www.model.AreasModel;
 import sv.com.cruzplest.www.utils.JsfUtil;
@@ -46,10 +48,22 @@ public class AreasBean {
 
     }
 
-    public String goesToped() {
-        System.out.print("Qye pasoooooooo");
-        this.yearselected = 2000;
-        return "PED";
+    public void handleClose(CloseEvent event) {
+        addMessage(event.getComponent().getId() + " closed", "So you don't like nature?");
+    }
+
+    public void handleMove(MoveEvent event) {
+        addMessage(event.getComponent().getId() + " moved", "Left: " + event.getLeft() + ", Top: " + event.getTop());
+
+    }
+
+    public void addMessage(String summary, String detail) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, detail);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    public String goesToped() {        
+        return "PED?faces-redirect=true";
     }
 
     public String goesTopoa() {
