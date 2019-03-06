@@ -47,41 +47,31 @@
                 <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
             </p:breadCrumb>            
             <h:form>
-                <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" widgetVar="pedvar" 
-                             filteredValue="#{pEDbean.consolidatorListfiltered}" emptyMessage="No hay Areas Estrategicas" >
-                    <f:facet name="header">
-                        <p:outputPanel>
-                            <p:commandButton value="PED" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
-                            <h:outputText value="Filtrar:" />
-                            <p:inputText id="globalFilter" onkeyup="PF('pedvar').filter()" style="width:150px" placeholder=""/>
-                        </p:outputPanel>
-                    </f:facet>
-                    <p:column headerText="ID" filterBy="#{p.codigocon}" width="5%">
-                        <h:outputText value="#{p.codigocon}" />
-                    </p:column>
-                    <p:column headerText="Actividad" filterBy="#{p.codigoPO.actividad}">
+                <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" 
+                             emptyMessage="No hay Areas Estrategicas" sortBy="#{p.codigoPO.actividad}" 
+                             >
+                    <p:column headerText="Actividad" groupRow="true"> 
                         <h:outputText  value="#{p.codigoPO.actividad}"/>
                     </p:column>
-                    <p:column headerText="Area estrategica" filterBy="#{p.codigoPO.areaest.nombre}">
+
+                    <p:column headerText="Area estrategica">
                         <h:outputText value="#{p.codigoPO.areaest.nombre}"/>
                     </p:column>                    
-                    <p:column headerText="Indicadores" filterBy="#{p.codigoPO.indicatores.detalle}">
+                    <p:column headerText="Indicadores">
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
                     </p:column>
-                    <p:column headerText="Unidad de medida" filterBy="#{p.codigoPO.unidad.nombre}">
+                    <p:column headerText="Unidad de medida">
                         <h:outputText value="#{p.codigoPO.unidad.nombre}"/>
                     </p:column>
-                    <p:column headerText="Meta Fisica" filterBy="#{p.physicalgoal.meta}">
+                    <p:column headerText="Meta Fisica">
                         <h:outputText  value="#{p.physicalgoal.meta}"/>
                     </p:column>
-                    <p:column headerText="Meta Global" filterBy="#{p.codigoPO.metaGlobal}">
+                    <p:column headerText="Meta Global">
                         <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
                     </p:column>
 
-                    <p:column headerText="Trimestre" filterBy="#{p.trimestre}">
-                        <h:outputText  value="#{p.trimestre}"/>
-                    </p:column>
-                    <p:column headerText="Año" filterBy="#{p.year}">
+                    <!--DE AQUI COMIENZAN LOS DATOS DIFERENTES-->
+                    <p:column headerText="Año">
                         <h:outputText  value="#{p.year}"/>
                     </p:column>
                     <p:column headerText="planificado">
@@ -93,20 +83,6 @@
                     <p:column headerText="comentario">
                         <h:outputText value="#{p.comentario}"/>
                     </p:column>
-                    <p:column headerText="">
-                        <p:commandButton value="ver POA" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
-                            <f:param name="codigo"/>
-                        </p:commandButton>
-                    </p:column>
-                    <!--                    <p:column headerText="ACCIONES">
-                                            <h:commandButton action="# {areasBean.loadPoa()}" value="POA">
-                                                <f:param rendered="POA"/>
-                                            </h:commandButton>
-                    
-                                            <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();" class="red1"/>
-                    
-                    
-                                        </p:column>-->
                 </p:dataTable>
             </h:form>
 
@@ -135,9 +111,9 @@
         </h:form>          
 
         <h:outputScript>
-            
-            
-            
+
+
+
         </h:outputScript>
 
     </ui:define>

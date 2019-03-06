@@ -8,8 +8,10 @@ package sv.com.cruzplest.www.beans;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
+import sv.com.cruzplest.www.utils.JsfUtil;
 
 /**
  *
@@ -30,6 +32,7 @@ public class PEDbean {
     private int unidad;
     private int area;
     private int poacod;
+    private int yearsize;
 
     /**
      * Creates a new instance of PEDbean
@@ -40,9 +43,20 @@ public class PEDbean {
         } else if (trimestreselected == 0) {
 
         } else {
-            
+
         }
 
+    }
+
+    public String clearbeanPED() {
+        try {
+            FacesContext contex = FacesContext.getCurrentInstance();
+            contex.getExternalContext().getSessionMap().remove("#{PEDbean}");
+            return "PED?faces-redirect=true";
+        } catch (Exception e) {            
+            e.printStackTrace();
+            return "PED?faces-redirect=true";
+        }
     }
 
     public void listMeasurementU() {
@@ -200,5 +214,20 @@ public class PEDbean {
     public void setArea(int area) {
         this.area = area;
     }
+
+    /**
+     * @return the yearsize
+     */
+    public int getYearsize() {
+        return yearsize;
+    }
+
+    /**
+     * @param yearsize the yearsize to set
+     */
+    public void setYearsize(int yearsize) {
+        this.yearsize = yearsize;
+    }
+    
 
 }
