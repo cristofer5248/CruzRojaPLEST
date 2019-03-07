@@ -70,7 +70,7 @@ public class PEDmodel {
         ArrayList<Integer> arl = new ArrayList<Integer>();
         try {
             String var;
-            Query consulta = em.createNativeQuery("select @row_number:=CASE when @customer_no = codigoPO then @row_number + 1 else 1 END AS num, @customer_no:= codigoPO  from consolidatorpo c");
+            Query consulta = em.createNativeQuery("select @row_number:=CASE when @customer_no = codigoPO then @row_number + 1 else 1 END AS num, @customer_no:= codigoPO from consolidatorpo c group by codigocon");
             List<Object[]> list1 = consulta.getResultList();            
             for (Object[] obj: list1) {
                 var = (String) obj[0];
