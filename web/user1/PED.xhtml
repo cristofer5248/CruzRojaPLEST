@@ -46,17 +46,21 @@
                 <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
                 <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
             </p:breadCrumb>            
+            
             <h:form>
+                <c:set var="nc" scope="session" value="#{2}"/>
                 <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" 
-                             emptyMessage="No hay Areas Estrategicas" sortBy="#{p.codigoPO.actividad}" 
+                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="i"
                              >
-                    <p:column headerText="Actividad" groupRow="true"> 
-                        <h:outputText  value="#{p.codigoPO.actividad}"/>
-                    </p:column>
-
-                    <p:column headerText="Area estrategica">
-                        <h:outputText value="#{p.codigoPO.areaest.nombre}"/>
+                    <p:column id="base" headerText="Actividad" groupRow="true"> 
+                        <h:outputText  value="#{p.codigoPO.actividad}" id="base1"/>
                     </p:column>                    
+
+                    
+                    <p:column headerText="Area estrategica" rowspan="#{pEDbean.forRS[nc]}" rendered="#{p.codigoPO.areaest.nombre eq pEDbean.forRS2[i]}">
+                            <h:outputText value="#{p.codigoPO.areaest.nombre}"/>
+                        </p:column>                    
+                    
                     <p:column headerText="Indicadores">
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
                     </p:column>
@@ -111,6 +115,7 @@
         </h:form>          
 
         <h:outputScript>
+
 
 
 

@@ -7,8 +7,7 @@ package sv.com.cruzplest.www.utils;
 
 import java.util.ArrayList;
 import java.util.List;
-import sv.com.cruzplest.www.model.UserModel;
-        
+import sv.com.cruzplest.www.model.PEDmodel;
 
 /**
  *
@@ -46,9 +45,12 @@ public class pruebasqueryNativo {
 
             System.out.print("Iniciando...");
 
-            UserModel modelo = new UserModel();
-            int intentos = modelo.verificarIntentos("ADM123");
-            System.out.print("Numero de intentos>>>  "+intentos);
+            PEDmodel modelo = new PEDmodel();
+            ArrayList<Integer> list = modelo.forRowSpam2();
+            System.out.print(list);
+//            int intentos = modelo.verificarIntentos("ADM123");
+//            System.out.print("Numero de intentos>>>  "+intentos);
+
 //            List<Object[]> lista;
 //            lista = modelo.nativo();
 //            System.out.print("... Total de beneficiados = " + lista.size());
@@ -58,12 +60,10 @@ public class pruebasqueryNativo {
 //            aber.add(new String("Masculino"));
 //            aber.add(new String("Femenino"));
 //            
-
 //            for(Object[] a :  lista){
 //                
 //                System.out.print(a[0]);
 //        }
-            
 //                            for (Object[] z : modelo.obteneractividadesdatos(lista,"dsad")) {
 //                for (int i = 0; i < lista.size()+1; i++) {
 //                    System.out.print(z[i] + "\n");
@@ -75,17 +75,4 @@ public class pruebasqueryNativo {
         }
     }
 
-//    /**
-//     * @return the modelo
-//     */
-//    public BeneficiadoModel getModelo() {
-//        return modelo;
-//    }
-//
-//    /**
-//     * @param modelo the modelo to set
-//     */
-//    public void setModelo(BeneficiadoModel modelo) {
-//        this.modelo = modelo;
-//    }
 }

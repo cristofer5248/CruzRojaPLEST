@@ -5,6 +5,7 @@
  */
 package sv.com.cruzplest.www.beans;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -33,12 +34,17 @@ public class PEDbean {
     private int area;
     private int poacod;
     private int yearsize;
+    public ArrayList<Integer> forRS;
+    public ArrayList<Integer> forRS2;
+    
 
     /**
      * Creates a new instance of PEDbean
      */
     public PEDbean() {
         listAll();
+        listForR();
+        listForR2();
         if (yearselected == 0) {
         } else if (trimestreselected == 0) {
 
@@ -53,9 +59,23 @@ public class PEDbean {
             FacesContext contex = FacesContext.getCurrentInstance();
             contex.getExternalContext().getSessionMap().remove("#{PEDbean}");
             return "PED?faces-redirect=true";
-        } catch (Exception e) {            
+        } catch (Exception e) {
             e.printStackTrace();
             return "PED?faces-redirect=true";
+        }
+    }
+
+    public void listForR() {
+        try {
+            forRS = model.forRowSpam();
+        } catch (Exception e) {
+        }
+    }
+
+    public void listForR2() {
+        try {
+            forRS2 = model.forRowSpam2();
+        } catch (Exception e) {
         }
     }
 
@@ -228,6 +248,33 @@ public class PEDbean {
     public void setYearsize(int yearsize) {
         this.yearsize = yearsize;
     }
-    
+
+    /**
+     * @return the forRS
+     */
+    public ArrayList<Integer> getForRS() {
+        return forRS;
+    }
+
+    /**
+     * @param forRS the forRS to set
+     */
+    public void setForRS(ArrayList<Integer> forRS) {
+        this.forRS = forRS;
+    }
+
+    /**
+     * @return the forRS2
+     */
+    public ArrayList<Integer> getForRS2() {
+        return forRS2;
+    }
+
+    /**
+     * @param forRS2 the forRS2 to set
+     */
+    public void setForRS2(ArrayList<Integer> forRS2) {
+        this.forRS2 = forRS2;
+    }
 
 }
