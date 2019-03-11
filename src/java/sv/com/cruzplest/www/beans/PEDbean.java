@@ -36,7 +36,6 @@ public class PEDbean {
     private int yearsize;
     public ArrayList<Integer> forRS;
     public ArrayList<Integer> forRS2;
-    
 
     /**
      * Creates a new instance of PEDbean
@@ -74,7 +73,7 @@ public class PEDbean {
 
     public void listForR2() {
         try {
-            forRS2 = model.forRowSpam2();
+//            forRS2 = model.forRowSpam2();
         } catch (Exception e) {
         }
     }
@@ -92,6 +91,15 @@ public class PEDbean {
         } catch (Exception e) {
             e.printStackTrace();
 
+        }
+    }
+
+    public List<Object[]> listtotal() {
+        try {
+            return model.listotal();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
         }
     }
 

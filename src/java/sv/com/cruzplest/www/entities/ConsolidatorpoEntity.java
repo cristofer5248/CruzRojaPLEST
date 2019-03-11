@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "consolidatorpo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c")
+    @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigoPO.codigopo = 2 order by c.codigoPO.codigopo")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigocon", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigocon = :codigocon")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByTrimestre", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.trimestre = :trimestre")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByYear", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.year = :year")
@@ -56,6 +56,10 @@ public class ConsolidatorpoEntity implements Serializable {
     private Integer ejecutado;
     @Column(name = "comentario", length = 150)
     private String comentario;
+    
+    private int rowspan;
+    private int rowspan2;
+    
     @JoinColumn(name = "codigoPO", referencedColumnName = "codigopo", nullable = false)
     @ManyToOne(optional = false)
     private PoTableEntity codigoPO;
@@ -140,6 +144,7 @@ public class ConsolidatorpoEntity implements Serializable {
     public void setPhysicalgoal(PhysicalGoalEntity physicalgoal) {
         this.physicalgoal = physicalgoal;
     }
+    
 
     @Override
     public int hashCode() {
@@ -164,6 +169,34 @@ public class ConsolidatorpoEntity implements Serializable {
     @Override
     public String toString() {
         return "sv.com.cruzplest.www.entities.ConsolidatorpoEntity[ codigocon=" + codigocon + " ]";
+    }
+
+    /**
+     * @return the rowspan
+     */
+    public int getRowspan() {
+        return rowspan;
+    }
+
+    /**
+     * @param rowspan the rowspan to set
+     */
+    public void setRowspan(int rowspan) {
+        this.rowspan = rowspan;
+    }
+
+    /**
+     * @return the rowspan2
+     */
+    public int getRowspan2() {
+        return rowspan2;
+    }
+
+    /**
+     * @param rowspan2 the rowspan2 to set
+     */
+    public void setRowspan2(int rowspan2) {
+        this.rowspan2 = rowspan2;
     }
 
 }

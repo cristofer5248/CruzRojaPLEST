@@ -64,21 +64,49 @@ public class PEDmodel {
         return arl;
     }
 
-    public ArrayList<Integer> forRowSpam2() {
+    public List<Object[]> forRowSpam2() {
 
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        ArrayList<Integer> arl = new ArrayList<Integer>();
         try {
-            String var;
+
             Query consulta = em.createNativeQuery("select @row_number:=CASE when @customer_no = codigoPO then @row_number + 1 else 1 END AS num, @customer_no:= codigoPO from consolidatorpo c group by codigocon");
-            List<Object[]> list1 = consulta.getResultList();            
-            for (Object[] obj: list1) {
-                var = (String) obj[0];
-                arl.add(Integer.parseInt(var));
-            }
+            List<Object[]> list1 = consulta.getResultList();
+            return list1;
         } catch (Exception e) {
-            
+
         }
-        return arl;
+        return null;
+    }
+
+    public List<Object[]> listotal() {
+        System.out.print("eoooooooooooooooooooooooo");
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo");
+            List<Object[]> list1 = consulta.getResultList();
+            if (list1.isEmpty()) {
+                System.out.print("fdsfdsfsidfnsdjfijsfjsjdf");
+            }
+            em.close();
+            return list1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            return null;
+        }
+    }
+
+    public List<String> XX() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo");
+            List<String> list1 = consulta.getResultList();
+            em.close();
+            return list1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            return null;
+        }
     }
 }

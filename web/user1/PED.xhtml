@@ -46,48 +46,53 @@
                 <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
                 <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
             </p:breadCrumb>            
-            
+
             <h:form>
-                <c:set var="nc" scope="session" value="#{2}"/>
+
                 <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" 
                              emptyMessage="No hay Areas Estrategicas" rowIndexVar="i"
                              >
-                    <p:column id="base" headerText="Actividad" groupRow="true"> 
-                        <h:outputText  value="#{p.codigoPO.actividad}" id="base1"/>
-                    </p:column>                    
 
-                    
-                    <p:column headerText="Area estrategica" rowspan="#{pEDbean.forRS[nc]}" rendered="#{p.codigoPO.areaest.nombre eq pEDbean.forRS2[i]}">
-                            <h:outputText value="#{p.codigoPO.areaest.nombre}"/>
-                        </p:column>                    
-                    
-                    <p:column headerText="Indicadores">
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column headerText="Actividad" />
+                            <p:column headerText="Indicadores" />
+                            <p:column headerText="Año" />
+                            <p:column headerText="Planificado" />
+                            <p:column headerText="Ejecutado" />
+                            <p:column headerText="Comentario" />
+                            <p:column headerText="Sumary" />
+                        </p:row>
+                    </p:columnGroup>
+
+
+                    <p:column headerText="Actividad" rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                        <h:outputText  value="#{p.codigoPO.actividad}" id="base1"/>
+                    </p:column>
+                    <p:column headerText="Indicadores" rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
-                    </p:column>
-                    <p:column headerText="Unidad de medida">
-                        <h:outputText value="#{p.codigoPO.unidad.nombre}"/>
-                    </p:column>
-                    <p:column headerText="Meta Fisica">
-                        <h:outputText  value="#{p.physicalgoal.meta}"/>
-                    </p:column>
-                    <p:column headerText="Meta Global">
-                        <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
-                    </p:column>
+                    </p:column>                     
 
                     <!--DE AQUI COMIENZAN LOS DATOS DIFERENTES-->
-                    <p:column headerText="Año">
+                    <p:column>
                         <h:outputText  value="#{p.year}"/>
                     </p:column>
-                    <p:column headerText="planificado">
+                    <p:column>
                         <h:outputText value="#{p.planificado}"/>
                     </p:column>
-                    <p:column headerText="ejecutado">
+                    <p:column>
                         <h:outputText value="#{p.ejecutado}"/>
                     </p:column>
-                    <p:column headerText="comentario">
-                        <h:outputText value="#{p.comentario}"/>
+                    <p:column>
+                        <h:outputText value="#{p.rowspan}"/>
                     </p:column>
+                    <ui:repeat value="${pEDbean.listtotal}" var="to">
+                        <p:column rendered="#{p.rowspan!=0}" rowspan="#{p.rowspan2}">
+                        <h:outputText value="#{too[0]}"/>
+                    </p:column>
+                    </ui:repeat>
                 </p:dataTable>
+
             </h:form>
 
         </div>
