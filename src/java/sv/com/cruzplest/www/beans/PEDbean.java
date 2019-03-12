@@ -8,23 +8,27 @@ package sv.com.cruzplest.www.beans;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.RequestScoped;
+//import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 import sv.com.cruzplest.www.utils.JsfUtil;
+import sv.com.cruzplest.www.utils.TotalesOb;
 
 /**
  *
  * @author Christopher
  */
 @ManagedBean
-@SessionScoped
+//@SessionScoped
+@RequestScoped
 public class PEDbean {
 
     private ConsolidatorpoEntity consolidator;
     private List<ConsolidatorpoEntity> consolidatorList;
     private List<ConsolidatorpoEntity> consolidatorListfiltered;
+    private ArrayList<TotalesOb> totales;
     PEDmodel model = new PEDmodel();
     private int yearselected;
     private int trimestreselected;
@@ -34,16 +38,13 @@ public class PEDbean {
     private int area;
     private int poacod;
     private int yearsize;
-    public ArrayList<Integer> forRS;
-    public ArrayList<Integer> forRS2;
 
     /**
      * Creates a new instance of PEDbean
      */
     public PEDbean() {
+        listTotal();
         listAll();
-        listForR();
-        listForR2();
         if (yearselected == 0) {
         } else if (trimestreselected == 0) {
 
@@ -64,17 +65,17 @@ public class PEDbean {
         }
     }
 
-    public void listForR() {
+    public void listTotal() {
         try {
-            forRS = model.forRowSpam();
+            totales = new ArrayList<TotalesOb>();
+            List<Object[]> totales1 = model.listotal();
+            for (Object[] ob : totales1) {
+                TotalesOb tot = new TotalesOb(Integer.parseInt(ob[0].toString()), Integer.parseInt(ob[1].toString()), Integer.parseInt(ob[2].toString()), Double.parseDouble(ob[3].toString()));
+                totales.add(tot);
+            }
         } catch (Exception e) {
-        }
-    }
-
-    public void listForR2() {
-        try {
-//            forRS2 = model.forRowSpam2();
-        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.print("Hee! Hee!");
         }
     }
 
@@ -101,6 +102,10 @@ public class PEDbean {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public int getRandomPrice() {
+        return (int) (Math.random() * 100000);
     }
 
     /**
@@ -258,31 +263,20 @@ public class PEDbean {
     }
 
     /**
+     * @return the totales
+     */
+    public ArrayList<TotalesOb> getTotales() {
+        return totales;
+    }
+
+    /**
+     * @param totales the totales to set
+     */
+    public void setTotales(ArrayList<TotalesOb> totales) {
+        this.totales = totales;
+    }
+
+    /**
      * @return the forRS
      */
-    public ArrayList<Integer> getForRS() {
-        return forRS;
-    }
-
-    /**
-     * @param forRS the forRS to set
-     */
-    public void setForRS(ArrayList<Integer> forRS) {
-        this.forRS = forRS;
-    }
-
-    /**
-     * @return the forRS2
-     */
-    public ArrayList<Integer> getForRS2() {
-        return forRS2;
-    }
-
-    /**
-     * @param forRS2 the forRS2 to set
-     */
-    public void setForRS2(ArrayList<Integer> forRS2) {
-        this.forRS2 = forRS2;
-    }
-
 }

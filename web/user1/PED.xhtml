@@ -50,26 +50,53 @@
             <h:form>
 
                 <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" 
-                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="i"
-                             >
+                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="i" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             class="bolado" sortBy="#{p.codigoPO.codigopo}">
+                    <f:facet name="{Exporters}">
+                        <div style="float:right;padding-top: 5px;">
+                            <h:commandLink>
+                                <p:graphicImage name="images/excel.png" width="24"/>
+                                <p:dataExporter type="xls" target="tabla1" fileName="PED" />
+                            </h:commandLink>
 
+                            <h:commandLink>
+                                <p:graphicImage name="images/pdf.png" width="24"/>
+                                <p:dataExporter type="pdf" target="tabla1" fileName="PED"/>
+                            </h:commandLink>
+
+                            <h:commandLink>
+                                <p:graphicImage name="images/csv.png" width="24"/>
+                                <p:dataExporter type="csv" target="excel" fileName="PED" />
+                            </h:commandLink>
+
+                            <h:commandLink>
+                                <p:graphicImage name="images/excel.png" width="24"/>
+                                <p:dataExporter type="xml" target="excel" fileName="PED" />
+                            </h:commandLink>
+                        </div>
+                    </f:facet>
                     <p:columnGroup type="header">
                         <p:row>
+                            <p:column headerText="CODIGO" />
                             <p:column headerText="Actividad" />
                             <p:column headerText="Indicadores" />
                             <p:column headerText="Año" />
                             <p:column headerText="Planificado" />
                             <p:column headerText="Ejecutado" />
+                            <p:column headerText="Total" />
                             <p:column headerText="Comentario" />
-                            <p:column headerText="Sumary" />
+                            <p:column headerText="Acumulado Total" />
                         </p:row>
                     </p:columnGroup>
 
 
-                    <p:column headerText="Actividad" rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                        <h:outputText  value="#{p.codigoPO.codigopo}"/>
+                    </p:column>
+                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.actividad}" id="base1"/>
                     </p:column>
-                    <p:column headerText="Indicadores" rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
                     </p:column>                     
 
@@ -84,17 +111,45 @@
                         <h:outputText value="#{p.ejecutado}"/>
                     </p:column>
                     <p:column>
+                        <h:outputText value="#{(p.ejecutado / p.planificado)*100}%"/>
+                    </p:column>
+                    <p:column>
                         <h:outputText value="#{p.rowspan}"/>
                     </p:column>
-                    <ui:repeat value="${pEDbean.listtotal}" var="to">
-                        <p:column rendered="#{p.rowspan!=0}" rowspan="#{p.rowspan2}">
-                        <h:outputText value="#{too[0]}"/>
+                    <p:column>
+                        <h:outputText value="#{p.rowspan}"/>
                     </p:column>
-                    </ui:repeat>
+                    <p:summaryRow>
+                        
+                        <p:column colspan="4" style="text-align:right; background: white;  font-weight: 700;">
+                            <h:outputText value="Planificado:" />
+                        </p:column>
+                        <p:column style="background:white; font-weight: 700;" >
+                            <h:outputText value="#{pEDbean.totales}">
+                                <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
+                            </h:outputText>
+                        </p:column>
+                        <p:column colspan="1" style="text-align:right; background: white; font-weight: 700;">
+                            <h:outputText value="Ejecutado" />
+                        </p:column>
+                        <p:column style="background:white; font-weight: 700;">
+                            <h:outputText value="#{pEDbean.randomPrice}">
+                                <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
+                            </h:outputText>
+                        </p:column>
+                        <p:column colspan="1" style="text-align:right; background: white; font-weight: 700;">
+                            <h:outputText value="Total:" />
+                        </p:column>
+                        <p:column style="background:white;">
+                            <h:outputText value="#{pEDbean.randomPrice}" style="font-weight: 700;">
+                                <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
+                            </h:outputText>
+                        </p:column>
+                    </p:summaryRow>
                 </p:dataTable>
 
             </h:form>
-
+            <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
         </div>
         <div class="fabs">
             <div class="fab"></div>
@@ -120,11 +175,17 @@
         </h:form>          
 
         <h:outputScript>
-
-
-
-
         </h:outputScript>
+        <script>
+            $("#btn1").click(function () {
+                $(".bolado").table2excel({
+                    bootstrap: true,
+                    exclude: ".noExl",
+                    name: "PED",
+                    filename: "Asistencia"
+                });
+            });
+        </script>
 
     </ui:define>
 </ui:composition>

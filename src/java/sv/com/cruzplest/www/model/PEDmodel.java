@@ -85,11 +85,11 @@ public class PEDmodel {
             Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo");
             List<Object[]> list1 = consulta.getResultList();
             if (list1.isEmpty()) {
-                System.out.print("fdsfdsfsidfnsdjfijsfjsjdf");
+                System.out.print("Hee Hee!");
             }
             em.close();
             return list1;
-        } catch (Exception e) {
+        } catch (Exception e) {             
             e.printStackTrace();
             em.close();
             return null;

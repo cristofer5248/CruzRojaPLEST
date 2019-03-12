@@ -46,9 +46,10 @@ public class pruebasqueryNativo {
             System.out.print("Iniciando...");
 
             PEDmodel modelo = new PEDmodel();
-            List<String> list = modelo.XX();
-            for (String list1 : list) {
-                System.out.print("AJA: "+list.get(0)+" ");
+            List<Object[]> list = modelo.listotal();
+            for (Object[] list1 : list) {
+                Double eoo = Double.parseDouble(list1[3].toString());
+                System.out.print("AJA: "+eoo.toString()+" ");
             }
 //            int intentos = modelo.verificarIntentos("ADM123");
 //            System.out.print("Numero de intentos>>>  "+intentos);
