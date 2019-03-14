@@ -82,7 +82,7 @@ public class PEDmodel {
         System.out.print("eoooooooooooooooooooooooo");
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo");
+            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo order by codigopo, rowspan desc");
             List<Object[]> list1 = consulta.getResultList();
             if (list1.isEmpty()) {
                 System.out.print("Hee Hee!");

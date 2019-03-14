@@ -5,7 +5,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 import sv.com.cruzplest.www.entities.UsersEntity;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-02-24T19:11:33")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2019-03-07T18:48:49")
 @StaticMetamodel(PrivilegesuserEntity.class)
 public class PrivilegesuserEntity_ { 
 

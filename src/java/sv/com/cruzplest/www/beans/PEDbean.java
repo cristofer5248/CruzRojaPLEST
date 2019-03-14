@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-//import javax.faces.bean.SessionScoped;
+
+
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
@@ -21,7 +22,6 @@ import sv.com.cruzplest.www.utils.TotalesOb;
  * @author Christopher
  */
 @ManagedBean
-//@SessionScoped
 @RequestScoped
 public class PEDbean {
 
@@ -38,6 +38,8 @@ public class PEDbean {
     private int area;
     private int poacod;
     private int yearsize;
+    private int countVa = 0;
+    private int countStop = 0;
 
     /**
      * Creates a new instance of PEDbean
@@ -54,6 +56,37 @@ public class PEDbean {
 
     }
 
+    public void count1() {
+        countVa = countVa + 1;
+        if (countVa == countStop) {
+            countVa = countVa - 1;
+        }
+    }
+
+    public String ejecutado1() {
+
+        String va1;
+        va1 = String.valueOf(totales.get(countVa).getEjecutado());
+
+        return va1;
+    }
+
+    public String planificado1() {
+
+        String va1;
+        va1 = String.valueOf(totales.get(countVa).getPlanificado());
+
+        return va1;
+    }
+
+    public String totalCon1() {
+
+        String va1;
+        va1 = String.valueOf(totales.get(countVa).getTotal());
+        count1();
+        return va1;
+    }
+
     public String clearbeanPED() {
         try {
             FacesContext contex = FacesContext.getCurrentInstance();
@@ -66,9 +99,11 @@ public class PEDbean {
     }
 
     public void listTotal() {
+        setCountVa(0);
         try {
             totales = new ArrayList<TotalesOb>();
             List<Object[]> totales1 = model.listotal();
+            this.countStop = totales1.size();
             for (Object[] ob : totales1) {
                 TotalesOb tot = new TotalesOb(Integer.parseInt(ob[0].toString()), Integer.parseInt(ob[1].toString()), Integer.parseInt(ob[2].toString()), Double.parseDouble(ob[3].toString()));
                 totales.add(tot);
@@ -274,6 +309,34 @@ public class PEDbean {
      */
     public void setTotales(ArrayList<TotalesOb> totales) {
         this.totales = totales;
+    }
+
+    /**
+     * @return the countVa
+     */
+    public int getCountVa() {
+        return countVa;
+    }
+
+    /**
+     * @param countVa the countVa to set
+     */
+    public void setCountVa(int countVa) {
+        this.countVa = countVa;
+    }
+
+    /**
+     * @return the countStop
+     */
+    public int getCountStop() {
+        return countStop;
+    }
+
+    /**
+     * @param countStop the countStop to set
+     */
+    public void setCountStop(int countStop) {
+        this.countStop = countStop;
     }
 
     /**
