@@ -41,6 +41,11 @@ public class UsersBean {
 
     }
 
+    public String redirect2Ped() {        
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+        return "df";
+    }
+
     public List<UsersEntity> listarAll() {
         return model.listarAll();
     }

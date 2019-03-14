@@ -8,13 +8,13 @@ package sv.com.cruzplest.www.beans;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 
+
+import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
-import sv.com.cruzplest.www.utils.JsfUtil;
 import sv.com.cruzplest.www.utils.TotalesOb;
 
 /**
@@ -22,7 +22,7 @@ import sv.com.cruzplest.www.utils.TotalesOb;
  * @author Christopher
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class PEDbean {
 
     private ConsolidatorpoEntity consolidator;
@@ -56,6 +56,14 @@ public class PEDbean {
 
     }
 
+    public void reboot1() {
+        System.out.print("sdfnsdfsdybfsudhfbsvfsbfysvfysdfysd heee! hee!");
+        setCountVa(0);
+        setCountStop(0);        
+        listTotal();
+        
+    }
+
     public void count1() {
         countVa = countVa + 1;
         if (countVa == countStop) {
@@ -82,7 +90,7 @@ public class PEDbean {
     public String totalCon1() {
 
         String va1;
-        va1 = String.valueOf(String.format("%.2f",totales.get(countVa).getTotal()));
+        va1 = String.valueOf(String.format("%.2f", totales.get(countVa).getTotal()));
         count1();
         return va1;
     }
@@ -121,12 +129,13 @@ public class PEDbean {
         }
     }
 
-    public void listAll() {
+    public List<ConsolidatorpoEntity> listAll() {
+
         try {
-            consolidatorList = model.listAll();
+            return model.listAll();
         } catch (Exception e) {
             e.printStackTrace();
-
+            return null;
         }
     }
 

@@ -102,11 +102,18 @@ and open the template in the editor.
     margin-right: 10px;
 
 }
-/*button red bello*/
-.red1{
-    border-color: #ff3547  !important;
+.green1{
+    border-color: #00c851 !important;
     background-color: transparent !important;
-    color: #ff3547  !important;
+    color: #00c851 !important;
+    margin-right: 10px;
+
+}
+/*button red bello*/
+.skycolor1{
+    border-color: #2bbbad   !important;
+    background-color: transparent !important;
+    color: #2bbbad !important;
     /*    margin-right: 100px;*/
 }
 

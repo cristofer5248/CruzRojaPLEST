@@ -19,45 +19,37 @@
 
 
     <ui:define name="contenido">
-        <p:dialog header="POA" widgetVar="dlg2" modal="true" position="center center" height="200" width="300" class="modal-content1 ownModelstyle">            
-            <h:form>                                       
-                <h2 style="font-family: Roboto;">Seleciona un año</h2>
-                <p:selectOneMenu value="#{poaBean.yearselected}" id="selectown" class="select-profession" style="width: 200px;">                    
-                    <f:selectItem itemLabel="2020" itemValue="2020"/>
-                    <f:selectItem itemLabel="2019" itemValue="2019"/>
-                    <f:selectItem itemLabel="2018" itemValue="2018"/>
-                    <f:selectItem itemLabel="2017" itemValue="2017"/>
-                    <f:selectItem itemLabel="2016" itemValue="2016"/>
-                    <f:selectItem itemLabel="2015" itemValue="2015"/>
-                    <f:selectItem itemLabel="2014" itemValue="2014"/>
-                    <f:selectItem itemLabel="2013" itemValue="2013"/>
-                    <f:selectItem itemLabel="2012" itemValue="2012"/>
-                    <f:selectItem itemLabel="2011" itemValue="2011"/>
-                </p:selectOneMenu>
-                <p:commandButton class="btn btn-amber amber1" style="color:white" action="#{areasBean.sendyear()}" value="Enviar"/>
-            </h:form>            
-        </p:dialog>        
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
-                <p:menuitem value="Areas Estrategicas" url="#" />
+                <p:menuitem value="Areas Estrategicas" outcome="area" url="#" />
                 <p:menuitem value="Año" url="#" rendered="#{pEDbean.yearselected>0}"/>
                 <p:menuitem value="#{pEDbean.yearselected}" url="#" rendered="#{pEDbean.yearselected>0}"/>
                 <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
                 <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
+                <p:menuitem value="TODAS" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; pEDbean.yearselected==0 }" />
+                <p:menuitem value="PED" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; pEDbean.yearselected==0 }" />
             </p:breadCrumb>            
 
             <h:form>
 
-                <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" 
-                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind"
+                <p:dataTable id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
+                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;"
                              class="bolado" sortBy="#{p.codigoPO.codigopo}" >
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;">
+                                <f:ajax render="tabla1" execute="@form"/>
+                            </p:commandButton>
+                        </p:outputPanel>
+                    </f:facet>
                     <p:columnGroup type="header">
                         <p:row>
-                            <p:column headerText="CODIGO" />
-                            <p:column headerText="Actividad" />
-                            <p:column headerText="Indicadores" />
-                            <p:column headerText="Año" />
+                            <p:column headerText="CODIGO" width="5%" />
+                            <p:column headerText="Actividad" width="25%" />
+                            <p:column headerText="Indicadores" width="25%" />
+                            <p:column headerText="Meta Global" />                            
+                            <p:column headerText="Año" width="10%" />
                             <p:column headerText="Planificado" />
                             <p:column headerText="Ejecutado" />
                             <p:column headerText="Total" />
@@ -69,12 +61,15 @@
                     <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.codigopo}"/>
                     </p:column>
-                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
                         <h:outputText  value="#{p.codigoPO.actividad}" id="base1"/>
                     </p:column>
                     <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
-                    </p:column>                     
+                    </p:column>       
+                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                        <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
+                    </p:column>   
 
                     <!--DE AQUI COMIENZAN LOS DATOS DIFERENTES-->
                     <p:column>
@@ -99,7 +94,7 @@
 
 
                     <p:summaryRow>
-                        <p:column colspan="3" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
+                        <p:column colspan="4" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
                             <h:outputText value="Planificado:" />
                         </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color: white;">
@@ -112,7 +107,7 @@
                         </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color:white;">
                             <h:outputText value="#{pEDbean.ejecutado1()}">
-                                
+
                             </h:outputText>
                         </p:column>
                         <p:column colspan="1" style="text-align:right; background: #c62828; font-weight: 700; color: white">
@@ -120,8 +115,8 @@
                         </p:column>
                         <p:column style="background:white; color: white; background: #c62828">
                             <h:outputText value="#{pEDbean.totalCon1()}" style="font-weight: 700;">
-                                
-                            </h:outputText>
+
+                            </h:outputText>%
 
                         </p:column>
 
@@ -145,10 +140,9 @@
 
         <h:form id="form1" style="display:none;">
             <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-                <h:outputLabel value="Nombres:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile" id="nombreform"/>
-                <h:outputLabel value="Apellidos:" class="profile"/>
-                <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}" class="profile"/>
+
+                <h:outputLabel value="Comentario" class="profile" style="margin-bottom: 25px;"/>
+                <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{10,80}" class="profile" id="nombreform"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
                     <h:commandButton  action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 
