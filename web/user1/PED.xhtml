@@ -108,42 +108,46 @@
                         <h:outputText value="#{p.planificado}"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{p.ejecutado}"/>
+                        <h:outputText value="#{p.ejecutado}">
+                            <f:convertNumber minFractionDigits="2"/>
+                        </h:outputText>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{(p.ejecutado / p.planificado)*100}%"/>
+                        <h:outputText value="#{(p.ejecutado / p.planificado)*100}">
+                            <f:convertNumber maxFractionDigits="2"/>
+                        </h:outputText>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{p.rowspan}"/>
+                        <h:outputText value="#{p.comentario}"/>
                     </p:column>
                     <p:column>
                         <h:outputText value="#{p.rowspan2}"/>
                     </p:column>
-                    
+
 
                     <p:summaryRow>
-                        <p:column colspan="4" style="text-align:right; background: white;  font-weight: 700;">
+                        <p:column colspan="4" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
                             <h:outputText value="Planificado:" />
                         </p:column>
-                        <p:column style="background:white; font-weight: 700;">
+                        <p:column style="background:white; font-weight: 700; background: #c62828; color: white;">
                             <h:outputText value="#{pEDbean.planificado1()}">
                                 <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
                             </h:outputText>
                         </p:column>
-                        <p:column colspan="1" style="text-align:right; background: white; font-weight: 700;">
+                        <p:column colspan="1" style="text-align:right; background: #c62828; font-weight: 700; color: white;">
                             <h:outputText value="Ejecutado:" />
                         </p:column>
-                        <p:column style="background:white; font-weight: 700;">
+                        <p:column style="background:white; font-weight: 700; background: #c62828; color:white;">
                             <h:outputText value="#{pEDbean.ejecutado1()}">
-                                <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
+                                
                             </h:outputText>
                         </p:column>
-                        <p:column colspan="1" style="text-align:right; background: white; font-weight: 700;">
+                        <p:column colspan="1" style="text-align:right; background: #c62828; font-weight: 700; color: white">
                             <h:outputText value="Total:" />
                         </p:column>
-                        <p:column style="background:white;">
+                        <p:column style="background:white; color: white; background: #c62828">
                             <h:outputText value="#{pEDbean.totalCon1()}" style="font-weight: 700;">
-                                <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
+                                
                             </h:outputText>
 
                         </p:column>

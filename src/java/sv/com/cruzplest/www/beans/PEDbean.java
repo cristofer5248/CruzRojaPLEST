@@ -82,7 +82,7 @@ public class PEDbean {
     public String totalCon1() {
 
         String va1;
-        va1 = String.valueOf(totales.get(countVa).getTotal());
+        va1 = String.valueOf(String.format("%.2f",totales.get(countVa).getTotal()));
         count1();
         return va1;
     }
