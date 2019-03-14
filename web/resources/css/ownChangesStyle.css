@@ -384,6 +384,10 @@ and open the template in the editor.
 .ui-state-default, ui-filter-column{
     /*    width: 20%;*/
 }
+
+/*#j_idt71:tabla1_data td{
+display: none;
+}*/
 /*.ui-dialog {
     width: auto !important;
 }*/

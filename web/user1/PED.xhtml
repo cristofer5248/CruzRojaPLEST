@@ -50,31 +50,8 @@
             <h:form>
 
                 <p:dataTable id="tabla1" value="#{pEDbean.consolidatorList}" var="p" paginator="true" rows="10" 
-                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {Exporters}"
+                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind"
                              class="bolado" sortBy="#{p.codigoPO.codigopo}" >
-                    <f:facet name="{Exporters}">
-                        <div style="float:right;padding-top: 5px;">
-                            <h:commandLink>
-                                <p:graphicImage name="images/excel.png" width="24"/>
-                                <p:dataExporter type="xls" target="tabla1" fileName="PED" />
-                            </h:commandLink>
-
-                            <h:commandLink>
-                                <p:graphicImage name="images/pdf.png" width="24"/>
-                                <p:dataExporter type="pdf" target="tabla1" fileName="PED"/>
-                            </h:commandLink>
-
-                            <h:commandLink>
-                                <p:graphicImage name="images/csv.png" width="24"/>
-                                <p:dataExporter type="csv" target="excel" fileName="PED" />
-                            </h:commandLink>
-
-                            <h:commandLink>
-                                <p:graphicImage name="images/excel.png" width="24"/>
-                                <p:dataExporter type="xml" target="excel" fileName="PED" />
-                            </h:commandLink>
-                        </div>
-                    </f:facet>
                     <p:columnGroup type="header">
                         <p:row>
                             <p:column headerText="CODIGO" />
@@ -84,8 +61,7 @@
                             <p:column headerText="Planificado" />
                             <p:column headerText="Ejecutado" />
                             <p:column headerText="Total" />
-                            <p:column headerText="Comentario" />
-                            <p:column headerText="Acumulado Total" />                            
+                            <p:column headerText="Comentario" />                                                      
                         </p:row>
                     </p:columnGroup>
 
@@ -115,18 +91,15 @@
                     <p:column>
                         <h:outputText value="#{(p.ejecutado / p.planificado)*100}">
                             <f:convertNumber maxFractionDigits="2"/>
-                        </h:outputText>
+                        </h:outputText>%
                     </p:column>
                     <p:column>
                         <h:outputText value="#{p.comentario}"/>
                     </p:column>
-                    <p:column>
-                        <h:outputText value="#{p.rowspan2}"/>
-                    </p:column>
 
 
                     <p:summaryRow>
-                        <p:column colspan="4" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
+                        <p:column colspan="3" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
                             <h:outputText value="Planificado:" />
                         </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color: white;">
