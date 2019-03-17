@@ -17,6 +17,7 @@ import javax.faces.bean.SessionScoped;
 public class VarsBean {
     private String year1;
     private String trimestre;
+    private Integer poselected;
 
     /**
      * Creates a new instance of varsBean
@@ -39,5 +40,20 @@ public class VarsBean {
     public void setTrimestre(String trimestre) {
         this.trimestre = trimestre;
     }
+
+    /**
+     * @return the poselected
+     */
+    public Integer getPoselected() {
+        return poselected;
+    }
+
+    /**
+     * @param poselected the poselected to set
+     */
+    public void setPoselected(Integer poselected) {
+        this.poselected = poselected;
+    }
+    
     
 }

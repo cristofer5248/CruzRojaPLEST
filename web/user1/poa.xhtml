@@ -21,16 +21,16 @@
     <ui:define name="contenido">
         <div class="content1">
             <div>
-                <p:breadCrumb id="ownbreadCrumb" class="z-depth-4" rendered="#{poaBean.yearselected==0}">
+                <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                     <p:menuitem value="Categories" url="#" />
-                    <p:menuitem value="POA" url="#" />               
-                </p:breadCrumb>
-                <p:breadCrumb id="ownbreadCrumb1" class="z-depth-4" rendered="#{poaBean.yearselected!=0}">
-                    <p:menuitem value="Categories" url="#" />
-                    <p:menuitem value="Areas Estrategicas" outcome="area"/>               
-                    <p:menuitem value="#{poaBean.poacod}" url="#" rendered="#{poaBean.poacod>0}" />
-                    <p:menuitem value="POA" outcome="poa" />              
-                    <p:menuitem value="#{poaBean.yearselected}" url="#" />    
+                    <p:menuitem value="Area Estrategicas" outcome="area" />
+                    <p:menuitem value="#{varsBean.poselected}" outcome="area" rendered="#{varsBean.poselected>0}" />
+                    <p:menuitem value="Año" url="#" rendered="#{varsBean.year1>0}"/>
+                    <p:menuitem value="#{varsBean.year1}" url="#" rendered="#{varsBean.year1>0}"/>
+                    <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
+                    <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
+                    <p:menuitem value="TODAS" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; varsBean.year1==0 }" />
+                    <p:menuitem value="PED" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; varsBean.year1==0 }" />
                 </p:breadCrumb>            
             </div>
             <h:form>

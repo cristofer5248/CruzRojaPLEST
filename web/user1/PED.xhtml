@@ -23,19 +23,20 @@
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
                 <p:menuitem value="Areas Estrategicas" outcome="area" url="#" />
-                <p:menuitem value="Año" url="#" rendered="#{pEDbean.yearselected>0}"/>
-                <p:menuitem value="#{pEDbean.yearselected}" url="#" rendered="#{pEDbean.yearselected>0}"/>
+                <p:menuitem value="Año" url="#" rendered="#{varsBean.year1>0}"/>
+                <p:menuitem value="#{varsBean.year1}" url="#" rendered="#{varsBean.year1>0}"/>
                 <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
                 <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
-                <p:menuitem value="TODAS" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; pEDbean.yearselected==0 }" />
-                <p:menuitem value="PED" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; pEDbean.yearselected==0 }" />
+                <p:menuitem value="TODAS" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; varsBean.year1==0 }" />
+                <p:menuitem value="PED" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; varsBean.year1==0 }" />
             </p:breadCrumb>            
 
             <h:form>
 
                 <p:dataTable id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
                              emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;"
-                             class="bolado" sortBy="#{p.codigoPO.codigopo}" >
+                             class="bolado" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{varsBean.poselected}"
+                             rowKey="#{p.codigoPO.codigopo}">
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;">
@@ -94,24 +95,18 @@
 
 
                     <p:summaryRow>
-                        <p:column colspan="4" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
-                            <h:outputText value="Planificado:" />
+                        <p:column colspan="5" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
+                            <h:outputText value="Consolidado:" />
                         </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color: white;">
                             <h:outputText value="#{pEDbean.planificado1()}">
                                 <!--                                <f:convertNumber type="currency" currencySymbol="$" />-->
                             </h:outputText>
                         </p:column>
-                        <p:column colspan="1" style="text-align:right; background: #c62828; font-weight: 700; color: white;">
-                            <h:outputText value="Ejecutado:" />
-                        </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color:white;">
                             <h:outputText value="#{pEDbean.ejecutado1()}">
 
                             </h:outputText>
-                        </p:column>
-                        <p:column colspan="1" style="text-align:right; background: #c62828; font-weight: 700; color: white">
-                            <h:outputText value="Total:" />
                         </p:column>
                         <p:column style="background:white; color: white; background: #c62828">
                             <h:outputText value="#{pEDbean.totalCon1()}" style="font-weight: 700;">
@@ -119,10 +114,15 @@
                             </h:outputText>%
 
                         </p:column>
+                        <p:column colspan="1" style="text-align:right; background: #c62828; font-weight: 700; color: white">
+                            <h:outputText value="Total" />
+                        </p:column>
 
                     </p:summaryRow>
-                </p:dataTable>
-
+                </p:dataTable>  
+                <p:contextMenu for="tabla1">
+                    <p:menuitem value=" Editar en PO" icon="fa fa-edit" outcome="poa"/>
+                </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
                             <h1># {item.ejecutado}</h1> 
@@ -144,9 +144,9 @@
                 <h:outputLabel value="Comentario" class="profile" style="margin-bottom: 25px;"/>
                 <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{10,80}" class="profile" id="nombreform"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
-                    <h:commandButton  action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                    <p:commandButton  action="#{usersBean.updateUser()}" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 
-                    </h:commandButton>
+                    </p:commandButton>
                 </div>
             </b:panelGrid>
         </h:form>          
