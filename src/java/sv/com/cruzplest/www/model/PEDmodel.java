@@ -8,6 +8,7 @@ package sv.com.cruzplest.www.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.utils.JpaUtil;
@@ -20,15 +21,49 @@ import sv.com.cruzplest.www.utils.JsfUtil;
 public class PEDmodel {
 
     public List<ConsolidatorpoEntity> listAll() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
             Query consulta = em.createNamedQuery("ConsolidatorpoEntity.findAll");
             List<ConsolidatorpoEntity> list = consulta.getResultList();
+            em.close();
             return list;
         } catch (Exception e) {
             e.printStackTrace();
+            em.close();
             JsfUtil.setErrorMessage("model", "Error entitymanager findall");
             return null;
+        }
+    }
+    //llenar entity forms
+
+    public ConsolidatorpoEntity findbyIdPED(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            ConsolidatorpoEntity conso = em.find(ConsolidatorpoEntity.class, cod);
+            em.close();
+            return conso;
+        } catch (Exception e) {
+            em.close();
+            System.out.println("Errrrrrrror en findbyidped");
+            JsfUtil.setErrorMessage("model", "error en findbyPED");
+            return null;
+        }
+    }
+
+    public void updatePED(ConsolidatorpoEntity conso) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(conso);
+            trans.commit();
+            JsfUtil.setFlashMessage("update", "PED actualizado correctamente" );
+            em.close();                        
+        } catch (Exception e) {
+            em.close();
+            System.out.println("Errrrrrrror en updatePED");
+            JsfUtil.setErrorMessage("model", "error en updatePED");
+            
         }
     }
 
@@ -89,7 +124,7 @@ public class PEDmodel {
             }
             em.close();
             return list1;
-        } catch (Exception e) {             
+        } catch (Exception e) {
             e.printStackTrace();
             em.close();
             return null;

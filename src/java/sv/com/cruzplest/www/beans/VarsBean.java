@@ -7,6 +7,7 @@ package sv.com.cruzplest.www.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 
 /**
  *
@@ -18,6 +19,7 @@ public class VarsBean {
     private String year1;
     private String trimestre;
     private Integer poselected;
+    private ConsolidatorpoEntity consoOb;
 
     /**
      * Creates a new instance of varsBean
@@ -53,6 +55,14 @@ public class VarsBean {
      */
     public void setPoselected(Integer poselected) {
         this.poselected = poselected;
+    }
+
+    public ConsolidatorpoEntity getConsoOb() {
+        return consoOb;
+    }
+
+    public void setConsoOb(ConsolidatorpoEntity consoOb) {
+        this.consoOb = consoOb;
     }
     
     

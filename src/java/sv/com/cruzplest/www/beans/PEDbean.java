@@ -9,11 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 
-
 import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
+import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 import sv.com.cruzplest.www.utils.TotalesOb;
 
@@ -40,11 +40,13 @@ public class PEDbean {
     private int yearsize;
     private int countVa = 0;
     private int countStop = 0;
+    ConsolidatorpoEntity consoOb;
 
     /**
      * Creates a new instance of PEDbean
      */
     public PEDbean() {
+        consolidator = new ConsolidatorpoEntity();
         listTotal();
         listAll();
         if (yearselected == 0) {
@@ -53,15 +55,34 @@ public class PEDbean {
         } else {
 
         }
+    }
 
+    public void obtenerupdateped() {
+        try {
+            this.consolidator = consoOb;
+//            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void updateped() {
+        try {
+            consolidator.setYear(this.yearselected);
+            consolidator.setCodigoPO(new PoTableEntity(poacod));
+            model.updatePED(consolidator);
+//            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void reboot1() {
         System.out.print("sdfnsdfsdybfsudhfbsvfsbfysvfysdfysd heee! hee!");
         setCountVa(0);
-        setCountStop(0);        
+        setCountStop(0);
         listTotal();
-        
+
     }
 
     public void count1() {
@@ -351,4 +372,11 @@ public class PEDbean {
     /**
      * @return the forRS
      */
+    public ConsolidatorpoEntity getConsoOb() {
+        return consoOb;
+    }
+
+    public void setConsoOb(ConsolidatorpoEntity consoOb) {
+        this.consoOb = consoOb;
+    }
 }

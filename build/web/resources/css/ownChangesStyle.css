@@ -398,3 +398,8 @@ display: none;
 /*.ui-dialog {
     width: auto !important;
 }*/
+.tdLessPadding td{
+    
+        padding: .2em .2em !important;
+    
+}

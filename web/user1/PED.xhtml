@@ -14,7 +14,9 @@
     <ui:define name="title">
         <title>PED - Planificacion y Desarrollo</title>        
         <!--        <h:outputScript name="js/utils.js"/>-->
-        <!--<h:outputStylesheet name="css/selectcool.css"/>-->
+        <h:outputStylesheet name="css/intermittens.css"/>
+        <h:outputStylesheet name="css/interminttens2.css"/>
+
     </ui:define>
 
 
@@ -32,11 +34,10 @@
             </p:breadCrumb>            
 
             <h:form>
-
                 <p:dataTable id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
                              emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;"
-                             class="bolado" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{varsBean.poselected}"
-                             rowKey="#{p.codigoPO.codigopo}">
+                             class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consoOb}"
+                             rowKey="#{p.codigocon}">
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;">
@@ -46,24 +47,23 @@
                     </f:facet>
                     <p:columnGroup type="header">
                         <p:row>
-                            <p:column headerText="CODIGO" width="5%" />
-                            <p:column headerText="Actividad" width="25%" />
-                            <p:column headerText="Indicadores" width="25%" />
-                            <p:column headerText="Meta Global" />                            
-                            <p:column headerText="Año" width="10%" />
-                            <p:column headerText="Planificado" />
-                            <p:column headerText="Ejecutado" />
-                            <p:column headerText="Total" />
-                            <p:column headerText="Comentario" />                                                      
+                            <p:column headerText="CODIGO PED" width="5%" />
+                            <p:column headerText="Actividad" width="34%" />
+                            <p:column headerText="Indicadores" width="29%" />
+                            <p:column headerText="Meta Global" width="5%" />                            
+                            <p:column headerText="Año" width="5%" />
+                            <p:column headerText="Planificado" width="6%" />
+                            <p:column headerText="Ejecutado" width="6%" />
+                            <p:column headerText="Total" width="5%" />
+                            <p:column headerText="Comentario" width="10%" />                                                      
                         </p:row>
                     </p:columnGroup>
 
-
-                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
-                        <h:outputText  value="#{p.codigoPO.codigopo}"/>
+                    <p:column> 
+                        <h:outputText  value="#{p.codigocon}"/>
                     </p:column>
                     <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
-                        <h:outputText  value="#{p.codigoPO.actividad}" id="base1"/>
+                        <h:outputText  value="#{p.codigoPO.actividad}"/>
                     </p:column>
                     <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
@@ -90,7 +90,7 @@
                         </h:outputText>%
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{p.comentario}"/>
+                        <h:outputText value="#{p.comentario}" style="text-overflow: ellipsis;"/>
                     </p:column>
 
 
@@ -121,17 +121,18 @@
                     </p:summaryRow>
                 </p:dataTable>  
                 <p:contextMenu for="tabla1">
-                    <p:menuitem value=" Editar en PO" icon="fa fa-edit" outcome="poa"/>
+                    <p:menuitem value=" Editar avances" icon="fa fa-edit" ajax="true" update="form1" action="#{pEDbean.obtenerupdateped()}" onclick="intermittentButton()"/>
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
                             <h1># {item.ejecutado}</h1> 
                         </ui:repeat>-->
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
+
         </div>
         <div class="fabs">
             <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" onclick="mostrar('form1');"></i>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('form1');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
                                 <f:ajax render="@form"/>
                                 DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
@@ -141,17 +142,49 @@
         <h:form id="form1" style="display:none;">
             <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
 
-                <h:outputLabel value="Comentario" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{10,80}" class="profile" id="nombreform"/>
+                <h:outputLabel value="Planificado:" class="profile" style="margin-bottom: 25px;"/>
+                <b:inputText value="${pEDbean.consolidator.planificado}"  mask="integer" class="profile" />
+                <h:outputLabel value="Ejecutado:" class="profile" style="margin-bottom: 25px;"/>
+                <b:inputText value="${pEDbean.consolidator.ejecutado}" mask="integer" class="profile" />
+                <h:outputLabel value="Año:" class="profile" style="margin-bottom: 25px;"/>                
+                <b:selectOneMenu value="#{pEDbean.yearselected}" class="profile">                    
+                    <f:selectItem itemLabel="2020" itemValue="2020"/>
+                    <f:selectItem itemLabel="2019" itemValue="2019"/>
+                    <f:selectItem itemLabel="2018" itemValue="2018"/>
+                    <f:selectItem itemLabel="2017" itemValue="2017"/>
+                    <f:selectItem itemLabel="2016" itemValue="2016"/>
+                    <f:selectItem itemLabel="2015" itemValue="2015"/>
+                    <f:selectItem itemLabel="2014" itemValue="2014"/>
+                    <f:selectItem itemLabel="2013" itemValue="2013"/>
+                    <f:selectItem itemLabel="2012" itemValue="2012"/>
+                    <f:selectItem itemLabel="2011" itemValue="2011"/>
+                    <f:selectItem itemLabel="Ninguno" itemValue="0"/>
+                </b:selectOneMenu>
+                <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>                
+                <b:selectOneMenu value="#{pEDbean.poacod}">
+                    <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
+                    </f:selectItems>
+                </b:selectOneMenu>
+                <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
+                <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" mask="a{10,150}" class="profile"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
-                    <p:commandButton  action="#{usersBean.updateUser()}" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
-
+                    <p:commandButton  action="#{pEDbean.updateped()}" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                        <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
                     </p:commandButton>
                 </div>
             </b:panelGrid>
         </h:form>          
 
         <h:outputScript>
+            function intermittentButton(){
+            var btn3 = document.getElementById("butonsitoplus");            
+
+            btn3.classList.add('led-yellow');
+            btn3.classList.remove('zmdi-plus');
+            btn3.classList.add('zmdi-border-color');           
+
+
+            }
         </h:outputScript>
         <script>
             $("#btn1").click(function () {
@@ -163,6 +196,6 @@
                 });
             });
         </script>
-
+        <h:outputScript name="js/intermitten.js"/>
     </ui:define>
 </ui:composition>
