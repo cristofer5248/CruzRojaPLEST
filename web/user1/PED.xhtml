@@ -36,7 +36,7 @@
             <h:form>
                 <p:dataTable id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
                              emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;"
-                             class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consoOb}"
+                             class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
                              rowKey="#{p.codigocon}">
                     <f:facet name="header">
                         <p:outputPanel>
@@ -121,7 +121,7 @@
                     </p:summaryRow>
                 </p:dataTable>  
                 <p:contextMenu for="tabla1">
-                    <p:menuitem value=" Editar avances" icon="fa fa-edit" ajax="true" update="form1" action="#{pEDbean.obtenerupdateped()}" onclick="intermittentButton()"/>
+                    <p:menuitem value=" Editar avances" icon="fa fa-edit" ajax="true" update="form1" action="#{pEDbean.obtenerupdateped(p.codigoPO)}" onclick="intermittentButton()"/>
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
@@ -161,12 +161,12 @@
                     <f:selectItem itemLabel="Ninguno" itemValue="0"/>
                 </b:selectOneMenu>
                 <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>                
-                    <p:selectOneMenu value="#{pEDbean.consolidator.codigoPO}">
-                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
-                        </f:selectItems>
-                    </p:selectOneMenu>
+                <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}">
+                    <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
+                    </f:selectItems>
+                </b:selectOneMenu>
                 <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${pEDbean.comentario1}" maxlength="150" mask="a{10,150}" class="profile"/>
+                <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" mask="a{10,150}" class="profile"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
                     <p:commandButton  action="#{pEDbean.updateped()}" type="submit" class="green1" ajax="true" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                         <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
