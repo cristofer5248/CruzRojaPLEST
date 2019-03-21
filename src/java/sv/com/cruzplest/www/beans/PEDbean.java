@@ -15,6 +15,7 @@ import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
+import sv.com.cruzplest.www.utils.JsfUtil;
 import sv.com.cruzplest.www.utils.TotalesOb;
 
 /**
@@ -41,6 +42,7 @@ public class PEDbean {
     private int countVa = 0;
     private int countStop = 0;
     ConsolidatorpoEntity consoOb;
+    private String comentario1;
 
     /**
      * Creates a new instance of PEDbean
@@ -58,8 +60,9 @@ public class PEDbean {
     }
 
     public void obtenerupdateped() {
-        try {
-            this.consolidator = consoOb;
+        try {            
+            this.consolidator = consoOb;                                  
+            this.comentario1 = this.consoOb.getComentario();
 //            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
         } catch (Exception e) {
             e.printStackTrace();
@@ -68,13 +71,19 @@ public class PEDbean {
 
     public void updateped() {
         try {
-            consolidator.setYear(this.yearselected);
+            consolidator.setYear(getYearselected());
             consolidator.setCodigoPO(new PoTableEntity(poacod));
+            consolidator.setComentario(comentario1);
             model.updatePED(consolidator);
 //            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
+            JsfUtil.setErrorMessage("error", "Error al actualizar PED");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
+
     }
 
     public void reboot1() {
@@ -379,4 +388,19 @@ public class PEDbean {
     public void setConsoOb(ConsolidatorpoEntity consoOb) {
         this.consoOb = consoOb;
     }
+
+    /**
+     * @return the comentario1
+     */
+    public String getComentario1() {
+        return comentario1;
+    }
+
+    /**
+     * @param comentario1 the comentario1 to set
+     */
+    public void setComentario1(String comentario1) {
+        this.comentario1 = comentario1;
+    }
+
 }

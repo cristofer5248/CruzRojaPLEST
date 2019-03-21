@@ -147,10 +147,13 @@
         e.style.display = 'none';
         else
         e.style.display = 'block';
-        }
+        }        
 
         <c:if test="#{not empty flash.add}">
             alertify.success('#{flash.add}'); 
+        </c:if>
+        <c:if test="#{not empty flash.update}">
+            alertify.success('#{flash.update}'); 
         </c:if>
         <c:if test="#{not empty flash.error}">
             alertify.error('#{flash.error}'); 

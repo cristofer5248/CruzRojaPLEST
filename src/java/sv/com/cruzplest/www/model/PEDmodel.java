@@ -62,8 +62,7 @@ public class PEDmodel {
         } catch (Exception e) {
             em.close();
             System.out.println("Errrrrrrror en updatePED");
-            JsfUtil.setErrorMessage("model", "error en updatePED");
-            
+            JsfUtil.setErrorMessage("model", "error en updatePED");            
         }
     }
 

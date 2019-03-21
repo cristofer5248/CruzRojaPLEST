@@ -161,14 +161,14 @@
                     <f:selectItem itemLabel="Ninguno" itemValue="0"/>
                 </b:selectOneMenu>
                 <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>                
-                <b:selectOneMenu value="#{pEDbean.poacod}">
-                    <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
-                    </f:selectItems>
-                </b:selectOneMenu>
+                    <p:selectOneMenu value="#{pEDbean.consolidator.codigoPO}">
+                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
+                        </f:selectItems>
+                    </p:selectOneMenu>
                 <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" mask="a{10,150}" class="profile"/>
+                <b:inputText value="${pEDbean.comentario1}" maxlength="150" mask="a{10,150}" class="profile"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
-                    <p:commandButton  action="#{pEDbean.updateped()}" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                    <p:commandButton  action="#{pEDbean.updateped()}" type="submit" class="green1" ajax="true" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                         <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
                     </p:commandButton>
                 </div>
