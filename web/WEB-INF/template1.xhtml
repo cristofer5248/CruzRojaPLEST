@@ -48,6 +48,7 @@
         <!--more https://codepen.io/kazzkiq/pen/pvqvxO-->
         <!--Own style button-->
         <h:outputStylesheet name="css/ownChangesStyle.css"/>
+        <h:outputStylesheet name="may/css/introjs.css"/>   
 
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
 
@@ -111,22 +112,28 @@
                     <div class="animated slideInLeft">Enviar progreso</div>
                 </c:if>
             </li>
+            <li>
+                <i class="fa fa-frown-o"></i>
+                <div class="animated slideInLeft">
+                    <a value="Ayuda" style="" class="ownbutton" href="javascript:void(0);" onclick="javascript:introJs().start();">Iniciar asistente<i class="fa fa-toggle-on"></i></a>
+                </div>
+            </li>
+            
         </ul>    
 
         <b:panel style="margin-left: 6%; border: none;" >
-            <div  class="col-md-12 col-sm-12 card col-lg-auto" style="padding-bottom: 30px; text-align: center;">
-                <ui:insert name="contenido" >
-                    CONTENIDO POR DEFECTO
-                </ui:insert>
-            </div>   
-
-        </b:panel>
-        <div class="credits">
-            <div style="padding: 20px; display: none;" id="progressbar" class="loader" >
+            <div style="display: none;" id="progressbar" class="loader" >
                 <svg class="circular" viewBox="25 25 50 50">
                     <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
                 </svg>
             </div>
+            <div  class="col-md-12 col-sm-12 card col-lg-auto" style="padding-bottom: 30px; text-align: center;">
+                <ui:insert name="contenido" >
+                    CONTENIDO POR DEFECTO
+                </ui:insert>                
+            </div>   
+        </b:panel>
+        <div class="credits">
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
             <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>

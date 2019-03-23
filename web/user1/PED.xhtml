@@ -9,6 +9,7 @@
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
     xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:p="http://primefaces.org/ui"
+    xmlns:u="http://xmlns.jcp.org/jsf/passthrough"
     xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="title">
@@ -34,15 +35,16 @@
             </p:breadCrumb>            
 
             <h:form>
-                <p:dataTable id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
+                <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
                              emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
                              rowKey="#{p.codigocon}">
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;">
+                            <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo.">
                                 <f:ajax render="tabla1" execute="@form"/>
-                            </p:commandButton>
+                            </p:commandButton>                            
+                            
                         </p:outputPanel>
                     </f:facet>
                     <p:columnGroup type="header">
@@ -130,7 +132,7 @@
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
 
         </div>
-        <div class="fabs">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar un nuevo avance en el PED">
             <div class="fab"></div>
             <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('form1');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
@@ -197,5 +199,6 @@
             });
         </script>
         <h:outputScript name="js/intermitten.js"/>
+        <h:outputScript name="may/js/intro.js"/>
     </ui:define>
 </ui:composition>
