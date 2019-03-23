@@ -31,7 +31,7 @@
                 <p:menuitem value="Trimestre" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
                 <p:menuitem value="#{pEDbean.trimestreselected}" url="#" rendered="#{pEDbean.trimestreselected>0}"/>
                 <p:menuitem value="TODAS" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; varsBean.year1==0 }" />
-                <p:menuitem value="PED" url="#" rendered="#{pEDbean.trimestreselected == 0 &amp;&amp; varsBean.year1==0 }" />
+                <p:menuitem value="PED" url="#" />
             </p:breadCrumb>            
 
             <h:form>
@@ -41,7 +41,8 @@
                              rowKey="#{p.codigocon}">
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo.">
+                            <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo."
+                             u:tooltipClass="oyekhe"                 >
                                 <f:ajax render="tabla1" execute="@form"/>
                             </p:commandButton>                            
                             
@@ -64,13 +65,13 @@
                     <p:column> 
                         <h:outputText  value="#{p.codigocon}"/>
                     </p:column>
-                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
+                    <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
                         <h:outputText  value="#{p.codigoPO.actividad}"/>
                     </p:column>
-                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                    <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
                     </p:column>       
-                    <p:column rendered="#{p.rowspan==1}" rowspan="#{p.rowspan2}"> 
+                    <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}"> 
                         <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
                     </p:column>   
 
@@ -141,8 +142,8 @@
                             </h:commandButton>-->
         </div>
         <div class="abriteplease2" id="abriteplease2">
-        <h:form id="form1" class="abriteplease">
-            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
+        <h:form id="form1" class="abriteplease" u:data-step="4" u:data-intro="Formulario para registro o actualizacion de datos del PED">
+            <b:panelGrid columns="2" class="profiles"   style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
 
                 <h:outputLabel value="Planificado:" class="profile" style="margin-bottom: 25px;"/>
                 <b:inputText value="${pEDbean.consolidator.planificado}"  mask="integer" class="profile" />
@@ -168,7 +169,7 @@
                     </f:selectItems>
                 </h:selectOneMenu>
                 <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" mask="a{10,150}" class="profile"/>
+                <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
                     <p:commandButton  action="#{pEDbean.updateped()}" type="submit" class="green1" ajax="true" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                         <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
@@ -191,6 +192,6 @@
             });
         </script>
         <h:outputScript name="js/intermitten.js"/>
-        <h:outputScript name="may/js/intro.js"/>
+        
     </ui:define>
 </ui:composition>

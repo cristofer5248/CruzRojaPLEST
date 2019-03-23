@@ -331,3 +331,6 @@
 .abriteplease2{
     display: none;
 }
+.introjs-prevbutton{
+    display: none !important;
+}

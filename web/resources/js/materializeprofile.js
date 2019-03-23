@@ -1,4 +1,8 @@
 
+    
+
+
+
 
 $('.avatar').click(function (e) {
     $('.card').toggleClass('active');

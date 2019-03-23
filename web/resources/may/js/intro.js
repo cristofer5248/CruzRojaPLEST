@@ -121,6 +121,7 @@
         if (this._options.steps) {
             //use steps passed programmatically
             _forEach(this._options.steps, function (step) {
+
                 var currentItem = _cloneObject(step);
                 //set the step
                 currentItem.step = introItems.length + 1;
@@ -376,6 +377,7 @@
         //because steps starts with zero
         this._currentStep = step - 2;
         if (typeof (this._introItems) !== 'undefined') {
+
             _nextStep.call(this);
         }
     }
@@ -400,6 +402,7 @@
      * @method _nextStep
      */
     function _nextStep() {
+
         this._direction = 'forward';
 
         if (typeof (this._currentStepNumber) !== 'undefined') {
@@ -409,7 +412,7 @@
                     this._currentStepNumber = undefined;
 
                 }
-                console.log('sdfsdf ');
+
 
             }.bind(this));
         }
@@ -423,8 +426,18 @@
         var nextStep = this._introItems[this._currentStep];
 
         var continueStep = true;
+        console.log(this._currentStep);
+//        AQUI ES DONDE PODES RASTREAR EL PASO QUE VA Y PONER TU FUNCION FAVORITA WE
+        if (this._currentStep === 3) {
+            var btn3 = document.getElementById("butonsitoplus");
+            btn3.classList.remove('zmdi-plus');
+            btn3.classList.add('zmdi-border-color');
+            $('.card').toggleClass('active');
+            $('.abriteplease2').show();
 
+        }
         if (typeof (this._introBeforeChangeCallback) !== 'undefined') {
+
             continueStep = this._introBeforeChangeCallback.call(this, nextStep.element);
         }
 
@@ -459,7 +472,6 @@
         if (this._currentStep === 0) {
             return false;
         }
-
         --this._currentStep;
 
         var nextStep = this._introItems[this._currentStep];
@@ -477,6 +489,14 @@
         }
 
         _showElement.call(this, nextStep);
+        if (this._currentStep === 2) {
+            var btn3 = document.getElementById("butonsitoplus");
+            btn3.classList.add('zmdi-plus');
+            btn3.classList.remove('zmdi-border-color');
+            $('.card').toggleClass('.active');
+            $('.abriteplease2').hide();
+
+        }
     }
 
     /**
@@ -1060,7 +1080,7 @@
                 if (lastIntroItem !== null && (this._direction === 'forward' && lastIntroItem.position === 'floating') || (this._direction === 'backward' && targetElement.position === 'floating')) {
                     oldHelperNumberLayer.style.opacity = 0;
                 }
-                
+
 
             }
 
@@ -1191,7 +1211,7 @@
                 _setAnchorAsButton(anchorLink);
                 anchorLink.innerHTML = "&nbsp;";
                 anchorLink.setAttribute('data-stepnumber', item.step);
-
+//                aqui podemos ver el contador de pasos para activar algo                
                 innerLi.appendChild(anchorLink);
                 ulContainer.appendChild(innerLi);
             });

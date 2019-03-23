@@ -70,9 +70,6 @@ public class PEDbean {
 
     public void updateped() {
         try {
-            consolidator.setYear(getYearselected());
-            consolidator.setCodigoPO(new PoTableEntity(poacod));
-            consolidator.setComentario(comentario1);
             model.updatePED(consolidator);
 //            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
