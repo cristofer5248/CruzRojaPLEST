@@ -118,7 +118,7 @@
                     <a value="Ayuda" style="" class="ownbutton" href="javascript:void(0);" onclick="javascript:introJs().start();">Iniciar asistente<i class="fa fa-toggle-on"></i></a>
                 </div>
             </li>
-            
+
         </ul>    
 
         <b:panel style="margin-left: 6%; border: none;" >
@@ -139,22 +139,37 @@
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
         </div>
     </h:body>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+    </p:confirmDialog>
     <!--<h:outputScript name="js/jquery-3.3.1.min.js"/>-->
     <h:outputScript name="js/bootstrap.min.js"/>
     <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/materializeprofile.js"/>
     <h:outputScript name="js/popper.min.js"/>
     <h:outputScript>
+
         function verprogress(){
         document.getElementById('progressbar').style.display='block';
         }
-        function mostrar(form1) {
-        var e = document.getElementById(form1);
-        if(e.style.display == 'block')
+        function mostrar(abriteplease2) {
+        var e = document.getElementById(abriteplease2);
+        if(e.style.display === 'block')
         e.style.display = 'none';
         else
         e.style.display = 'block';
-        }        
+        }
+
+        function intermittentButton(form1){
+        $('.abriteplease').show();
+        var btn3 = document.getElementById("butonsitoplus");                    
+        btn3.classList.remove('zmdi-plus');
+        btn3.classList.add('zmdi-border-color');
+
+
+
+        }
 
         <c:if test="#{not empty flash.add}">
             alertify.success('#{flash.add}'); 
@@ -166,9 +181,6 @@
             alertify.error('#{flash.error}'); 
         </c:if>
     </h:outputScript>
-    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-    </p:confirmDialog>
+
 </html>
 

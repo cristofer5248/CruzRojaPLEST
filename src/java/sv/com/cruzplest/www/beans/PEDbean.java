@@ -61,10 +61,8 @@ public class PEDbean {
 
     public void obtenerupdateped(PoTableEntity codigopo) {
         try {            
-            consolidator.setCodigoPO(codigopo);
-//            this.consolidator = consoOb;                                  
-            this.comentario1 = this.consoOb.getComentario();
-//            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
+        
+
         } catch (Exception e) {
             e.printStackTrace();
         }

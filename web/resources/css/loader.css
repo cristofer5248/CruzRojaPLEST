@@ -1,10 +1,10 @@
 .loader {
 
     width: 100px;
-margin-left: 85%;
+    margin-left: 85%;
     position: fixed;
     z-index: 10;
-    
+
 }
 .loader:before {
     content: '';

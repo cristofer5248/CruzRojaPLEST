@@ -123,7 +123,7 @@
                     </p:summaryRow>
                 </p:dataTable>  
                 <p:contextMenu for="tabla1">
-                    <p:menuitem value=" Editar avances" icon="fa fa-edit" ajax="true" update="form1" action="#{pEDbean.obtenerupdateped(p.codigoPO)}" onclick="intermittentButton()"/>
+                    <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" ajax="true" update="form1" action="#{pEDbean.obtenerupdateped(p.codigoPO)}"/>
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
@@ -134,14 +134,14 @@
         </div>
         <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar un nuevo avance en el PED">
             <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('form1');"></i>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
                                 <f:ajax render="@form"/>
                                 DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
                             </h:commandButton>-->
         </div>
-
-        <h:form id="form1" style="display:none;">
+        <div class="abriteplease2" id="abriteplease2">
+        <h:form id="form1" class="abriteplease">
             <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
 
                 <h:outputLabel value="Planificado:" class="profile" style="margin-bottom: 25px;"/>
@@ -149,7 +149,7 @@
                 <h:outputLabel value="Ejecutado:" class="profile" style="margin-bottom: 25px;"/>
                 <b:inputText value="${pEDbean.consolidator.ejecutado}" mask="integer" class="profile" />
                 <h:outputLabel value="Año:" class="profile" style="margin-bottom: 25px;"/>                
-                <b:selectOneMenu value="#{pEDbean.yearselected}" class="profile">                    
+                <b:selectOneMenu value="#{pEDbean.consolidator.year}" class="profile">                    
                     <f:selectItem itemLabel="2020" itemValue="2020"/>
                     <f:selectItem itemLabel="2019" itemValue="2019"/>
                     <f:selectItem itemLabel="2018" itemValue="2018"/>
@@ -163,10 +163,10 @@
                     <f:selectItem itemLabel="Ninguno" itemValue="0"/>
                 </b:selectOneMenu>
                 <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>                
-                <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}">
+                <h:selectOneMenu value="#{pEDbean.consolidator.codigoPO.codigopo}" class="form-control">
                     <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
                     </f:selectItems>
-                </b:selectOneMenu>
+                </h:selectOneMenu>
                 <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                 <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" mask="a{10,150}" class="profile"/>
                 <div class="col-lg-6" style="margin-top: 30px;">
@@ -176,17 +176,9 @@
                 </div>
             </b:panelGrid>
         </h:form>          
-
+        </div>
         <h:outputScript>
-            function intermittentButton(){
-            var btn3 = document.getElementById("butonsitoplus");            
 
-            btn3.classList.add('led-yellow');
-            btn3.classList.remove('zmdi-plus');
-            btn3.classList.add('zmdi-border-color');           
-
-
-            }
         </h:outputScript>
         <script>
             $("#btn1").click(function () {
