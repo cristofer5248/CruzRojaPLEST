@@ -89,9 +89,10 @@ public class PEDmodel {
 
     public ConsolidatorpoEntity getpEDRowspan(int codigopo) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction trans = em.getTransaction();
+
         try {
             ConsolidatorpoEntity con = (ConsolidatorpoEntity) em.createNativeQuery("select * from consolidatorpo WHERE codigoPO = '" + codigopo + "' and rowspan2>0 ORDER BY rowspan2 DESC limit 1;", ConsolidatorpoEntity.class).getSingleResult();
+            em.close();
             return con;
         } catch (Exception e) {
             e.printStackTrace();

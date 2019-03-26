@@ -43,6 +43,7 @@ public class PEDbean {
     ConsolidatorpoEntity consoOb;
     private String comentario1;
     private int old_codigopo;
+    private boolean  boolpo;
 
     /**
      * Creates a new instance of PEDbean
@@ -59,7 +60,7 @@ public class PEDbean {
         }
     }
 
-    public void obtenerupdateped() {
+    public void insertoldPO() {
         try {
             setOld_codigopo(consolidator.getCodigoPO().getCodigopo());
             System.out.print("1-codigoooo viejo " + getOld_codigopo());
@@ -70,22 +71,23 @@ public class PEDbean {
 
     public void updateped() {
         try {
-//            System.out.print("codigoooo viejo " + getOld_codigopo());
-            if (model.updatePED(consolidator)) {
-                if (consolidator.getCodigoPO().getCodigopo() != getOld_codigopo()) {
-                    ConsolidatorpoEntity conUpdate = new ConsolidatorpoEntity();
-                    conUpdate = model.getpEDRowspan(consolidator.getCodigoPO().getCodigopo());
-                    conUpdate.setRowspan2(conUpdate.getRowspan2() + 1);                    
-                    model.updatePED(conUpdate);
-                    conUpdate = null;
-                    System.out.print("PASAMOS EL PRIMER GETPEDROWSPAN2");
-                    conUpdate = model.getpEDRowspan(getOld_codigopo());
-                    conUpdate.setRowspan2(conUpdate.getRowspan2() - 1);
-                    model.updatePED(conUpdate);
-                    setOld_codigopo(0);
-                    consolidator = null;
-                }
-            }
+            System.out.print("codigoooo viejo(2) " + getOld_codigopo());
+//            if (model.updatePED(consolidator)) {
+//                if (consolidator.getCodigoPO().getCodigopo() != getOld_codigopo()) {
+//                    ConsolidatorpoEntity conUpdate = new ConsolidatorpoEntity();
+//                    conUpdate = model.getpEDRowspan(consolidator.getCodigoPO().getCodigopo());
+//                    conUpdate.setRowspan2(conUpdate.getRowspan2() + 1);                    
+//                    model.updatePED(conUpdate);
+//                    ConsolidatorpoEntity conUpdate2 = new ConsolidatorpoEntity();
+//                    System.out.print("PASAMOS EL PRIMER GETPEDROWSPAN2");
+//                    conUpdate2 = model.getpEDRowspan(getOld_codigopo());
+//                    System.out.print("Restando con el codigo: "+conUpdate2.getCodigoPO().getCodigopo().toString());
+//                    int aja = (conUpdate2.getRowspan2() - 1);
+//                    System.out.print("RESTA = "+aja);
+//                    conUpdate2.setRowspan2(aja);
+//                    model.updatePED(conUpdate2);
+//                }
+//            }
 
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
             FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
@@ -427,5 +429,20 @@ public class PEDbean {
     public void setOld_codigopo(int old_codigopo) {
         this.old_codigopo = old_codigopo;
     }
+
+    /**
+     * @return the boolpo
+     */
+    public boolean isBoolpo() {
+        return boolpo;
+    }
+
+    /**
+     * @param boolpo the boolpo to set
+     */
+    public void setBoolpo(boolean boolpo) {
+        this.boolpo = boolpo;
+    }
+    
 
 }
