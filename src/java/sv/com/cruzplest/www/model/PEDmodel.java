@@ -50,20 +50,56 @@ public class PEDmodel {
         }
     }
 
-    public void updatePED(ConsolidatorpoEntity conso) {
+    public boolean updatePED(ConsolidatorpoEntity conso) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
             em.merge(conso);
             trans.commit();
-            JsfUtil.setFlashMessage("update", "PED actualizado correctamente" );
-            em.close();                        
+            JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
+            em.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            System.out.println("Errrrrrrror en updatePED");
+            JsfUtil.setErrorMessage("model", "error en updatePED");
+        }
+        return false;
+    }
+
+    public boolean updatePEDRowspan(ConsolidatorpoEntity conso) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(conso);
+            trans.commit();
+            JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
+            em.close();
+            return true;
         } catch (Exception e) {
             em.close();
             System.out.println("Errrrrrrror en updatePED");
-            JsfUtil.setErrorMessage("model", "error en updatePED");            
+            JsfUtil.setErrorMessage("model", "error en updatePED");
         }
+        return false;
+    }
+
+    public ConsolidatorpoEntity getpEDRowspan(int codigopo) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            ConsolidatorpoEntity con = (ConsolidatorpoEntity) em.createNativeQuery("select * from consolidatorpo WHERE codigoPO = '" + codigopo + "' and rowspan2>0 ORDER BY rowspan2 DESC limit 1;", ConsolidatorpoEntity.class).getSingleResult();
+            return con;
+        } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            System.out.println("Errrrrrrror en updatePED");
+            JsfUtil.setErrorMessage("model", "error en updatePED");
+        }
+        return null;
     }
 
     public List<ConsolidatorpoEntity> findMeasurementU(int cod) {
@@ -116,7 +152,7 @@ public class PEDmodel {
         System.out.print("eoooooooooooooooooooooooo");
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo order by codigopo, rowspan desc");
+            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo order by codigopo, rowspan2 desc");
             List<Object[]> list1 = consulta.getResultList();
             if (list1.isEmpty()) {
                 System.out.print("Hee Hee!");

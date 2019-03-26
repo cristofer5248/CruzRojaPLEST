@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "consolidatorpo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c order by c.codigoPO.codigopo, c.rowspan desc")
+    @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c order by c.codigoPO.codigopo, c.rowspan2 desc")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigocon", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigocon = :codigocon")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByTrimestre", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.trimestre = :trimestre")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByYear", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.year = :year")
@@ -56,10 +56,10 @@ public class ConsolidatorpoEntity implements Serializable {
     private Integer ejecutado;
     @Column(name = "comentario", length = 150)
     private String comentario;
-    
+
     private int rowspan;
     private int rowspan2;
-    
+
     @JoinColumn(name = "codigoPO", referencedColumnName = "codigopo", nullable = false)
     @ManyToOne(optional = false)
     private PoTableEntity codigoPO;
@@ -144,7 +144,6 @@ public class ConsolidatorpoEntity implements Serializable {
     public void setPhysicalgoal(PhysicalGoalEntity physicalgoal) {
         this.physicalgoal = physicalgoal;
     }
-    
 
     @Override
     public int hashCode() {

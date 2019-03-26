@@ -13,7 +13,6 @@ import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
-import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 import sv.com.cruzplest.www.utils.JsfUtil;
 import sv.com.cruzplest.www.utils.TotalesOb;
@@ -43,6 +42,7 @@ public class PEDbean {
     private int countStop = 0;
     ConsolidatorpoEntity consoOb;
     private String comentario1;
+    private int old_codigopo;
 
     /**
      * Creates a new instance of PEDbean
@@ -59,10 +59,10 @@ public class PEDbean {
         }
     }
 
-    public void obtenerupdateped(PoTableEntity codigopo) {
-        try {            
-        
-
+    public void obtenerupdateped() {
+        try {
+            setOld_codigopo(consolidator.getCodigoPO().getCodigopo());
+            System.out.print("1-codigoooo viejo " + getOld_codigopo());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -70,8 +70,23 @@ public class PEDbean {
 
     public void updateped() {
         try {
-            model.updatePED(consolidator);
-//            this.consolidator = model.findbyIdPED(vars.getConsoOb().getCodigocon());
+//            System.out.print("codigoooo viejo " + getOld_codigopo());
+            if (model.updatePED(consolidator)) {
+                if (consolidator.getCodigoPO().getCodigopo() != getOld_codigopo()) {
+                    ConsolidatorpoEntity conUpdate = new ConsolidatorpoEntity();
+                    conUpdate = model.getpEDRowspan(consolidator.getCodigoPO().getCodigopo());
+                    conUpdate.setRowspan2(conUpdate.getRowspan2() + 1);                    
+                    model.updatePED(conUpdate);
+                    conUpdate = null;
+                    System.out.print("PASAMOS EL PRIMER GETPEDROWSPAN2");
+                    conUpdate = model.getpEDRowspan(getOld_codigopo());
+                    conUpdate.setRowspan2(conUpdate.getRowspan2() - 1);
+                    model.updatePED(conUpdate);
+                    setOld_codigopo(0);
+                    consolidator = null;
+                }
+            }
+
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
             FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
 
@@ -397,6 +412,20 @@ public class PEDbean {
      */
     public void setComentario1(String comentario1) {
         this.comentario1 = comentario1;
+    }
+
+    /**
+     * @return the old_codigopo
+     */
+    public int getOld_codigopo() {
+        return old_codigopo;
+    }
+
+    /**
+     * @param old_codigopo the old_codigopo to set
+     */
+    public void setOld_codigopo(int old_codigopo) {
+        this.old_codigopo = old_codigopo;
     }
 
 }

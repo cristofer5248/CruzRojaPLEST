@@ -83,7 +83,7 @@
                         <h:outputText value="#{p.planificado}"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{p.ejecutado}">
+                        <h:outputText value="#{p.rowspan2}">
                             <f:convertNumber minFractionDigits="2"/>
                         </h:outputText>
                     </p:column>
@@ -124,7 +124,9 @@
                     </p:summaryRow>
                 </p:dataTable>  
                 <p:contextMenu for="tabla1">
-                    <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" ajax="true" update="form1" action="#{pEDbean.obtenerupdateped(p.codigoPO)}"/>
+                    <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" update="form1" action="#{pEDbean.obtenerupdateped()}">
+                        <f:ajax render="form1"/>
+                    </p:menuitem>
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 

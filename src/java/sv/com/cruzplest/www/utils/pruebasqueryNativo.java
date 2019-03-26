@@ -7,6 +7,7 @@ package sv.com.cruzplest.www.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 
 /**
@@ -46,11 +47,15 @@ public class pruebasqueryNativo {
             System.out.print("Iniciando...");
 
             PEDmodel modelo = new PEDmodel();
-            List<Object[]> list = modelo.listotal();
-            for (Object[] list1 : list) {
-                Double eoo = Double.parseDouble(list1[3].toString());
-                System.out.print("AJA: "+eoo.toString()+" ");
-            }
+//            List<Object[]> list = modelo.updatePEDRowspan(2, 2);
+                ConsolidatorpoEntity con = modelo.getpEDRowspan(2);
+                System.out.print("codigoid: "+ con.getCodigocon().toString()+ "codigopo: "+con.getCodigoPO().getCodigopo().toString());
+//            for (Object[] list1 : list) {
+//                Double eoo = Double.parseDouble(list1[3].toString());
+//                System.out.print("AJA: "+eoo.toString()+" ");
+//            }
+            
+            
 //            int intentos = modelo.verificarIntentos("ADM123");
 //            System.out.print("Numero de intentos>>>  "+intentos);
 //            List<Object[]> lista;
