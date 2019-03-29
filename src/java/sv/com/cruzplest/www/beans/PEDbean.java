@@ -43,7 +43,7 @@ public class PEDbean {
     ConsolidatorpoEntity consoOb;
     private String comentario1;
     private int old_codigopo;
-    private boolean  boolpo;
+    private boolean boolpo;
 
     /**
      * Creates a new instance of PEDbean
@@ -69,26 +69,61 @@ public class PEDbean {
         }
     }
 
-    public void updateped() {
+    public boolean sumarrowspan(int consocod) {
         try {
-            System.out.print("codigoooo viejo(2) " + getOld_codigopo());
-//            if (model.updatePED(consolidator)) {
-//                if (consolidator.getCodigoPO().getCodigopo() != getOld_codigopo()) {
-//                    ConsolidatorpoEntity conUpdate = new ConsolidatorpoEntity();
-//                    conUpdate = model.getpEDRowspan(consolidator.getCodigoPO().getCodigopo());
-//                    conUpdate.setRowspan2(conUpdate.getRowspan2() + 1);                    
-//                    model.updatePED(conUpdate);
-//                    ConsolidatorpoEntity conUpdate2 = new ConsolidatorpoEntity();
-//                    System.out.print("PASAMOS EL PRIMER GETPEDROWSPAN2");
-//                    conUpdate2 = model.getpEDRowspan(getOld_codigopo());
-//                    System.out.print("Restando con el codigo: "+conUpdate2.getCodigoPO().getCodigopo().toString());
-//                    int aja = (conUpdate2.getRowspan2() - 1);
-//                    System.out.print("RESTA = "+aja);
-//                    conUpdate2.setRowspan2(aja);
-//                    model.updatePED(conUpdate2);
-//                }
-//            }
+            ConsolidatorpoEntity consolidator1 = new ConsolidatorpoEntity();
+            consolidator1 = model.findbyIdPED(buscarRowspan(consocod));
+            int contador = consolidator1.getRowspan2();
+            contador = contador + 1;
+            consolidator1.setRowspan2(contador);
+            model.updatePED(consolidator1);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
+    public int buscarRowspan(int cod1) {
+        try {
+            List list1 = model.findRowspanHigher(cod1);
+            return Integer.parseInt(list1.get(0).toString());
+        } catch (Exception e) {
+            return 0;
+        }
+    }
+
+    public boolean restarrowspan(int consocod) {
+        try {
+            ConsolidatorpoEntity consolidator1 = new ConsolidatorpoEntity();
+            consolidator1 = model.findbyIdPED(buscarRowspan(consocod));
+            int contador = consolidator1.getRowspan2();
+            contador = contador - 1;
+            consolidator1.setRowspan2(contador);
+            model.updatePED(consolidator1);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public void updateorNewped() {
+        int codigoold = 0;
+        int codigonew = 0;
+        try {
+            if(!model.saveped(consolidator)){
+            codigonew = consolidator.getCodigoPO().getCodigopo();
+            ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
+            datosold = model.findbyIdPED(consolidator.getCodigocon());
+            codigoold = datosold.getCodigoPO().getCodigopo();
+            setOld_codigopo(datosold.getCodigoPO().getCodigopo());
+            System.out.print("codigoooo viejo(2) " + getOld_codigopo());
+            if (model.updatePED(consolidator)) {
+                if (codigonew != codigoold) {
+                    restarrowspan(codigoold);
+                    sumarrowspan(codigonew);
+                }
+            }
+            }
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
             FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
 
@@ -100,7 +135,7 @@ public class PEDbean {
     }
 
     public void reboot1() {
-        System.out.print("sdfnsdfsdybfsudhfbsvfsbfysvfysdfysd heee! hee!");
+        System.err.print("Evento ajax iniciado...");
         setCountVa(0);
         setCountStop(0);
         listTotal();
@@ -443,6 +478,5 @@ public class PEDbean {
     public void setBoolpo(boolean boolpo) {
         this.boolpo = boolpo;
     }
-    
 
 }

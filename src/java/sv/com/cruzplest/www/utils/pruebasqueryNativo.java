@@ -48,8 +48,8 @@ public class pruebasqueryNativo {
 
             PEDmodel modelo = new PEDmodel();
 //            List<Object[]> list = modelo.updatePEDRowspan(2, 2);
-                ConsolidatorpoEntity con = modelo.getpEDRowspan(2);
-                System.out.print("codigoid: "+ con.getCodigocon().toString()+ "codigopo: "+con.getCodigoPO().getCodigopo().toString());
+                List list1 = modelo.findRowspanHigher(1);
+                System.out.print("Codigo higher by codeid = "+list1.get(0).toString());
 //            for (Object[] list1 : list) {
 //                Double eoo = Double.parseDouble(list1[3].toString());
 //                System.out.print("AJA: "+eoo.toString()+" ");

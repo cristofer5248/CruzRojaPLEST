@@ -48,6 +48,7 @@
         <!--more https://codepen.io/kazzkiq/pen/pvqvxO-->
         <!--Own style button-->
         <h:outputStylesheet name="css/ownChangesStyle.css"/>
+        <h:outputStylesheet name="may/css/introjs.css"/>   
 
         <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
 
@@ -111,54 +112,76 @@
                     <div class="animated slideInLeft">Enviar progreso</div>
                 </c:if>
             </li>
+            <li>
+                <i class="fa fa-frown-o"></i>
+                <div class="animated slideInLeft">
+                    <a value="Ayuda" style="" class="ownbutton" href="javascript:void(0);" onclick="javascript:introJs().start();">Iniciar asistente<i class="fa fa-toggle-on"></i></a>
+                </div>
+            </li>
+
         </ul>    
 
         <b:panel style="margin-left: 6%; border: none;" >
-            <div  class="col-md-12 col-sm-12 card col-lg-auto" style="padding-bottom: 30px; text-align: center;">
-                <ui:insert name="contenido" >
-                    CONTENIDO POR DEFECTO
-                </ui:insert>
-            </div>   
-
-        </b:panel>
-        <div class="credits">
-            <div style="padding: 20px; display: none;" id="progressbar" class="loader" >
+            <div style="display: none;" id="progressbar" class="loader" >
                 <svg class="circular" viewBox="25 25 50 50">
                     <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
                 </svg>
             </div>
+            <div  class="col-md-12 col-sm-12 card col-lg-auto" style="padding-bottom: 30px; text-align: center;">
+                <ui:insert name="contenido" >
+                    CONTENIDO POR DEFECTO
+                </ui:insert>                
+            </div>   
+        </b:panel>
+        <div class="credits">
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
             <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
         </div>
     </h:body>
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
+    </p:confirmDialog>
     <!--<h:outputScript name="js/jquery-3.3.1.min.js"/>-->
     <h:outputScript name="js/bootstrap.min.js"/>
     <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/materializeprofile.js"/>
     <h:outputScript name="js/popper.min.js"/>
+    <h:outputScript name="may/js/intro.js"/>
     <h:outputScript>
+
         function verprogress(){
         document.getElementById('progressbar').style.display='block';
         }
-        function mostrar(form1) {
-        var e = document.getElementById(form1);
-        if(e.style.display == 'block')
+        function mostrar(abriteplease2) {
+        var e = document.getElementById(abriteplease2);
+        if(e.style.display === 'block')
         e.style.display = 'none';
         else
         e.style.display = 'block';
         }
 
+        function intermittentButton(form1){
+        $('.abriteplease').show();
+        var btn3 = document.getElementById("butonsitoplus");                    
+        btn3.classList.remove('zmdi-plus');
+        btn3.classList.add('zmdi-border-color');
+
+
+
+        }
+
         <c:if test="#{not empty flash.add}">
             alertify.success('#{flash.add}'); 
+        </c:if>
+        <c:if test="#{not empty flash.update}">
+            alertify.success('#{flash.update}'); 
         </c:if>
         <c:if test="#{not empty flash.error}">
             alertify.error('#{flash.error}'); 
         </c:if>
     </h:outputScript>
-    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
-        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
-        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
-    </p:confirmDialog>
+
 </html>
 

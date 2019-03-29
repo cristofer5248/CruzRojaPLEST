@@ -41,7 +41,7 @@
                              rowKey="#{p.codigocon}">
                     <f:facet name="header">
                         <p:outputPanel>
-                            <p:commandButton value="ACTUALIZAR" type="button" action="#{pEDbean.reboot1()}" class="skycolor1" ajax="true" style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo."
+                            <p:commandButton value="ACTUALIZAR" action="#{pEDbean.reboot1()}" class="skycolor1"  style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo."
                                              u:tooltipClass="oyekhe"                 >
                                 <f:ajax render="tabla1" execute="@form"/>
                             </p:commandButton>                            
@@ -167,7 +167,7 @@
                     </b:selectOneMenu>
                     <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>   
 
-                    <h:selectOneMenu value="#{pEDbean.consolidator.codigoPO.codigopo}" class="form-control">
+                    <h:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control">
                         <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
                         </f:selectItems>
                     </h:selectOneMenu>
@@ -178,7 +178,7 @@
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton  action="#{pEDbean.updateped()}" type="submit" class="green1" ajax="true" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                        <p:commandButton  action="#{pEDbean.updateorNewped()}" type="submit" class="green1" ajax="true" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
                         </p:commandButton>
                     </div>

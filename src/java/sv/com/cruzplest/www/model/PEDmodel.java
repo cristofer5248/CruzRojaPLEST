@@ -34,6 +34,34 @@ public class PEDmodel {
             return null;
         }
     }
+
+    public List findRowspanHigher(int cod1) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNativeQuery("select c.codigocon from consolidatorpo c where codigoPO=" + cod1 + " and rowspan2>0 and rowspan=1 order by rowspan2 DESC limit 1");
+            List Lconsu = consulta.getResultList();
+            em.close();
+            return Lconsu;
+        } catch (Exception e) {
+            em.close();
+            return null;
+        }
+    }
+
+    public boolean saveped(ConsolidatorpoEntity conso) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+         tran.begin();
+         em.persist(conso);
+         tran.commit();
+         em.close();
+         return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     //llenar entity forms
 
     public ConsolidatorpoEntity findbyIdPED(int cod) {
@@ -69,29 +97,13 @@ public class PEDmodel {
         return false;
     }
 
-    public boolean updatePEDRowspan(ConsolidatorpoEntity conso) {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
-        EntityTransaction trans = em.getTransaction();
-        try {
-            trans.begin();
-            em.merge(conso);
-            trans.commit();
-            JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
-            em.close();
-            return true;
-        } catch (Exception e) {
-            em.close();
-            System.out.println("Errrrrrrror en updatePED");
-            JsfUtil.setErrorMessage("model", "error en updatePED");
-        }
-        return false;
-    }
-
     public ConsolidatorpoEntity getpEDRowspan(int codigopo) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
 
         try {
             ConsolidatorpoEntity con = (ConsolidatorpoEntity) em.createNativeQuery("select * from consolidatorpo WHERE codigoPO = '" + codigopo + "' and rowspan2>0 ORDER BY rowspan2 DESC limit 1;", ConsolidatorpoEntity.class).getSingleResult();
+            System.out.print("Impeimiendo primer querynativo1 " + con.getCodigoPO().getActividad() + " rowspan " + con.getRowspan2());
+
             em.close();
             return con;
         } catch (Exception e) {
