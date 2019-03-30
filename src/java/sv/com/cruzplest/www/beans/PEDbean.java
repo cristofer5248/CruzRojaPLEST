@@ -13,6 +13,7 @@ import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
+import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 import sv.com.cruzplest.www.utils.JsfUtil;
 import sv.com.cruzplest.www.utils.TotalesOb;
@@ -43,7 +44,7 @@ public class PEDbean {
     ConsolidatorpoEntity consoOb;
     private String comentario1;
     private int old_codigopo;
-    private boolean boolpo;
+    private boolean boolped;
 
     /**
      * Creates a new instance of PEDbean
@@ -60,9 +61,9 @@ public class PEDbean {
         }
     }
 
-    public void insertoldPO() {
+    public void boolped() {
         try {
-            setOld_codigopo(consolidator.getCodigoPO().getCodigopo());
+            setBoolped(true);
             System.out.print("1-codigoooo viejo " + getOld_codigopo());
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,31 +107,44 @@ public class PEDbean {
         }
     }
 
-    public void updateorNewped() {
+    public void changepo() {
+        try {
+            System.out.print("HELLO MY KITTY");
+        } catch (Exception e) {
+        }
+    }
+
+    public void updateOrnew() {
         int codigoold = 0;
         int codigonew = 0;
         try {
-            if(!model.saveped(consolidator)){
-            codigonew = consolidator.getCodigoPO().getCodigopo();
-            ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
-            datosold = model.findbyIdPED(consolidator.getCodigocon());
-            codigoold = datosold.getCodigoPO().getCodigopo();
-            setOld_codigopo(datosold.getCodigoPO().getCodigopo());
-            System.out.print("codigoooo viejo(2) " + getOld_codigopo());
-            if (model.updatePED(consolidator)) {
-                if (codigonew != codigoold) {
-                    restarrowspan(codigoold);
-                    sumarrowspan(codigonew);
+            if (this.boolped=true) {
+                codigonew = consolidator.getCodigoPO().getCodigopo();
+                ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
+                datosold = model.findbyIdPED(consolidator.getCodigocon());
+                codigoold = datosold.getCodigoPO().getCodigopo();
+                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
+                System.out.print("codigoooo viejo(2) " + getOld_codigopo());
+                if (model.updatePED(consolidator)) {
+                    if (codigonew != codigoold) {
+                        restarrowspan(codigoold);
+                        sumarrowspan(codigonew);
+                    }
                 }
+                JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+            } else {
+                consolidator.setCodigoPO(new PoTableEntity(getOld_codigopo()));
+                model.saveped(consolidator);
             }
-            }
-            JsfUtil.setErrorMessage("error", "Error al actualizar PED");
+
             FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
 
         } catch (Exception e) {
+            JsfUtil.setErrorMessage("error", "Error al actualizar PED");
+
             e.printStackTrace();
         }
-        JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
 
     }
 
@@ -468,15 +482,15 @@ public class PEDbean {
     /**
      * @return the boolpo
      */
-    public boolean isBoolpo() {
-        return boolpo;
+    public boolean isBoolped() {
+        return boolped;
     }
 
     /**
-     * @param boolpo the boolpo to set
+     
      */
-    public void setBoolpo(boolean boolpo) {
-        this.boolpo = boolpo;
+    public void setBoolped(boolean boolped) {
+        this.boolped = boolped;
     }
 
 }

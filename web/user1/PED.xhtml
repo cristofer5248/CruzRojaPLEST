@@ -124,7 +124,7 @@
                     </p:summaryRow>
                 </p:dataTable>  
                 <p:contextMenu for="tabla1">
-                    <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" update="form1" action="#{pEDbean.insertoldPO()}">
+                    <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" update="form1" action="#{pEDbean.boolped()}">
                         <f:ajax render="form1"/>
                     </p:menuitem>
                 </p:contextMenu>
@@ -168,19 +168,16 @@
                     <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>   
 
                     <h:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control">
-                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1.codigopo}">
+                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}">                            
                         </f:selectItems>
-                    </h:selectOneMenu>
-                    <h:outputLabel value="¿Cambiar PO?" class="profile" style="margin-bottom: 25px;"/>
-                    <p:selectBooleanCheckbox value="#{pEDbean.boolpo}" itemLabel="Cambiar PO?">
-                        <p:ajax listener="#{pEDbean.insertoldPO()}"/>
-                    </p:selectBooleanCheckbox>
+
+                    </h:selectOneMenu>                    
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton  action="#{pEDbean.updateorNewped()}" type="submit" class="green1" ajax="true" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
-                            <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
-                        </p:commandButton>
+                        <h:commandButton action="#{pEDbean.updateOrnew()}" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                            
+                        </h:commandButton>
                     </div>
                 </b:panelGrid>
             </h:form>          
