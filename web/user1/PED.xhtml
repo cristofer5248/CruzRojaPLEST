@@ -36,7 +36,7 @@
 
             <h:form>
                 <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
-                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;"
+                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan le 0 ? 'hijos': null}"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
                              rowKey="#{p.codigocon}">
                     <f:facet name="header">
@@ -135,7 +135,7 @@
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
 
         </div>
-        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar un nuevo avance en el PED">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
             <div class="fab"></div>
             <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">

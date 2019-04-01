@@ -399,7 +399,12 @@ display: none;
     width: auto !important;
 }*/
 .tdLessPadding td{
+
+    padding: .2em .2em !important;
+
+}
+.hijos {
     
-        padding: .2em .2em !important;
-    
+    background-image: none !important;
+    color: #c00000 !important;
 }
