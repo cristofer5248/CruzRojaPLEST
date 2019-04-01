@@ -167,17 +167,21 @@
                     </b:selectOneMenu>
                     <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>   
 
-                    <h:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control">
+                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control">
                         <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}">                            
                         </f:selectItems>
 
-                    </h:selectOneMenu>                    
+                    </b:selectOneMenu>                    
+                    <h:outputLabel value="Physical Goal" class="profile" style="margin-bottom: 25px;"/>
+                    <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
+                        <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
+                    </b:selectOneMenu>
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <h:commandButton action="#{pEDbean.updateOrnew()}" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
-                            
-                        </h:commandButton>
+                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+
+                        </p:commandButton>
                     </div>
                 </b:panelGrid>
             </h:form>          

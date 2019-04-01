@@ -118,23 +118,24 @@ public class PEDbean {
         int codigoold = 0;
         int codigonew = 0;
         try {
-            if (this.boolped=true) {
+            if(boolped==true){
                 codigonew = consolidator.getCodigoPO().getCodigopo();
                 ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
                 datosold = model.findbyIdPED(consolidator.getCodigocon());
                 codigoold = datosold.getCodigoPO().getCodigopo();
-                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
+//                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
                 System.out.print("codigoooo viejo(2) " + getOld_codigopo());
                 if (model.updatePED(consolidator)) {
                     if (codigonew != codigoold) {
-                        restarrowspan(codigoold);
                         sumarrowspan(codigonew);
+                        restarrowspan(codigoold);
+                        
                     }
                 }
                 JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
-            } else {
-                consolidator.setCodigoPO(new PoTableEntity(getOld_codigopo()));
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");                           
+            }else{
+                sumarrowspan(consolidator.getCodigoPO().getCodigopo());
                 model.saveped(consolidator);
             }
 
