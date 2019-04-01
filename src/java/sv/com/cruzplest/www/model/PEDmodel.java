@@ -48,15 +48,26 @@ public class PEDmodel {
         }
     }
 
+    public boolean findyear(int year1, int poa) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNativeQuery("select c.year from consolidatorpo c where c.year='" + year1 + "' and c.codigoPO='"+poa+"'");
+            List list1 = con.getResultList();
+            return !(list1.isEmpty());
+        } catch (Exception e) {            
+            return false;
+        }
+    }
+
     public boolean saveped(ConsolidatorpoEntity conso) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tran = em.getTransaction();
         try {
-         tran.begin();
-         em.persist(conso);
-         tran.commit();
-         em.close();
-         return true;
+            tran.begin();
+            em.persist(conso);
+            tran.commit();
+            em.close();
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
             return false;

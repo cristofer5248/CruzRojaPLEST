@@ -15,8 +15,7 @@
     <ui:define name="title">
         <title>PED - Planificacion y Desarrollo</title>        
         <!--        <h:outputScript name="js/utils.js"/>-->
-        <h:outputStylesheet name="css/intermittens.css"/>
-        <h:outputStylesheet name="css/interminttens2.css"/>
+
 
     </ui:define>
 
@@ -83,7 +82,7 @@
                         <h:outputText value="#{p.planificado}"/>
                     </p:column>
                     <p:column>
-                        <h:outputText value="#{p.rowspan2}">
+                        <h:outputText value="#{p.ejecutado}">
                             <f:convertNumber minFractionDigits="2"/>
                         </h:outputText>
                     </p:column>
@@ -162,14 +161,13 @@
                         <f:selectItem itemLabel="2014" itemValue="2014"/>
                         <f:selectItem itemLabel="2013" itemValue="2013"/>
                         <f:selectItem itemLabel="2012" itemValue="2012"/>
-                        <f:selectItem itemLabel="2011" itemValue="2011"/>
-                        <f:selectItem itemLabel="Ninguno" itemValue="0"/>
+                        <f:selectItem itemLabel="2011" itemValue="2011"/>                        
                     </b:selectOneMenu>
                     <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>   
 
-                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control">
-                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}">                            
-                        </f:selectItems>
+                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control" onchange="alert('Tenga en cuenta que la actividad seleccionada es muy fundamental en el consoldado final del PED, podra actualizar posteriormente siempre y cuando esta no sea el primer registro usando dicha actividad');">
+                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
+                        
 
                     </b:selectOneMenu>                    
                     <h:outputLabel value="Physical Goal" class="profile" style="margin-bottom: 25px;"/>
@@ -180,7 +178,7 @@
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
                         <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
-
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
                         </p:commandButton>
                     </div>
                 </b:panelGrid>
@@ -199,7 +197,7 @@
                 });
             });
         </script>
-        <h:outputScript name="js/intermitten.js"/>
+        
 
     </ui:define>
 </ui:composition>

@@ -1,11 +1,6 @@
 
-    
-
-
-
-
 $('.avatar').click(function (e) {
-    $('.card').toggleClass('active');
+    $('.card').toggleClass('active');    
 
 });
 $('.holiwe').click(function (e) {

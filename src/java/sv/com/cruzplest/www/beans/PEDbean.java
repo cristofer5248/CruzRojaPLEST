@@ -114,27 +114,43 @@ public class PEDbean {
         }
     }
 
+    public boolean findyear(int year1, int poa) {
+        try {
+            if (model.findyear(year1, poa)) {
+                JsfUtil.setFlashMessage("error", "Ya existe una actividad con ese mismo año");
+                return true;
+            } else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     public void updateOrnew() {
         int codigoold = 0;
         int codigonew = 0;
+
         try {
-            if(boolped==true){
+            if (boolped == true) {
                 codigonew = consolidator.getCodigoPO().getCodigopo();
                 ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
                 datosold = model.findbyIdPED(consolidator.getCodigocon());
                 codigoold = datosold.getCodigoPO().getCodigopo();
 //                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
                 System.out.print("codigoooo viejo(2) " + getOld_codigopo());
+                findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo());
                 if (model.updatePED(consolidator)) {
                     if (codigonew != codigoold) {
                         sumarrowspan(codigonew);
                         restarrowspan(codigoold);
-                        
+
                     }
                 }
                 JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");                           
-            }else{
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+            } else {
                 sumarrowspan(consolidator.getCodigoPO().getCodigopo());
                 model.saveped(consolidator);
             }
@@ -488,7 +504,7 @@ public class PEDbean {
     }
 
     /**
-     
+     *
      */
     public void setBoolped(boolean boolped) {
         this.boolped = boolped;
