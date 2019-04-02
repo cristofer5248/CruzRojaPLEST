@@ -31,7 +31,8 @@ public class IndicatorBean {
 
     public List<IndicatorpoEntity> listAll() {
         try {
-            return model.listAll();
+            List<IndicatorpoEntity> indi = model.listAll();
+            return indi;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

@@ -31,7 +31,8 @@ public class MeasurementUBean {
 
     public List<MeasurementunitsEntity> listAllSelect() {
         try {
-            return model.listAll();
+            List<MeasurementunitsEntity> mea = model.listAll();
+            return mea;
         } catch (Exception e) {
             e.printStackTrace();
             return null;

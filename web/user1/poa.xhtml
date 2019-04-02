@@ -23,7 +23,7 @@
             <div>
                 <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                     <p:menuitem value="Categories" url="#" />
-                    <p:menuitem value="Area Estrategicas" outcome="area" />
+                    <p:menuitem value="POA" outcome="area" />
                     <p:menuitem value="#{varsBean.poselected}" outcome="area" rendered="#{varsBean.poselected>0}" />
                     <p:menuitem value="Año" url="#" rendered="#{varsBean.year1>0}"/>
                     <p:menuitem value="#{varsBean.year1}" url="#" rendered="#{varsBean.year1>0}"/>
@@ -34,68 +34,88 @@
                 </p:breadCrumb>            
             </div>
             <h:form>
-                <p:dataTable var="poa" value="#{poaBean.listPoaSA}" filteredValue="#{poaBean.listPoaSAFiltered}" widgetVar="poListvar"
-                             paginator="true" rows="10" emptyMessage="No hay informacion que mostrar">                
+                <p:dataTable id="tabla1" var="poa" value="#{poaBean.listPoaSA}" filteredValue="#{poaBean.listPoaSAFiltered}" widgetVar="poListvar" class="bolado tdLessPadding"
+                             paginator="true" rows="10" emptyMessage="No hay informacion que mostrar" selectionMode="single" selection="#{poaBean.poa}"
+                             rowKey="#{poa.codigopo}">                
                     <f:facet name="header">
                         <p:outputPanel>
                             <h:outputText value="Filtrar"/>
                             <p:inputText id="globalFilter" onkeyup="PF('poListvar').filter()" style="width: 150px" placeholder="Here"/>
                         </p:outputPanel>
                     </f:facet>
-                    <p:column headerText="ID" filterBy="#{poa.codigopo}" width="20%">
+                    <p:column headerText="ID" width="5%">
                         <h:outputText value="#{poa.codigopo}"/>
                     </p:column>
                     <p:column headerText="Actividad" filterBy="#{poa.actividad}" width="20%" style="text-align: left;">
                         <h:outputText value="#{poa.actividad}"/>
                     </p:column>
-                    <p:column headerText="Indicadores" filterBy="#{poa.indicatores.detalle}" style="text-align: left;">
+                    <p:column headerText="Indicadores" filterBy="#{poa.indicatores.detalle}" style="text-align: left; font-size:  10px">
                         <h:outputText value="#{poa.indicatores.detalle}"/>
                     </p:column>
-                    <p:column headerText="Meta Global">
+                    <p:column headerText="Meta Global" width="6%">
                         <h:outputText value="#{poa.metaGlobal}%"/>
                     </p:column>
+                    <p:column headerText="Unidad" width="10%">
+                        <h:outputText value="#{poa.unidad.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Encargado" width="15%">
+                        <h:outputText value="#{poa.encargado.nombre} #{poa.encargado.apellidos}"/>
+                    </p:column>
+                    <p:column headerText="Area Estrategica" width="15%">
+                        <h:outputText value="#{poa.areaest.nombre}" style="font-size: 10px"/>
+                    </p:column>
                 </p:dataTable>
+                <p:contextMenu for="tabla1">
+                    <p:menuitem class="holiwe" value=" Editar datos del poa" icon="fa fa-edit" update="form1" action="#{pEDbean.boolped()}">
+                        <f:ajax render="form1"/>
+                    </p:menuitem>
+                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{pEDbean.deleteped()}" ajax="false"/>
+
+                </p:contextMenu>
             </h:form>
 
         </div>
-        <div class="fabs">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar una nueva actividad">
             <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" onclick="mostrar('form1');"></i>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
                                 <f:ajax render="@form"/>
                                 DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
                             </h:commandButton>-->
         </div>
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease">
+                <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
+                    <h:outputLabel value="Actividad" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{poaBean.poa.actividad}" maxlength="80" class="profile"/>
+                    <h:outputLabel value="Indicadores" class="profile"/>
 
-        <h:form id="form1" style="display:none;">
-            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-                <h:outputLabel value="Nombres:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${usersBean.users.nombre}" maxlength="40" mask="a{4,40}" class="profile" id="nombreform"/>
-                <h:outputLabel value="Apellidos:" class="profile"/>
-                <b:inputText value="${usersBean.users.apellidos}" maxlength="40" mask="a{4,40}" class="profile"/>
-                <h:outputLabel value="Correo:" class="profile"/>
-                <b:inputText value="${usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
-                <h:outputLabel value="Nueva contraseña:" class="profile"/>
-                <b:inputSecret value="${usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();"/>                    
-                <h:outputLabel value="Repetir contraseña:" class="profile"/>               
-                <h:panelGroup>
-                    <b:inputSecret value="${usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******"/>
-                    <span id='message' class="profile"></span>
-                </h:panelGroup>
-                <h:outputLabel value="Contraseña anterior:" class="profile"/>
-                <b:inputSecret value="${usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
-                <h:outputLabel value="Sexo:" class="profile"/>
-                <b:selectOneMenu value="${usersBean.genero}" required="true" class="profile">
-                    <f:selectItem itemLabel="Masculino" itemValue="1"/>
-                    <f:selectItem itemLabel="Femenino" itemValue="2"/>
-                </b:selectOneMenu>
-                <div class="col-lg-6" style="margin-top: 30px;">
-                    <h:commandButton  action="#{usersBean.updateUser()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                    <b:selectOneMenu value="#{poaBean.poa.indicatores}" class="form-control profile" >
+                        <f:selectItems value="#{indicatorBean.listAll()}" var="in" itemLabel="#{in.detalle}" itemValue="#{in}"/>
+                    </b:selectOneMenu>
 
-                    </h:commandButton>
-                </div>
-            </b:panelGrid>
-        </h:form>   
+                    <h:outputLabel value="Meta Global:" class="profile"/>
+                    <b:inputText value="#{poaBean.poa.metaGlobal}" maxlength="5" mask="integer" class="profile"/>
+                    <h:outputLabel value="Unidad:" class="profile"/>
+                    <b:selectOneMenu value="#{poaBean.poa.unidad}" class="form-control profile">                    
+                        <f:selectItems value="#{measurementUBean.listAllSelect()}" var="mea" itemValue="#{mea}" itemLabel="#{mea.nombre}"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Area Estrategica" class="profile"/>
+                    <b:selectOneMenu value="#{poaBean.poa.areaest}" class="profile form-control">
+                        <f:selectItems value="#{areasBean.listAll()}" var="area" itemLabel="#{area.nombre}" itemValue="#{area}"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Encargado" class="profile"/>
+                    <b:selectOneMenu value="#{poaBean.poa.encargado}">
+                        <f:selectItems value="#{usersBean.listarAll()}" var="user" itemLabel="#{user.nombre} #{user.apellidos}" itemValue="#{user}"/>
+                    </b:selectOneMenu>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton  action="#{poaBean.insertpoa()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form>
+        </div>
         <p:dialog header="Detalles" widgetVar="dlg3" modal="true" width="auto" height="auto" position="center center" class="modal-content3 ownModelstyle">            
 
         </p:dialog>

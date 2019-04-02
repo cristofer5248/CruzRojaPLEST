@@ -48,10 +48,10 @@ public class PEDmodel {
         }
     }
 
-    public boolean findyear(int year1, int poa) {
+    public boolean findyear(int year1, int poa,int ped) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNativeQuery("select c.year from consolidatorpo c where c.year='" + year1 + "' and c.codigoPO='"+poa+"'");
+            Query con = em.createNativeQuery("select c.year from consolidatorpo c where c.year='" + year1 + "' and c.codigoPO='"+poa+"' and c.codigocon !="+ped+"");
             List list1 = con.getResultList();
             return list1.isEmpty();
         } catch (Exception e) {     
@@ -59,6 +59,7 @@ public class PEDmodel {
             return false;
         }
     }
+    
 
     public boolean saveped(ConsolidatorpoEntity conso) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -203,6 +204,16 @@ public class PEDmodel {
             e.printStackTrace();
             em.close();
             return null;
+        }
+    }
+    public boolean checkPoainped(int codigo){
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNativeQuery("select c.codigopo from consolidatorpo c where c.codigopo="+codigo+"");
+            List list1 = con.getResultList();
+            return list1.isEmpty();
+        } catch (Exception e) {
+            return false;
         }
     }
 

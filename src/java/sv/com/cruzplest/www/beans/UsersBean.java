@@ -47,7 +47,13 @@ public class UsersBean {
     }
 
     public List<UsersEntity> listarAll() {
-        return model.listarAll();
+        try {
+        List<UsersEntity> user = model.listarAll();
+        return user;
+        } catch (Exception e) {
+            return null;
+        }
+        
     }
 
     public List<UsersEntity> listarInfo() {

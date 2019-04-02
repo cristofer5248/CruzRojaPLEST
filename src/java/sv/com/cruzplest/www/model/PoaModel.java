@@ -9,6 +9,7 @@ import javax.persistence.EntityManager;
 import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.utils.JpaUtil;
 import java.util.List;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
 /**
@@ -28,6 +29,20 @@ public class PoaModel {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean insertpoa(PoTableEntity poa) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(poa);
+            trans.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

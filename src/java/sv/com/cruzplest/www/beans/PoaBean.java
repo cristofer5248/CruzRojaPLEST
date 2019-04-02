@@ -9,7 +9,8 @@ import javax.faces.bean.ManagedBean;
 import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.model.PoaModel;
 import java.util.List;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.utils.JsfUtil;
 
 /**
@@ -17,12 +18,13 @@ import sv.com.cruzplest.www.utils.JsfUtil;
  * @author Christopher
  */
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class PoaBean {
 
     public PoaModel model = new PoaModel();
     public List<PoTableEntity> listPoaSA;
     public List<PoTableEntity> listPoaSAFiltered;
+    public PoTableEntity poa = new PoTableEntity();
     private int trimestreselected;
     private int metafisica;
     private int indicador;
@@ -38,6 +40,26 @@ public class PoaBean {
         if (yearselected > 0) {
         }
         listAll();
+    }
+
+    public List<PoTableEntity> listarAll() {
+        try {
+            return model.listAll();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public void insertpoa() {
+        try {
+            if (model.insertpoa(poa)) {
+                JsfUtil.setFlashMessage("exito", "POA insertado correctamente");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
     }
 
     public void insertPoacod() {
@@ -124,6 +146,19 @@ public class PoaBean {
     public void setPoacod(int poacod) {
         this.poacod = poacod;
     }
-    
+
+    /**
+     * @return the poa
+     */
+    public PoTableEntity getPoa() {
+        return poa;
+    }
+
+    /**
+     * @param poa the poa to set
+     */
+    public void setPoa(PoTableEntity poa) {
+        this.poa = poa;
+    }
 
 }

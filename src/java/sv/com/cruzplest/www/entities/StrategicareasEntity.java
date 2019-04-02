@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "strategicareas")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "StrategicareasEntity.findAll", query = "SELECT s FROM StrategicareasEntity s")
+    @NamedQuery(name = "StrategicareasEntity.findAll", query = "SELECT s FROM StrategicareasEntity s ORDER BY s.nombre DESC")
     , @NamedQuery(name = "StrategicareasEntity.findByCodigostr", query = "SELECT s FROM StrategicareasEntity s WHERE s.codigostr = :codigostr")
     , @NamedQuery(name = "StrategicareasEntity.findByNombre", query = "SELECT s FROM StrategicareasEntity s WHERE s.nombre = :nombre")})
 public class StrategicareasEntity implements Serializable {

@@ -44,7 +44,6 @@ public class AreasBean {
      */
     public AreasBean() {
         strategicareas = new StrategicareasEntity();
-        strategicAreas = listAll();
 
     }
 
@@ -62,7 +61,7 @@ public class AreasBean {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
-    public String goesToped() {        
+    public String goesToped() {
         return "PED?faces-redirect=true";
     }
 
@@ -78,7 +77,8 @@ public class AreasBean {
 
     public List<StrategicareasEntity> listAll() {
         try {
-            return model.listAll();
+            List<StrategicareasEntity> est = model.listAll();
+            return est;
         } catch (Exception e) {
             e.printStackTrace();
             this.areasL = false;

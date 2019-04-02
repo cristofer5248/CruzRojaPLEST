@@ -114,15 +114,15 @@ public class PEDbean {
         }
     }
 
-    public boolean findyear(int year1, int poa) {
+    public boolean findyear(int year1, int poa, int ped) {
         try {
-            if (model.findyear(year1, poa)) {                
-                JsfUtil.setFlashMessage("error", "Ya existe una actividad con ese mismo año");
+            if (model.findyear(year1, poa, ped)) {
+
                 return true;
             } else {
+                JsfUtil.setFlashMessage("error", "Ya existe una actividad con ese mismo año");
                 return false;
             }
-
         } catch (Exception e) {
             return false;
         }
@@ -133,15 +133,15 @@ public class PEDbean {
         int codigonew = 0;
 
         try {
-            if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo())) {
-                if (boolped == true) {
-                    codigonew = consolidator.getCodigoPO().getCodigopo();
-                    ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
-                    datosold = model.findbyIdPED(consolidator.getCodigocon());
-                    codigoold = datosold.getCodigoPO().getCodigopo();
-//                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
-                    System.out.print("codigoooo viejo(2) " + getOld_codigopo());
 
+            if (boolped == true) {
+                codigonew = consolidator.getCodigoPO().getCodigopo();
+                ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
+                datosold = model.findbyIdPED(consolidator.getCodigocon());
+                codigoold = datosold.getCodigoPO().getCodigopo();
+//                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
+                System.out.print("codigoooo viejo(2) " + getOld_codigopo());
+                if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), consolidator.getCodigocon())) {
                     if (model.updatePED(consolidator)) {
                         if (codigonew != codigoold) {
                             sumarrowspan(codigonew);
@@ -151,15 +151,25 @@ public class PEDbean {
                         JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
 
                     }
-
-                    FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
-                } else {
-                    sumarrowspan(consolidator.getCodigoPO().getCodigopo());
-                    model.saveped(consolidator);
                 }
 
                 FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+            } else {
+                if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), 0)) {
+                    if (model.checkPoainped(consolidator.getCodigoPO().getCodigopo())) {
+                        consolidator.setRowspan(1);
+                        consolidator.setRowspan2(1);
+                        model.saveped(consolidator);
+                        JsfUtil.setFlashMessage("exito", "Insertado correctamente");
+                        JsfUtil.setFlashMessage("important", "Nuevo registro madre PED");
+                    } else {
+                        model.saveped(consolidator);
+                        sumarrowspan(consolidator.getCodigoPO().getCodigopo());
+                    }
+                }
+                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
             }
+
         } catch (Exception e) {
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
 
@@ -171,11 +181,11 @@ public class PEDbean {
 
     public String deleteped() {
         try {
-            if(model.delete1(consolidator.getCodigocon())){
+            if (model.delete1(consolidator.getCodigocon())) {
                 JsfUtil.setFlashMessage("error", "Eliminado correctamente");
                 restarrowspan(consolidator.getCodigoPO().getCodigopo());
             }
-            
+
         } catch (Exception e) {
         }
         return "PED";

@@ -35,7 +35,7 @@
 
             <h:form>
                 <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
-                             emptyMessage="No hay Areas Estrategicas" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan le 0 ? 'hijos': null}"
+                             emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan le 0 ? 'hijos': null}"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
                              rowKey="#{p.codigocon}">
                     <f:facet name="header">
@@ -50,7 +50,7 @@
                     <p:columnGroup type="header">
                         <p:row>
                             <p:column headerText="CODIGO PED" width="5%" />
-                            <p:column headerText="Actividad" width="34%" />
+                            <p:column headerText="Actividad clave" width="34%" />
                             <p:column headerText="Indicadores" width="29%" />
                             <p:column headerText="Meta Global" width="5%" />                            
                             <p:column headerText="Año" width="5%" />
@@ -127,7 +127,7 @@
                         <f:ajax render="form1"/>
                     </p:menuitem>
                     <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{pEDbean.deleteped()}" ajax="false"/>
-                                
+
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
@@ -165,21 +165,21 @@
                         <f:selectItem itemLabel="2012" itemValue="2012"/>
                         <f:selectItem itemLabel="2011" itemValue="2011"/>                        
                     </b:selectOneMenu>
-                    <h:outputLabel value="POA:" class="profile" style="margin-bottom: 25px;"/>   
+                    <h:outputLabel value="Actividad clave:" class="profile" style="margin-bottom: 25px;"/>   
 
                     <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control" onchange="alert('Tenga en cuenta que la actividad seleccionada es muy fundamental en el consoldado final del PED, podra actualizar posteriormente siempre y cuando esta no sea el primer registro usando dicha actividad');">
                         <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
 
 
                     </b:selectOneMenu>                    
-                    <h:outputLabel value="Physical Goal" class="profile" style="margin-bottom: 25px;"/>
+                    <h:outputLabel value="Physical Goal:" class="profile" style="margin-bottom: 25px;"/>
                     <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
                         <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
                     </b:selectOneMenu>
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="false" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
                         </p:commandButton>
                     </div>
@@ -199,7 +199,12 @@
                 });
             });
         </script>
-
-
+        
+        <c:if test="#{not empty flash.important}">
+            alertify
+            .alert("Se registro por primera vez en el PED esta actividad, recuerde que esta mantendra el orden de todos los demas datos de la actividad.", function(){
+            alertify.message('OK :(');
+            });  
+        </c:if>
     </ui:define>
 </ui:composition>
