@@ -53,8 +53,9 @@ public class PEDmodel {
         try {
             Query con = em.createNativeQuery("select c.year from consolidatorpo c where c.year='" + year1 + "' and c.codigoPO='"+poa+"'");
             List list1 = con.getResultList();
-            return !(list1.isEmpty());
-        } catch (Exception e) {            
+            return list1.isEmpty();
+        } catch (Exception e) {     
+            e.printStackTrace();
             return false;
         }
     }
@@ -86,6 +87,21 @@ public class PEDmodel {
             System.out.println("Errrrrrrror en findbyidped");
             JsfUtil.setErrorMessage("model", "error en findbyPED");
             return null;
+        }
+    }
+    public boolean delete1(int conso)           
+    {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();        
+        try {
+            EntityTransaction trans = em.getTransaction();
+            ConsolidatorpoEntity conso1 = em.find(ConsolidatorpoEntity.class, conso);
+            trans.begin();
+            em.remove(conso1);
+            trans.commit();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

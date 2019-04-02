@@ -404,7 +404,12 @@ display: none;
 
 }
 .hijos {
-    
+
     background-image: none !important;
     color: #c00000 !important;
+}
+.tdLessPadding td {
+     
+        padding: .2em .2em !important;
+    
 }

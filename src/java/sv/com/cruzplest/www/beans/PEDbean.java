@@ -116,7 +116,7 @@ public class PEDbean {
 
     public boolean findyear(int year1, int poa) {
         try {
-            if (model.findyear(year1, poa)) {
+            if (model.findyear(year1, poa)) {                
                 JsfUtil.setFlashMessage("error", "Ya existe una actividad con ese mismo año");
                 return true;
             } else {
@@ -133,36 +133,52 @@ public class PEDbean {
         int codigonew = 0;
 
         try {
-            if (boolped == true) {
-                codigonew = consolidator.getCodigoPO().getCodigopo();
-                ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
-                datosold = model.findbyIdPED(consolidator.getCodigocon());
-                codigoold = datosold.getCodigoPO().getCodigopo();
+            if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo())) {
+                if (boolped == true) {
+                    codigonew = consolidator.getCodigoPO().getCodigopo();
+                    ConsolidatorpoEntity datosold = new ConsolidatorpoEntity();
+                    datosold = model.findbyIdPED(consolidator.getCodigocon());
+                    codigoold = datosold.getCodigoPO().getCodigopo();
 //                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
-                System.out.print("codigoooo viejo(2) " + getOld_codigopo());
-                findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo());
-                if (model.updatePED(consolidator)) {
-                    if (codigonew != codigoold) {
-                        sumarrowspan(codigonew);
-                        restarrowspan(codigoold);
+                    System.out.print("codigoooo viejo(2) " + getOld_codigopo());
+
+                    if (model.updatePED(consolidator)) {
+                        if (codigonew != codigoold) {
+                            sumarrowspan(codigonew);
+                            restarrowspan(codigoold);
+
+                        }
+                        JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
 
                     }
+
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+                } else {
+                    sumarrowspan(consolidator.getCodigoPO().getCodigopo());
+                    model.saveped(consolidator);
                 }
-                JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
+
                 FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
-            } else {
-                sumarrowspan(consolidator.getCodigoPO().getCodigopo());
-                model.saveped(consolidator);
             }
-
-            FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
-
         } catch (Exception e) {
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
 
             e.printStackTrace();
+
         }
 
+    }
+
+    public String deleteped() {
+        try {
+            if(model.delete1(consolidator.getCodigocon())){
+                JsfUtil.setFlashMessage("error", "Eliminado correctamente");
+                restarrowspan(consolidator.getCodigoPO().getCodigopo());
+            }
+            
+        } catch (Exception e) {
+        }
+        return "PED";
     }
 
     public void reboot1() {

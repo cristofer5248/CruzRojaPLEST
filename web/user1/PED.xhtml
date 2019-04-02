@@ -126,6 +126,8 @@
                     <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" update="form1" action="#{pEDbean.boolped()}">
                         <f:ajax render="form1"/>
                     </p:menuitem>
+                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{pEDbean.deleteped()}" ajax="false"/>
+                                
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
@@ -167,7 +169,7 @@
 
                     <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control" onchange="alert('Tenga en cuenta que la actividad seleccionada es muy fundamental en el consoldado final del PED, podra actualizar posteriormente siempre y cuando esta no sea el primer registro usando dicha actividad');">
                         <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
-                        
+
 
                     </b:selectOneMenu>                    
                     <h:outputLabel value="Physical Goal" class="profile" style="margin-bottom: 25px;"/>
@@ -197,7 +199,7 @@
                 });
             });
         </script>
-        
+
 
     </ui:define>
 </ui:composition>
