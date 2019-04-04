@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Christopher/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/utils/pruebasqueryNativo.java</file>
-            <file>file:/C:/Users/Christopher/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/PED.xhtml</file>
-            <file>file:/C:/Users/Christopher/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/PEDbean.java</file>
-            <file>file:/C:/Users/Christopher/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/model/PEDmodel.java</file>
-            <file>file:/C:/Users/Christopher/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/entities/PoTableEntity.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/AreasBean.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/PoaBean.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/PEDbean.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/UsersBean.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/model/PEDmodel.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/PhysicalGBean.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/area.xhtml</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/poa.xhtml</file>
         </group>
     </open-files>
 </project-private>

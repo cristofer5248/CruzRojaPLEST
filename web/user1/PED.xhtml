@@ -179,7 +179,7 @@
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="false" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
                         </p:commandButton>
                     </div>

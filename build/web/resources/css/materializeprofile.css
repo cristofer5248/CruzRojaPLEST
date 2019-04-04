@@ -1,6 +1,6 @@
 @import url(https://zavoloklom.github.io/material-design-iconic-font/css/docs.md-iconic-font.min.css);
 .card {
-    height: 550px;
+    height: auto;
     width: 90%;
     background: #fff;
     font-family: Roboto;
@@ -70,7 +70,7 @@
 .active .avatar:hover {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
-
+/*aqui*/
 .fabs {
     position: absolute;
     margin-top: -30px;
@@ -93,7 +93,7 @@
 }
 
 .content1 {
-    position: absolute;
+    position: initial;
     width: 90%;
     height: auto;
     margin: 10px;    
@@ -254,7 +254,7 @@
 }
 
 .profiles {
-    /*  display: inline-block;*/
+    
 }
 
 .profile {

@@ -26,7 +26,7 @@ import sv.com.cruzplest.www.utils.TotalesOb;
 @ViewScoped
 public class PEDbean {
 
-    private ConsolidatorpoEntity consolidator;
+    private ConsolidatorpoEntity consolidator = new ConsolidatorpoEntity();
     private List<ConsolidatorpoEntity> consolidatorList;
     private List<ConsolidatorpoEntity> consolidatorListfiltered;
     private ArrayList<TotalesOb> totales;
@@ -169,7 +169,7 @@ public class PEDbean {
                 }
                 FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
             }
-
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
         } catch (Exception e) {
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
 

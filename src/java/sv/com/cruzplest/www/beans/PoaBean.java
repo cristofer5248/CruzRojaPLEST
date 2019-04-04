@@ -32,6 +32,7 @@ public class PoaBean {
     private int area;
     private int yearselected;
     private int poacod;
+    private boolean boolpoa;
 
     /**
      * Creates a new instance of PoaBean
@@ -50,12 +51,42 @@ public class PoaBean {
         }
     }
 
-    public void insertpoa() {
+    public void deletepoa() {
         try {
-            if (model.insertpoa(poa)) {
-                JsfUtil.setFlashMessage("exito", "POA insertado correctamente");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+            if (model.removepoa(poa.getCodigopo())) {
+                JsfUtil.setFlashMessage("error", "POA ELIMINADO CORRECTAMENTE");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("poa.xhtml");
+            } else {
+                FacesContext.getCurrentInstance().getExternalContext().redirect("poa.xhtml");
             }
+        } catch (Exception e) {
+            JsfUtil.setFlashMessage("error", "No se pudo eliminar el POA, probablemente este forma parte ya del PED");
+
+        }
+    }
+
+    public void boolpoa() {
+        try {
+            setBoolpoa(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertpoaorupdate() {
+        try {
+            if (boolpoa == true) {
+                if (model.updatepoa(poa)) {
+                    JsfUtil.setFlashMessage("exito", "POA actualizado correctamente");
+                }
+                JsfUtil.setFlashMessage("exito", "POA actualizado correctamente");
+            } else {
+                if (model.insertpoa(poa)) {
+                    JsfUtil.setFlashMessage("exito", "POA insertado correctamente");
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("poa.xhtml");
+                }
+            }
+            FacesContext.getCurrentInstance().getExternalContext().redirect("poa.xhtml");
         } catch (Exception e) {
             e.printStackTrace();
 
@@ -159,6 +190,20 @@ public class PoaBean {
      */
     public void setPoa(PoTableEntity poa) {
         this.poa = poa;
+    }
+
+    /**
+     * @return the boolpoa
+     */
+    public boolean isBoolpoa() {
+        return boolpoa;
+    }
+
+    /**
+     * @param boolpoa the boolpoa to set
+     */
+    public void setBoolpoa(boolean boolpoa) {
+        this.boolpoa = boolpoa;
     }
 
 }

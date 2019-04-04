@@ -27,8 +27,39 @@ public class PoaModel {
             return list;
 
         } catch (Exception e) {
+            em.close();
             e.printStackTrace();
             return null;
+        }
+    }
+
+    public boolean removepoa(int poa) {
+        EntityManager ent = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = ent.getTransaction();
+        try {
+            trans.begin();
+            ent.remove(ent.find(PoTableEntity.class, poa));
+            trans.commit();
+            return true;
+        } catch (Exception e) {
+            ent.close();
+            return false;
+        }
+    }
+
+    public boolean updatepoa(PoTableEntity poa) {
+        EntityManager ent = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = ent.getTransaction();
+        try {
+            trans.begin();
+            ent.merge(poa);
+            trans.commit();
+            ent.close();
+            return true;
+        } catch (Exception e) {
+            ent.close();
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -39,8 +70,10 @@ public class PoaModel {
             trans.begin();
             em.persist(poa);
             trans.commit();
+            em.close();
             return true;
         } catch (Exception e) {
+            em.close();
             e.printStackTrace();
             return false;
         }
@@ -53,16 +86,20 @@ public class PoaModel {
             return consulta.getResultList();
 
         } catch (Exception e) {
+            em.close();
             e.printStackTrace();
             return null;
         }
     }
 
     public List<PoTableEntity> listYear() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+
             Query consulta = em.createNamedQuery("PoTableEntity.findStrategicArea");
+            em.close();
         } catch (Exception e) {
+            em.close();
         }
         return null;
     }

@@ -66,10 +66,10 @@
                     </p:column>
                 </p:dataTable>
                 <p:contextMenu for="tabla1">
-                    <p:menuitem class="holiwe" value=" Editar datos del poa" icon="fa fa-edit" update="form1" action="#{pEDbean.boolped()}">
+                    <p:menuitem class="holiwe" value=" Editar datos del poa" icon="fa fa-edit" update="form1" action="#{poaBean.boolpoa()}">
                         <f:ajax render="form1"/>
                     </p:menuitem>
-                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{pEDbean.deleteped()}" ajax="false"/>
+                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{poaBean.deletepoa()}" ajax="false"/>
 
                 </p:contextMenu>
             </h:form>
@@ -109,7 +109,7 @@
                         <f:selectItems value="#{usersBean.listarAll()}" var="user" itemLabel="#{user.nombre} #{user.apellidos}" itemValue="#{user}"/>
                     </b:selectOneMenu>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton  action="#{poaBean.insertpoa()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                        <p:commandButton  action="#{poaBean.insertpoaorupdate()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
                         </p:commandButton>
                     </div>

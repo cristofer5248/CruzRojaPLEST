@@ -19,39 +19,25 @@
 
 
     <ui:define name="contenido">
-        <p:dialog header="PED" widgetVar="dlg2" modal="true" position="center center" height="200" width="300" class="modal-content1 ownModelstyle">            
-            <!--            <h2 style="font-family: Roboto;">Seleciona un año</h2>-->
-            <h:form>                                       
-                <b:panelGrid columns="2" col-lg="5" style="text-align: left;">
-                    <h:outputLabel value="Año:" style="margin-right: 15px;"/>
-                    <b:selectOneMenu id="year" value="#{varsBean.year1}" style="width: 200px;" onchange="enabletrimestre()">                    
-                        <f:selectItem itemLabel="2020" itemValue="2020"/>
-                        <f:selectItem itemLabel="2019" itemValue="2019"/>
-                        <f:selectItem itemLabel="2018" itemValue="2018"/>
-                        <f:selectItem itemLabel="2017" itemValue="2017"/>
-                        <f:selectItem itemLabel="2016" itemValue="2016"/>
-                        <f:selectItem itemLabel="2015" itemValue="2015"/>
-                        <f:selectItem itemLabel="2014" itemValue="2014"/>
-                        <f:selectItem itemLabel="2013" itemValue="2013"/>
-                        <f:selectItem itemLabel="2012" itemValue="2012"/>
-                        <f:selectItem itemLabel="2011" itemValue="2011"/>
-                        <f:selectItem itemLabel="Ninguno" itemValue="0"/>
-                    </b:selectOneMenu>
-<!--                    <h:outputLabel value="Trimestre:" style="margin-right: 15px;"/>
-                    <b:selectOneMenu id="trimestre" value="# {pEDbean.trimestreselected}" onchange="enableyear()" style="width: 200px;">                    
-                        <f:selectItem itemLabel="Trimestre 1" itemValue="1"/>
-                        <f:selectItem itemLabel="Trimestre 2" itemValue="2"/>
-                        <f:selectItem itemLabel="Trimestre 3" itemValue="3"/>
-                        <f:selectItem itemLabel="Ninguno" itemValue="0"/>
-                    </b:selectOneMenu>-->
-                    <p:commandButton id="btnpoa" class="btn btn-amber amber1" style="color:white;" action="#{areasBean.goesToped()}" value="Enviar">
-                        <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
+        <h:form id="form1" style="position: absolute; margin-left: 25%;">
+            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
+                <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
+                <b:inputText value="#{areasBean.strategicareas.nombre}" maxlength="80" mask="a{15,80}" class="profile" id="nombreform"/>
+                <div class="col-lg-6" style="margin-top: 30px;">
+                    <p:commandButton type="submit" ajax="false" class="green1 profile"  action="#{areasBean.newArea()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+
                     </p:commandButton>
-
-                </b:panelGrid>                                
-            </h:form>            
-
-        </p:dialog>        
+                </div>
+            </b:panelGrid>
+        </h:form> 
+        <div class="fabs">
+            <div class="fab"></div>
+            <i class="avatar zmdi zmdi-plus" onclick="mostrar('form1');"></i>
+            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                <f:ajax render="@form"/>
+                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                            </h:commandButton>-->
+        </div>
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
@@ -59,7 +45,7 @@
                 <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
             </p:breadCrumb>            
             <h:form>
-                <p:dataTable value="#{areasBean.strategicAreas}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
+                <p:dataTable value="#{areasBean.listAll()}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
                              filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
                     <f:facet name="header">
                         <p:outputPanel>
@@ -96,33 +82,16 @@
             </h:form>
 
         </div>
-        <div class="fabs">
-            <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" onclick="mostrar('form1');"></i>
-            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
-                                <f:ajax render="@form"/>
-                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
-                            </h:commandButton>-->
-        </div>
 
-        <h:form id="form1" style="display:none;">
-            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-                <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="${areasBean.strategicareas.nombre}" maxlength="80" mask="a{15,80}" class="profile" id="nombreform"/>
-                <div class="col-lg-6" style="margin-top: 30px;">
-                    <p:commandButton type="submit" ajax="false" class="green1"  action="#{areasBean.newArea()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
 
-                    </p:commandButton>
-                </div>
-            </b:panelGrid>
-        </h:form>              
+
         <h:outputScript>
             function enableyear(){
-            
+
             document.getElementById('j_idt50:yearInner').value=0;
             }
             function enabletrimestre(){            
-            
+
             document.getElementById('j_idt50:trimestreInner').value = 0;
             }             
         </h:outputScript>
