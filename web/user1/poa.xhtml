@@ -19,6 +19,48 @@
 
 
     <ui:define name="contenido">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar una nueva actividad">
+            <div class="fab"></div>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
+            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                <f:ajax render="@form"/>
+                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                            </h:commandButton>-->
+        </div>
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease">
+                <b:panelGrid columns="2" class="profiles"  style="padding-top: 40px">
+                    <h:outputLabel value="Actividad" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{poaBean.poa.actividad}" maxlength="80" class="profile"/>
+                    <h:outputLabel value="Indicadores" class="profile"/>
+
+                    <b:selectOneMenu value="#{poaBean.poa.indicatores}" class="form-control profile" >
+                        <f:selectItems value="#{indicatorBean.listAll()}" var="in" itemLabel="#{in.detalle}" itemValue="#{in}"/>
+                    </b:selectOneMenu>
+
+                    <h:outputLabel value="Meta Global:" class="profile"/>
+                    <b:inputText value="#{poaBean.poa.metaGlobal}" maxlength="5" mask="integer" class="profile"/>
+                    <h:outputLabel value="Unidad:" class="profile"/>
+                    <b:selectOneMenu value="#{poaBean.poa.unidad}" class="form-control profile">                    
+                        <f:selectItems value="#{measurementUBean.listAllSelect()}" var="mea" itemValue="#{mea}" itemLabel="#{mea.nombre}"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Area Estrategica" class="profile"/>
+                    <b:selectOneMenu value="#{poaBean.poa.areaest}" class="profile form-control">
+                        <f:selectItems value="#{areasBean.listAll()}" var="area" itemLabel="#{area.nombre}" itemValue="#{area}"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Encargado" class="profile"/>
+                    <b:selectOneMenu value="#{poaBean.poa.encargado}">
+                        <f:selectItems value="#{usersBean.listarAll()}" var="user" itemLabel="#{user.nombre} #{user.apellidos}" itemValue="#{user}"/>
+                    </b:selectOneMenu>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton  action="#{poaBean.insertpoaorupdate()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form>
+        </div>
+        
         <div class="content1">
             <div>
                 <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
@@ -74,47 +116,6 @@
                 </p:contextMenu>
             </h:form>
 
-        </div>
-        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar una nueva actividad">
-            <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
-            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
-                                <f:ajax render="@form"/>
-                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
-                            </h:commandButton>-->
-        </div>
-        <div class="abriteplease2" id="abriteplease2">
-            <h:form id="form1" class="abriteplease">
-                <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-                    <h:outputLabel value="Actividad" class="profile" style="margin-bottom: 25px;"/>
-                    <b:inputText value="#{poaBean.poa.actividad}" maxlength="80" class="profile"/>
-                    <h:outputLabel value="Indicadores" class="profile"/>
-
-                    <b:selectOneMenu value="#{poaBean.poa.indicatores}" class="form-control profile" >
-                        <f:selectItems value="#{indicatorBean.listAll()}" var="in" itemLabel="#{in.detalle}" itemValue="#{in}"/>
-                    </b:selectOneMenu>
-
-                    <h:outputLabel value="Meta Global:" class="profile"/>
-                    <b:inputText value="#{poaBean.poa.metaGlobal}" maxlength="5" mask="integer" class="profile"/>
-                    <h:outputLabel value="Unidad:" class="profile"/>
-                    <b:selectOneMenu value="#{poaBean.poa.unidad}" class="form-control profile">                    
-                        <f:selectItems value="#{measurementUBean.listAllSelect()}" var="mea" itemValue="#{mea}" itemLabel="#{mea.nombre}"/>
-                    </b:selectOneMenu>
-                    <h:outputLabel value="Area Estrategica" class="profile"/>
-                    <b:selectOneMenu value="#{poaBean.poa.areaest}" class="profile form-control">
-                        <f:selectItems value="#{areasBean.listAll()}" var="area" itemLabel="#{area.nombre}" itemValue="#{area}"/>
-                    </b:selectOneMenu>
-                    <h:outputLabel value="Encargado" class="profile"/>
-                    <b:selectOneMenu value="#{poaBean.poa.encargado}">
-                        <f:selectItems value="#{usersBean.listarAll()}" var="user" itemLabel="#{user.nombre} #{user.apellidos}" itemValue="#{user}"/>
-                    </b:selectOneMenu>
-                    <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton  action="#{poaBean.insertpoaorupdate()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
-                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
-                        </p:commandButton>
-                    </div>
-                </b:panelGrid>
-            </h:form>
         </div>
         <p:dialog header="Detalles" widgetVar="dlg3" modal="true" width="auto" height="auto" position="center center" class="modal-content3 ownModelstyle">            
 

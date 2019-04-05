@@ -19,9 +19,7 @@ import org.primefaces.event.MoveEvent;
 import sv.com.cruzplest.www.entities.StrategicareasEntity;
 import sv.com.cruzplest.www.model.AreasModel;
 import sv.com.cruzplest.www.utils.JsfUtil;
-
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.diagram.connector.StraightConnector;
 
 /**
  *
@@ -36,6 +34,7 @@ public class AreasBean {
     private List<StrategicareasEntity> strategicAreas;
     public List<StrategicareasEntity> areasfiltered;
     private int yearselected;
+    private boolean boolarea;
 //    private StrategicareasEntity strategicareas = new StrategicareasEntity();
     private boolean areasL = true;
 
@@ -88,7 +87,28 @@ public class AreasBean {
 
     }
 
-    public String newArea() {
+    public void update() {
+        try {
+            setBoolarea(true);
+        } catch (Exception e) {
+        }
+    }
+
+    public String deletearea() {
+        try {
+            if (model.deletearea(strategicareas.getCodigostr())) {
+                JsfUtil.setFlashMessage("error", "Area estrategica " + strategicareas.getNombre() + " eliminada satisfactoriamente!");
+            } else {
+                JsfUtil.setFlashMessage("error", "No se pudo eliminar, posiblemente este esta area estrategica ya esta en el PED y no se puede eliminar");
+            }
+            return "area";
+        } catch (Exception e) {
+            JsfUtil.setFlashMessage("error", "Error interno");
+            return "area";
+        }
+    }
+
+    public String newAreaorupdate() {
         try {
             if (model.insertAreas(strategicareas)) {
                 JsfUtil.setFlashMessage("add", "Area Estrategica insertada satisfactoriamente!");
@@ -96,9 +116,10 @@ public class AreasBean {
                 model.updateArea(strategicareas);
                 JsfUtil.setFlashMessage("update", "Area Estrategica actualizada satisfactoriamente!");
             }
+            FacesContext.getCurrentInstance().getExternalContext().redirect("area.xhtml");
             return "area";
         } catch (Exception e) {
-        }
+        }        
         return "area";
     }
 
@@ -180,6 +201,20 @@ public class AreasBean {
      */
     public void setYearselected(int yearselected) {
         this.yearselected = yearselected;
+    }
+
+    /**
+     * @return the boolarea
+     */
+    public boolean isBoolarea() {
+        return boolarea;
+    }
+
+    /**
+     * @param boolarea the boolarea to set
+     */
+    public void setBoolarea(boolean boolarea) {
+        this.boolarea = boolarea;
     }
 
 }

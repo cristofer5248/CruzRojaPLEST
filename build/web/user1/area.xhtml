@@ -19,20 +19,22 @@
 
 
     <ui:define name="contenido">
-        <h:form id="form1" style="position: absolute; margin-left: 25%;">
-            <b:panelGrid columns="2" class="profiles"  style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-                <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
-                <b:inputText value="#{areasBean.strategicareas.nombre}" maxlength="80" mask="a{15,80}" class="profile" id="nombreform"/>
-                <div class="col-lg-6" style="margin-top: 30px;">
-                    <p:commandButton type="submit" ajax="false" class="green1 profile"  action="#{areasBean.newArea()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
-
-                    </p:commandButton>
-                </div>
-            </b:panelGrid>
-        </h:form> 
-        <div class="fabs">
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease">
+                <b:panelGrid columns="2" class="profiles"  style=" padding-top: 40px">
+                    <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{areasBean.strategicareas.nombre}" maxlength="80" class="profile" id="nombreform"/>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton type="submit" ajax="true" class="green1 profile"  action="#{areasBean.newAreaorupdate()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form> 
+        </div>
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
             <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" onclick="mostrar('form1');"></i>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
                                 <f:ajax render="@form"/>
                                 DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
@@ -45,8 +47,9 @@
                 <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
             </p:breadCrumb>            
             <h:form>
-                <p:dataTable value="#{areasBean.listAll()}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
-                             filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" >
+                <p:dataTable id="tabla1" value="#{areasBean.listAll()}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
+                             filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" selectionMode="single" selection="#{areasBean.strategicareas}"
+                             rowKey="#{a.codigostr}">
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:commandButton value="PED" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
@@ -79,8 +82,13 @@
                     
                                         </p:column>-->
                 </p:dataTable>
+                <p:contextMenu for="tabla1">
+                    <p:menuitem class="holiwe" value=" Editar area estrategica" icon="fa fa-edit" update="form1" action="#{areasBean.update()}">
+                        <f:ajax render="form1"/>
+                    </p:menuitem>
+                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{areasBean.deletearea()}" ajax="false"/>
+                </p:contextMenu>
             </h:form>
-
         </div>
 
 

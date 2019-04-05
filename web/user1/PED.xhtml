@@ -21,6 +21,56 @@
 
 
     <ui:define name="contenido">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
+            <div class="fab"></div>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
+            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                <f:ajax render="@form"/>
+                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                            </h:commandButton>-->
+        </div>
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease" u:data-step="4" u:data-intro="Formulario para registro o actualizacion de datos del PED">
+                <b:panelGrid columns="2" class="profiles" style="padding-top: 40px">
+
+                    <h:outputLabel value="Planificado:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="${pEDbean.consolidator.planificado}"  mask="integer" class="profile" />
+                    <h:outputLabel value="Ejecutado:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="${pEDbean.consolidator.ejecutado}" mask="integer" class="profile" />
+                    <h:outputLabel value="Año:" class="profile" style="margin-bottom: 25px;"/>                
+                    <b:selectOneMenu value="#{pEDbean.consolidator.year}" class="profile">                    
+                        <f:selectItem itemLabel="2020" itemValue="2020"/>
+                        <f:selectItem itemLabel="2019" itemValue="2019"/>
+                        <f:selectItem itemLabel="2018" itemValue="2018"/>
+                        <f:selectItem itemLabel="2017" itemValue="2017"/>
+                        <f:selectItem itemLabel="2016" itemValue="2016"/>
+                        <f:selectItem itemLabel="2015" itemValue="2015"/>
+                        <f:selectItem itemLabel="2014" itemValue="2014"/>
+                        <f:selectItem itemLabel="2013" itemValue="2013"/>
+                        <f:selectItem itemLabel="2012" itemValue="2012"/>
+                        <f:selectItem itemLabel="2011" itemValue="2011"/>                        
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Actividad clave:" class="profile" style="margin-bottom: 25px;"/>   
+
+                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control" onchange="alert('Tenga en cuenta que la actividad seleccionada es muy fundamental en el consoldado final del PED, podra actualizar posteriormente siempre y cuando esta no sea el primer registro usando dicha actividad');">
+                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
+
+                    </b:selectOneMenu>                    
+                    <h:outputLabel value="Physical Goal:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
+                        <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form>          
+        </div>
+        
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
@@ -136,56 +186,6 @@
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
 
         </div>
-        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
-            <div class="fab"></div>
-            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
-            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
-                                <f:ajax render="@form"/>
-                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
-                            </h:commandButton>-->
-        </div>
-        <div class="abriteplease2" id="abriteplease2">
-            <h:form id="form1" class="abriteplease" u:data-step="4" u:data-intro="Formulario para registro o actualizacion de datos del PED">
-                <b:panelGrid columns="2" class="profiles"   style="margin-left: 30%; padding-right: 30px; padding-top: 40px">
-
-                    <h:outputLabel value="Planificado:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:inputText value="${pEDbean.consolidator.planificado}"  mask="integer" class="profile" />
-                    <h:outputLabel value="Ejecutado:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:inputText value="${pEDbean.consolidator.ejecutado}" mask="integer" class="profile" />
-                    <h:outputLabel value="Año:" class="profile" style="margin-bottom: 25px;"/>                
-                    <b:selectOneMenu value="#{pEDbean.consolidator.year}" class="profile">                    
-                        <f:selectItem itemLabel="2020" itemValue="2020"/>
-                        <f:selectItem itemLabel="2019" itemValue="2019"/>
-                        <f:selectItem itemLabel="2018" itemValue="2018"/>
-                        <f:selectItem itemLabel="2017" itemValue="2017"/>
-                        <f:selectItem itemLabel="2016" itemValue="2016"/>
-                        <f:selectItem itemLabel="2015" itemValue="2015"/>
-                        <f:selectItem itemLabel="2014" itemValue="2014"/>
-                        <f:selectItem itemLabel="2013" itemValue="2013"/>
-                        <f:selectItem itemLabel="2012" itemValue="2012"/>
-                        <f:selectItem itemLabel="2011" itemValue="2011"/>                        
-                    </b:selectOneMenu>
-                    <h:outputLabel value="Actividad clave:" class="profile" style="margin-bottom: 25px;"/>   
-
-                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control" onchange="alert('Tenga en cuenta que la actividad seleccionada es muy fundamental en el consoldado final del PED, podra actualizar posteriormente siempre y cuando esta no sea el primer registro usando dicha actividad');">
-                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
-
-
-                    </b:selectOneMenu>                    
-                    <h:outputLabel value="Physical Goal:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
-                        <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
-                    </b:selectOneMenu>
-                    <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
-                    <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
-                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
-                        </p:commandButton>
-                    </div>
-                </b:panelGrid>
-            </h:form>          
-        </div>
         <h:outputScript>
 
         </h:outputScript>
@@ -199,7 +199,7 @@
                 });
             });
         </script>
-        
+
         <c:if test="#{not empty flash.important}">
             alertify
             .alert("Se registro por primera vez en el PED esta actividad, recuerde que esta mantendra el orden de todos los demas datos de la actividad.", function(){

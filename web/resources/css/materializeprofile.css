@@ -254,7 +254,7 @@
 }
 
 .profiles {
-    
+
 }
 
 .profile {
@@ -333,4 +333,9 @@
 }
 .introjs-prevbutton{
     display: none !important;
+}
+.abriteplease2 form {
+    position: absolute; 
+    margin-left: 27%; 
+    width: 65%
 }

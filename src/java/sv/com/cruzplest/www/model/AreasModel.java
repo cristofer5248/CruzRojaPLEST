@@ -35,6 +35,21 @@ public class AreasModel {
 
     }
 
+    public boolean deletearea(int id) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.remove(em.find(StrategicareasEntity.class, id));
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
+
     public boolean insertAreas(StrategicareasEntity strategic) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
