@@ -56,6 +56,10 @@ public class UsersEntity implements Serializable {
     private String correo;
     @Basic(optional = false)
     private int telefono;
+    
+    @Basic(optional = true)
+    private String img;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PrivilegesuserEntity> privilegesuserEntityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encargado")
@@ -215,6 +219,20 @@ public class UsersEntity implements Serializable {
      */
     public void setTelefono(int telefono) {
         this.telefono = telefono;
+    }
+
+    /**
+     * @return the img
+     */
+    public String getImg() {
+        return img;
+    }
+
+    /**
+     * @param img the img to set
+     */
+    public void setImg(String img) {
+        this.img = img;
     }
 
 }

@@ -23,7 +23,7 @@ import sv.com.cruzplest.www.utils.LimitAttempts;
 public class UsersBean {
 
     private UserModel model = new UserModel();
-    private UsersEntity users;
+    private UsersEntity users = new UsersEntity();
     private String pass;
     private String pass2;
     private String oldpass;
@@ -34,10 +34,14 @@ public class UsersBean {
     /**
      * Creates a new instance of UsersBean
      */
-    public UsersBean() {
-        UsersEntity users = new UsersEntity();
+    public UsersBean() {        
         FacesContext context = FacesContext.getCurrentInstance();
         userSession = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
+        users.setNombre(userSession.getNombre());
+        users.setApellidos(userSession.getApellidos());
+        users.setCorreo(userSession.getCorreo());
+        users.setGenero(userSession.getGenero());
+        users.setTelefono(userSession.getTelefono());
 
     }
 

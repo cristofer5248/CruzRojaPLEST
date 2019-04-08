@@ -1,0 +1,116 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="../WEB-INF/template1.xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:u="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="title">
+        <title>Unidades - Planificacion y Desarrollo</title>        
+        <!--        <h:outputScript name="js/utils.js"/>-->
+
+
+    </ui:define>
+
+
+    <ui:define name="contenido">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
+            <div class="fab"></div>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
+            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                <f:ajax render="@form"/>
+                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                            </h:commandButton>-->
+        </div>
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease" u:data-step="4" u:data-intro="Formulario para registro o actualizacion de datos del PED">
+                <b:panelGrid columns="2" class="profiles" style="padding-top: 40px">
+
+                    <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{measurementUBean.measurement.nombre}" maxlength="60" class="profile" />
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton action="#{measurementUBean.addmeasurementorupdate}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form>          
+        </div>
+        
+        <div class="content1">
+            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
+                <p:menuitem value="Categories" url="#" />
+                <p:menuitem value="Unidades" outcome="unidades" />
+            </p:breadCrumb>            
+
+            <h:form>
+                <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{measurementUBean.listAllSelect()}" var="me" paginator="true" rows="10" 
+                             emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;"
+                             class="bolado tdLessPadding" selectionMode="single" selection="#{measurementUBean.measurement}"
+                             rowKey="#{me.codigomea}" filteredValue="#{measurementUBean.measurementlistselected}">
+                    <f:facet name="header">
+<!--                        <p:outputPanel>
+                            <p:commandButton value="ACTUALIZAR" action="# {pEDbean.reboot1()}" class="skycolor1"  style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo."
+                                             u:tooltipClass="oyekhe"                 >
+                                <f:ajax render="tabla1" execute="@form"/>
+                            </p:commandButton>                            
+
+                        </p:outputPanel>-->
+                    </f:facet>
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column headerText="CODIGO" width="5%" filterBy="#{me.codigomea}" />
+                            <p:column headerText="Unidad de medida" filterBy="#{me.nombre}"/>                                                     
+                        </p:row>
+                    </p:columnGroup>
+
+                    <p:column> 
+                        <h:outputText  value="#{me.codigomea}"/>
+                    </p:column>
+                    <p:column style="padding: 2px;"> 
+                        <h:outputText  value="#{me.nombre}"/>
+                    </p:column>
+                </p:dataTable>  
+                <p:contextMenu for="tabla1">
+                    <p:menuitem class="holiwe" value=" Editar unidad de medida" icon="fa fa-edit" update="form1" action="#{measurementUBean.changeBool()}">
+                        <f:ajax render="form1"/>
+                    </p:menuitem>
+                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{measurementUBean.deletemea}" ajax="false"/>
+
+                </p:contextMenu>
+            </h:form>
+            <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
+                            <h1># {item.ejecutado}</h1> 
+                        </ui:repeat>-->
+            <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
+
+        </div>
+        <h:outputScript>
+
+        </h:outputScript>
+        <script>
+            $("#btn1").click(function () {
+                $(".bolado").table2excel({
+                    bootstrap: true,
+                    exclude: ".noExl",
+                    name: "PED",
+                    filename: "Asistencia"
+                });
+            });
+        </script>
+
+        <c:if test="#{not empty flash.important}">
+            alertify
+            .alert("Se registro por primera vez en el PED esta actividad, recuerde que esta mantendra el orden de todos los demas datos de la actividad.", function(){
+            alertify.message('OK :(');
+            });  
+        </c:if>
+    </ui:define>
+</ui:composition>

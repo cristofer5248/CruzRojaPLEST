@@ -7,6 +7,7 @@ package sv.com.cruzplest.www.model;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.com.cruzplest.www.entities.MeasurementunitsEntity;
 import sv.com.cruzplest.www.utils.JpaUtil;
@@ -28,5 +29,51 @@ public class MeasurementUModel {
         }
         return null;
     }
+
+    public boolean addmea(MeasurementunitsEntity mea) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(mea);
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
+
+    public boolean deletemea(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.remove(em.find(MeasurementunitsEntity.class, cod));
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
+
+    public boolean updatemea(MeasurementunitsEntity mea) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(mea);
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
+    
 
 }
