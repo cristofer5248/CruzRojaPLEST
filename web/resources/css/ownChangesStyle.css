@@ -9,6 +9,7 @@ and open the template in the editor.
 */
 .ownbutton{
     line-height: normal;
+    text-align: center;
     color: white;
     background-color:transparent;
     border: none;
