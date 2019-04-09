@@ -45,16 +45,17 @@ public class MeasurementUBean {
         }
     }
 
-    public void deletemea() {
+    public void deletemea() throws IOException {
         try {
             if (model.deletemea(measurement.getCodigomea())) {
                 JsfUtil.setFlashMessage("error", "Elimando correctamente");
             } else {
                 JsfUtil.setFlashMessage("error", "No se pudo eliminar, la unidad podria estar ya siendo usada");
             }
-
+            FacesContext.getCurrentInstance().getExternalContext().redirect("unidades.xhtml");
         } catch (Exception e) {
             JsfUtil.setFlashMessage("error", "No se pudo eliminar, la unidad podria estar ya siendo usada");
+            FacesContext.getCurrentInstance().getExternalContext().redirect("unidades.xhtml");
         }
     }
 
@@ -72,7 +73,7 @@ public class MeasurementUBean {
 
         } catch (Exception e) {
             JsfUtil.setFlashMessage("error", "Error interno, o ya existe una unidad de medida con el mismo nombre");
-            
+
         }
         FacesContext.getCurrentInstance().getExternalContext().redirect("unidades.xhtml");
     }

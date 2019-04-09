@@ -73,10 +73,10 @@
                 <i class="fa fa-user"></i>
                 <div class="animated slideInLeft " style="padding-bottom: 0px; margin-bottom: 0px; height: 80px">
 
-                    <h:button value="Perfil  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button>
+                    <h:button value="Perfil                  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button>
                     <h:form id="logout" class="ownform">
-                        <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" onclick="verprogress();" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton>
-                    </h:form>
+                        <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" onclick="verprogress();" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton><br></br>
+                    </h:form>                    
 
                     <br></br>
 
@@ -99,7 +99,11 @@
             <li>
                 <i class="fa fa-align-right"></i>
                 <div class="animated slideInLeft">
-                    <h:button value="AREAS ESTRATEGICAS" outcome="area" style="font-size: 15px" class="ownbutton" onclick="verprogress();"><i class="fa fa-gears"></i></h:button>
+                    <h:button value="Unidades de medida" outcome="unidades" style="font-size: 15px;"  class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button>
+                    <h:button value="Areas estrategicas    " outcome="area" style="font-size: 15px;" class="ownbutton" onclick="verprogress();"><i class="fa fa-car"></i></h:button><br></br>
+                    <h:button value="Meta Fisica                   " outcome="metafisica" style="font-size: 15px; margin: 0px; padding: 0px; " class="ownbutton" onclick="verprogress();"><i class="fa fa-university "></i></h:button>
+
+
                 </div>
             </li>
             <li>
@@ -116,6 +120,12 @@
                 <i class="fa fa-frown-o"></i>
                 <div class="animated slideInLeft">
                     <a value="Ayuda" style="" class="ownbutton" href="javascript:void(0);" onclick="javascript:introJs().start();">Iniciar asistente<i class="fa fa-toggle-on"></i></a>
+                </div>
+            </li>
+            <li>
+                <i class="fa  fa-bar-chart"></i>
+                <div class="animated slideInLeft">
+                    <h:button value="Ver estadisticas" outcome="estadisticas" style="font-size: 15px;"  class="ownbutton" onclick="verprogress();" ><i class="fa fa-line-chart "></i></h:button>
                 </div>
             </li>
 

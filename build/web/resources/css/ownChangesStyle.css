@@ -8,6 +8,8 @@ and open the template in the editor.
     Author     : RRDESC04
 */
 .ownbutton{
+    line-height: normal;
+    text-align: center;
     color: white;
     background-color:transparent;
     border: none;

@@ -7,6 +7,7 @@ package sv.com.cruzplest.www.model;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.com.cruzplest.www.entities.PhysicalGoalEntity;
 import sv.com.cruzplest.www.utils.JpaUtil;
@@ -35,4 +36,49 @@ public class PhysicalGModel {
         }
     }
 
+    public boolean deletephy(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.remove(em.find(PhysicalGoalEntity.class, cod));
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+
+    }
+
+    public boolean updatephy(PhysicalGoalEntity phy) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.merge(em.find(PhysicalGoalEntity.class, phy));
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
+
+    public boolean insertphy(PhysicalGoalEntity phy) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction trans = em.getTransaction();
+        try {
+            trans.begin();
+            em.persist(phy);
+            trans.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
 }

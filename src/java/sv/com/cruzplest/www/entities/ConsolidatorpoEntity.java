@@ -29,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c order by c.codigoPO.codigopo, c.rowspan2 desc")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigocon", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigocon = :codigocon")
+    , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigopo", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigoPO.codigopo = :cod ORDER BY c.year asc")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByTrimestre", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.trimestre = :trimestre")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByYear", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.year = :year")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByMeasurementU", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigoPO.unidad.codigomea = :cod")

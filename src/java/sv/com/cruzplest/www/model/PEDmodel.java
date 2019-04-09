@@ -48,18 +48,17 @@ public class PEDmodel {
         }
     }
 
-    public boolean findyear(int year1, int poa,int ped) {
+    public boolean findyear(int year1, int poa, int ped) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNativeQuery("select c.year from consolidatorpo c where c.year='" + year1 + "' and c.codigoPO='"+poa+"' and c.codigocon !="+ped+"");
+            Query con = em.createNativeQuery("select c.year from consolidatorpo c where c.year='" + year1 + "' and c.codigoPO='" + poa + "' and c.codigocon !=" + ped + "");
             List list1 = con.getResultList();
             return list1.isEmpty();
-        } catch (Exception e) {     
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
     }
-    
 
     public boolean saveped(ConsolidatorpoEntity conso) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -90,9 +89,9 @@ public class PEDmodel {
             return null;
         }
     }
-    public boolean delete1(int conso)           
-    {
-        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();        
+
+    public boolean delete1(int conso) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
             EntityTransaction trans = em.getTransaction();
             ConsolidatorpoEntity conso1 = em.find(ConsolidatorpoEntity.class, conso);
@@ -160,6 +159,52 @@ public class PEDmodel {
         }
     }
 
+    public List<ConsolidatorpoEntity> findbypo(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNamedQuery("ConsolidatorpoEntity.findByCodigopo").setParameter("cod", cod);
+            List<ConsolidatorpoEntity> list1 = con.getResultList();
+            if (list1.isEmpty()) {
+                return null;
+            } else {
+                return list1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List maxejecutado(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNativeQuery("select c.ejecutado from consolidatorpo c where c.codigoPO = ? order by c.ejecutado desc limit 1");
+            con.setParameter(1, cod);
+            List list = con.getResultList();
+            em.close();
+            return list;
+        } catch (Exception e) {
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public List maxplanificado(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNativeQuery("select c.planificado from consolidatorpo c where c.codigoPO = ? order by c.planificado desc limit 1");
+            con.setParameter(1, cod);
+            List list = con.getResultList();
+            em.close();
+            return list;
+        } catch (Exception e) {
+            em.close();
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public ArrayList<Integer> forRowSpam() {
 
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -206,10 +251,11 @@ public class PEDmodel {
             return null;
         }
     }
-    public boolean checkPoainped(int codigo){
+
+    public boolean checkPoainped(int codigo) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNativeQuery("select c.codigopo from consolidatorpo c where c.codigopo="+codigo+"");
+            Query con = em.createNativeQuery("select c.codigopo from consolidatorpo c where c.codigopo=" + codigo + "");
             List list1 = con.getResultList();
             return list1.isEmpty();
         } catch (Exception e) {

@@ -48,14 +48,13 @@ public class pruebasqueryNativo {
 
             PEDmodel modelo = new PEDmodel();
 //            List<Object[]> list = modelo.updatePEDRowspan(2, 2);
-                List list1 = modelo.findRowspanHigher(1);
-                System.out.print("Codigo higher by codeid = "+list1.get(0).toString());
-//            for (Object[] list1 : list) {
+            List<ConsolidatorpoEntity> list1 = modelo.findbypo(2);
+            list1.forEach((o) -> {
+                System.out.print(o.getPlanificado());
+            });//            for (Object[] list1 : list) {
 //                Double eoo = Double.parseDouble(list1[3].toString());
 //                System.out.print("AJA: "+eoo.toString()+" ");
 //            }
-            
-            
 //            int intentos = modelo.verificarIntentos("ADM123");
 //            System.out.print("Numero de intentos>>>  "+intentos);
 //            List<Object[]> lista;

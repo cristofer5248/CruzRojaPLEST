@@ -1,16 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="../WEB-INF/template1.xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:u="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="title">
+        <title>PED - Planificacion y Desarrollo</title>        
+        <!--        <h:outputScript name="js/utils.js"/>-->
+
+
+    </ui:define>
+
+
+    <ui:define name="contenido">
+
+        <div class="content1">
+            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
+                <p:menuitem value="Categories" url="#" />
+                <p:menuitem value="Estadisticas" outcome="estadisticas" url="#" />
+            </p:breadCrumb>            
+
+            <h:form id="chartform">
+                <b:selectOneMenu value="#{statistics.param1}">
+                    <f:selectItems value="#{poaBean.listarAll()}" var="po" itemLabel="#{po.actividad}" itemValue="#{po.codigopo}"/>
+                    <f:ajax event="change" listener="#{statistics.changeParameter()}" render="chart1"/>
+                </b:selectOneMenu>
+                <p:chart type="line" model="#{statistics.lineModel2}" style="width:1000px;" id="chart1" />               
+            </h:form>
+            <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
+                            <h1># {item.ejecutado}</h1> 
+                        </ui:repeat>-->
+            <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
+
+        </div>
+
+    </ui:define>
+</ui:composition>

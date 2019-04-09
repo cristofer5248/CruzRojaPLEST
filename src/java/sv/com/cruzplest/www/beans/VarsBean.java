@@ -7,6 +7,8 @@ package sv.com.cruzplest.www.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 
 /**
@@ -16,15 +18,24 @@ import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
 @ManagedBean
 @SessionScoped
 public class VarsBean {
+
     private String year1;
     private String trimestre;
     private Integer poselected;
     private ConsolidatorpoEntity consoOb;
+    private int poa;
 
     /**
      * Creates a new instance of varsBean
      */
     public VarsBean() {
+    }
+
+    public String changepoa() {
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+        int id = Integer.parseInt(request.getParameter("id"));
+        setPoa(id);
+        return "estadisticas";
     }
 
     public String getYear1() {
@@ -64,6 +75,19 @@ public class VarsBean {
     public void setConsoOb(ConsolidatorpoEntity consoOb) {
         this.consoOb = consoOb;
     }
-    
-    
+
+    /**
+     * @return the poa
+     */
+    public int getPoa() {
+        return poa;
+    }
+
+    /**
+     * @param poa the poa to set
+     */
+    public void setPoa(int poa) {
+        this.poa = poa;
+    }
+
 }
