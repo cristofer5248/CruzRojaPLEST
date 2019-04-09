@@ -61,6 +61,13 @@ public class PEDbean {
         }
     }
 
+    public String versta() {
+        try {
+        } catch (Exception e) {
+        }
+        return "estadisticas?faces-redirect=true&cod="+consolidator.getCodigoPO().getCodigopo()+"";
+    }
+
     public void boolped() {
         try {
             setBoolped(true);

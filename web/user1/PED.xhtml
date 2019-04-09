@@ -177,7 +177,7 @@
                         <f:ajax render="form1"/>
                     </p:menuitem>
                     <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{pEDbean.deleteped()}" ajax="false"/>
-                    <p:menuitem value="Ver en estadisticas" icon="fa fa-line-chart" action="#{varsBean.changepoa()}" ajax="true"/>
+                    <p:menuitem value="Ver en estadisticas" icon="fa fa-line-chart" action="#{pEDbean.versta()}" ajax="false"/>
                 </p:contextMenu>
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
