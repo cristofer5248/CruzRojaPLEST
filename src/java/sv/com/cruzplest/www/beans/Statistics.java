@@ -60,18 +60,22 @@ public class Statistics {
     private ConsolidatorpoEntity conso;
     private PEDmodel model1;
     List<ConsolidatorpoEntity> list1;
-    private int param1 = 2;
+    private int param1;
     private int limite;
 
-    public Statistics() {        
-        createLineModels();
-        createAnimatedModels();
+    public Statistics() {
+        if (param1 != 0) {
+            createLineModels();
+
+            createAnimatedModels();
+        } else {
+
+        }
     }
 
     public void changeParameter() {
 
         createLineModels();
-
         createAnimatedModels();
     }
 
@@ -87,62 +91,49 @@ public class Statistics {
     }
 
     private void createLineModels() {
-    
-    model1  = new PEDmodel();
-    list1  = model1.findbypo(param1);
-    List list = model1.maxejecutado(param1);
-    List list2 = model1.maxplanificado(param1);
-    limite  = (Integer) list.get(0);
-    int limite2 = (Integer) list2.get(0);
-    if (limite< limite2
 
-    
-        ) {
+        model1 = new PEDmodel();
+        list1 = model1.findbypo(param1);
+        List list = model1.maxejecutado(param1);
+        List list2 = model1.maxplanificado(param1);
+        limite = (Integer) list.get(0);
+        int limite2 = (Integer) list2.get(0);
+        if (limite < limite2) {
             limite = limite2;
-    }
-    lineModel1  = initLinearModel();
+        }
+        lineModel1 = initLinearModel();
 
-    lineModel1.setTitle (
-
-    "Linear Chart");
-    lineModel1.setLegendPosition (
-    "e");
+        lineModel1.setTitle(
+                "Linear Chart");
+        lineModel1.setLegendPosition(
+                "e");
         Axis yAxis = lineModel1.getAxis(AxisType.Y);
 
-    yAxis.setMin (
+        yAxis.setMin(
+                0);
+        yAxis.setMax(
+                10);
 
-    0);
-    yAxis.setMax (
+        setLineModel2(initCategoryModel());
+        getLineModel2()
+                .setTitle("Plan estrategico de desarrollo");
+        getLineModel2()
+                .setLegendPosition("e");
+        getLineModel2()
+                .setShowPointLabels(true);
+        getLineModel2()
+                .getAxes().put(AxisType.X, new CategoryAxis("Año"));
+        yAxis = getLineModel2().getAxis(AxisType.Y);
 
-    10);
+        yAxis.setLabel(
+                "Planificado y Ejecutado");
+        yAxis.setMin(
+                0);
+        yAxis.setMax(limite);
 
-    setLineModel2(initCategoryModel
+    }
 
-    ());
-    getLineModel2()
-
-    .setTitle("Plan estrategico de desarrollo");
-    getLineModel2()
-
-    .setLegendPosition("e");
-    getLineModel2()
-
-    .setShowPointLabels(true);
-    getLineModel2()
-    .getAxes().put(AxisType.X, new CategoryAxis("Año"));
-        yAxis  = getLineModel2().getAxis(AxisType.Y);
-
-    yAxis.setLabel (
-
-    "Planificado y Ejecutado");
-    yAxis.setMin (
-
-    0);
-    yAxis.setMax (limite);
-
-}
-
-private LineChartModel initCategoryModel() {
+    private LineChartModel initCategoryModel() {
 
         LineChartModel model = new LineChartModel();
 
@@ -167,6 +158,7 @@ private LineChartModel initCategoryModel() {
     }
 
     private LineChartModel initLinearModel() {
+
         LineChartModel model = new LineChartModel();
 
         LineChartSeries series1 = new LineChartSeries();
@@ -188,6 +180,7 @@ private LineChartModel initCategoryModel() {
         model.addSeries(series2);
 
         return model;
+
     }
 
     /**
@@ -222,6 +215,12 @@ private LineChartModel initCategoryModel() {
      * @return the lineModel2
      */
     public LineChartModel getLineModel2() {
+        return lineModel2;
+    }
+
+    public LineChartModel fillchart() {
+        createLineModels();
+        createAnimatedModels();
         return lineModel2;
     }
 

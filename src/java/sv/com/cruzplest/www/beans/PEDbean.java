@@ -63,9 +63,14 @@ public class PEDbean {
 
     public String versta() {
         try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            Statistics st = context.getApplication().evaluateExpressionGet(context, "#{codpo}", Statistics.class);
+            st.setParam1(this.consolidator.getCodigoPO().getCodigopo());
         } catch (Exception e) {
         }
         return "estadisticas?faces-redirect=true&cod="+consolidator.getCodigoPO().getCodigopo()+"";
+//        return "estadisticas?faces-redirect=true";
+//        return "estadisticas?faces-redirect=true&includeViewParams=" + consolidator.getCodigoPO().getCodigopo() + "";
     }
 
     public void boolped() {

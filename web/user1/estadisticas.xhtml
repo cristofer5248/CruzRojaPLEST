@@ -13,34 +13,51 @@
     xmlns:b="http://bootsfaces.net/ui">
 
     <ui:define name="title">
-        <title>PED - Planificacion y Desarrollo</title>        
+        <title>Estadisticas - Planificacion y Desarrollo</title>        
         <!--        <h:outputScript name="js/utils.js"/>-->
-
-
     </ui:define>
 
-
     <ui:define name="contenido">
+        <script type="text/javascript">
+            //<![CDATA[
+            function exportChart() {
+                //export image
+                $('#output').empty().append(PF('chart2').exportAsImage());
 
+                //show the dialog
+                PF('dlg1').show();
+            }
+            //]]>
+        </script>
+        <f:metadata>
+            <f:viewParam name="cod" value="#{statistics.param1}"/>                       
+        </f:metadata>
         <div class="content1">
-            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
-                <p:menuitem value="Categories" url="#" />
-                <p:menuitem value="Estadisticas" outcome="estadisticas" url="#" />
-            </p:breadCrumb>            
+            <h:form>
+                <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
 
-            <h:form id="chartform">
+                    <p:menuitem value="Categories" url="#" />
+                    <p:menuitem value="Estadisticas" outcome="estadisticas" url="#" />
+                    <p:menuitem value="Codigo" rendered="#{statistics.param1!=0}" />
+                    <p:menuitem value="#{statistics.param1}" rendered="#{statistics.param1!=0}" />
+
+                </p:breadCrumb>            
+            </h:form>
+            <h:form id="chartform">                               
                 <b:selectOneMenu value="#{statistics.param1}">
                     <f:selectItems value="#{poaBean.listarAll()}" var="po" itemLabel="#{po.actividad}" itemValue="#{po.codigopo}"/>
-                    <f:ajax event="change" listener="#{statistics.changeParameter()}" render="chart1"/>
+                    <f:ajax event="change" listener="#{statistics.changeParameter()}" render="@form"/>
                 </b:selectOneMenu>
-                <p:chart type="line" model="#{statistics.lineModel2}" style="width:1000px;" id="chart1" />               
+                <p:chart type="line" model="#{statistics.fillchart()}" id="chart1" rendered="#{statistics.param1!=0}" widgetVar="chart2" />               
             </h:form>
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
                             <h1># {item.ejecutado}</h1> 
                         </ui:repeat>-->
-            <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
-
+            <p:commandButton type="button" value="Export" icon="pi pi-home" onclick="exportChart()"/>
         </div>
+        <p:dialog widgetVar="dlg1" showEffect="fade" modal="true" header="Ahora puedes guardarla como imagen" width="1000px" resizable="true">
+            <p:outputPanel id="output" layout="block" style="width:500px;height:300px"/>
+        </p:dialog>
 
     </ui:define>
 </ui:composition>
