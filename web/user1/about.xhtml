@@ -18,7 +18,7 @@
     </ui:define>
 
     <ui:define name="contenido">
-        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes actualizar la informacion personal de tu cuenta">
             <div class="fab"></div>
             <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
             <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
@@ -36,14 +36,14 @@
                     <h:outputLabel value="Correo:" class="profile"/>
                     <b:inputText value="#{usersBean.users.correo}" maxlength="40" mask="email" class="profile"/>
                     <h:outputLabel value="Nueva contraseña:" class="profile"/>
-                    <b:inputSecret value="#{usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();"/>                    
+                    <b:inputSecret value="#{usersBean.pass}" maxlength="40" id="password1" class="profile" placeholder="********" onkeyup="samepass();" a:data-step="5" a:data-intro="Si desea cambiar la contraseña ingrese una nueva, si no es asi vuelva ingresar la anterior contraseña"/>                    
                     <h:outputLabel value="Repetir contraseña:" class="profile"/>               
                     <h:panelGroup>
-                        <b:inputSecret value="#{usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******"/>
+                        <b:inputSecret value="#{usersBean.pass2}" maxlength="40" id="confirm_password" class="profile" onkeyup="samepass();" placeholder="*******" a:data-step="6" a:data-intro="Su contraseña anterior con la cual a ingresado a este aplicacion como medidad de seguridad"/>
                         <span id='message' class="profile"></span>
                     </h:panelGroup>
                     <h:outputLabel value="Contraseña anterior:" class="profile"/>
-                    <b:inputSecret value="#{usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********"/>
+                    <b:inputSecret value="#{usersBean.oldpass}" maxlength="40" class="profile" placeholder="*********" a:data-step="7" a:data-intro="Vuelva a repetir su contraseña de nuevo"/>
                     <h:outputLabel value="Telefono:" class="profile"/>
                     <b:inputText value="#{usersBean.users.telefono}" maxlength="8" mask="integer" class="profile"/>
                     <h:outputLabel value="Sexo:" class="profile"/>
@@ -64,7 +64,7 @@
 
             <ul class="cards">
                 <li><img src="https://www.pngarts.com/files/3/Avatar-PNG-Download-Image.png"/>
-                    <div class="details" data-step="1" data-intro="En esta parte se muestra su informacion personal">
+                    <div class="details" data-step="2" data-intro="En esta parte se muestra su informacion personal">
                         <ui:repeat var="info" value="#{usersBean.listarInfo()}" varStatus="status">                            
                             <span class="fa-user">#{info.nombre}</span>
                             <span class="fa-user">#{info.apellidos}</span>

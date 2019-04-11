@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/AreasBean.java</file>
-            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/WEB-INF/template1.xhtml</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/WEB-INF/faces-config.xml</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/PEDbean.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/estadisticas.xhtml</file>
             <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/PED.xhtml</file>
-            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/area.xhtml</file>
-            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/resources/css/materializeprofile.css</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/user1/metafisica.xhtml</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/Statistics.java</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/web/index.xhtml</file>
+            <file>file:/C:/Users/Crls/Documents/NetBeansProjects/CruzRojaPLEST/src/java/sv/com/cruzplest/www/beans/VarsBean.java</file>
         </group>
     </open-files>
 </project-private>

@@ -157,6 +157,14 @@ public class PEDbean {
 
     }
 
+    public boolean verificMotherpoa(Integer poaold, Integer poanew) {
+        if (poaold.equals(poanew)) {
+            return true;
+        }
+        JsfUtil.setFlashMessage("error", "No puedes cambiar la actividad clave, este es el POA principal dentro del PED.");
+        return false;
+    }
+
     public void updateOrnew() throws IOException {
         int codigoold = 0;
         int codigonew = 0;
@@ -170,12 +178,11 @@ public class PEDbean {
                 codigoold = datosold.getCodigoPO().getCodigopo();
 //                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
                 System.out.print("codigoooo viejo(2) " + getOld_codigopo());
-                if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), consolidator.getCodigocon())) {
+                if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), consolidator.getCodigocon()) && verificMotherpoa(datosold.getCodigoPO().getCodigopo(), consolidator.getCodigoPO().getCodigopo())) {
                     if (model.updatePED(consolidator)) {
                         if (codigonew != codigoold) {
                             sumarrowspan(codigonew);
                             restarrowspan(codigoold);
-
                         }
                         JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
 
