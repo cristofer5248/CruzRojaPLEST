@@ -31,8 +31,18 @@
         </div>
         <div class="abriteplease2" id="abriteplease2">
             <h:form id="form1" class="abriteplease" u:data-step="4" u:data-intro="Formulario para registro o actualizacion de datos del PED">
+                <h:outputScript rendered="#{pEDbean.boolthereisPOA==true}">
+                    alertify
+                    .alert("Tenga en cuenta que la actividad clave selecionada no existe en el PED y esta sera la primera vez que sera ingresada y se convertira en la que mantendra el orden en la tabla del PED de su actividad clave.", function () {
+                    alertify.message('OK');
+                    });
+                </h:outputScript>
                 <b:panelGrid columns="2" class="profiles" style="padding-top: 40px">
-
+                    <h:outputLabel value="Actividad clave:" class="profile" style="margin-bottom: 25px;"/>                       
+                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control">
+                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
+                        <f:ajax render="@form" event="change" listener="#{pEDbean.ifthereisPO()}"/>
+                    </b:selectOneMenu>
                     <h:outputLabel value="Planificado:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.planificado}"  mask="integer" class="profile" />
                     <h:outputLabel value="Ejecutado:" class="profile" style="margin-bottom: 25px;"/>
@@ -49,13 +59,7 @@
                         <f:selectItem itemLabel="2013" itemValue="2013"/>
                         <f:selectItem itemLabel="2012" itemValue="2012"/>
                         <f:selectItem itemLabel="2011" itemValue="2011"/>                        
-                    </b:selectOneMenu>
-                    <h:outputLabel value="Actividad clave:" class="profile" style="margin-bottom: 25px;"/>   
-
-                    <b:selectOneMenu value="#{pEDbean.consolidator.codigoPO}" class="form-control" onchange="alert('Tenga en cuenta que la actividad seleccionada es muy fundamental en el consoldado final del PED, podra actualizar posteriormente siempre y cuando esta no sea el primer registro usando dicha actividad');">
-                        <f:selectItems value="#{poaBean.listPoaSA}" var="poa1" itemLabel="#{poa1.actividad}" itemValue="#{poa1}"/>                            
-
-                    </b:selectOneMenu>                    
+                    </b:selectOneMenu>                                        
                     <h:outputLabel value="Physical Goal:" class="profile" style="margin-bottom: 25px;"/>
                     <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
                         <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
@@ -63,14 +67,14 @@
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
                     <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px; width: 400px; height: 50px; margin-bottom: 20px;" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
                         </p:commandButton>
                     </div>
                 </b:panelGrid>
             </h:form>          
         </div>
-        
+
         <div class="content1">
             <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
                 <p:menuitem value="Categories" url="#" />
@@ -83,7 +87,7 @@
                 <p:menuitem value="PED" url="#" />
             </p:breadCrumb>            
 
-            <h:form>
+            <h:form>                
                 <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
                              emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan le 0 ? 'hijos': null}"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"

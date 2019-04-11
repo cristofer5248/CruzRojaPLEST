@@ -5,6 +5,7 @@
  */
 package sv.com.cruzplest.www.beans;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -13,7 +14,6 @@ import javax.faces.bean.ViewScoped;
 
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.ConsolidatorpoEntity;
-import sv.com.cruzplest.www.entities.PoTableEntity;
 import sv.com.cruzplest.www.model.PEDmodel;
 import sv.com.cruzplest.www.utils.JsfUtil;
 import sv.com.cruzplest.www.utils.TotalesOb;
@@ -45,6 +45,7 @@ public class PEDbean {
     private String comentario1;
     private int old_codigopo;
     private boolean boolped;
+    private boolean boolthereisPOA;
 
     /**
      * Creates a new instance of PEDbean
@@ -68,7 +69,7 @@ public class PEDbean {
             st.setParam1(this.consolidator.getCodigoPO().getCodigopo());
         } catch (Exception e) {
         }
-        return "estadisticas?faces-redirect=true&cod="+consolidator.getCodigoPO().getCodigopo()+"";
+        return "estadisticas?faces-redirect=true&cod=" + consolidator.getCodigoPO().getCodigopo() + "";
 //        return "estadisticas?faces-redirect=true";
 //        return "estadisticas?faces-redirect=true&includeViewParams=" + consolidator.getCodigoPO().getCodigopo() + "";
     }
@@ -140,7 +141,23 @@ public class PEDbean {
         }
     }
 
-    public void updateOrnew() {
+    public boolean ifthereisPO() {
+        try {
+            if (model.findifpo(consolidator.getCodigoPO().getCodigopo())) {
+                setBoolthereisPOA(true);
+                return true;
+            } else {
+                setBoolthereisPOA(false);
+                return false;
+            }
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    public void updateOrnew() throws IOException {
         int codigoold = 0;
         int codigonew = 0;
 
@@ -165,26 +182,30 @@ public class PEDbean {
                     }
                 }
 
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
             } else {
+//aqui verificamos si NO HAY la activiad clave registrada para empezar una
+//                if (ifthereisPO(consolidator.getCodigoPO().getCodigopo())) {
+//                    consolidator.setRowspan(1);
+//                    consolidator.setRowspan2(1);
+//                }
                 if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), 0)) {
                     if (model.checkPoainped(consolidator.getCodigoPO().getCodigopo())) {
                         consolidator.setRowspan(1);
                         consolidator.setRowspan2(1);
                         model.saveped(consolidator);
                         JsfUtil.setFlashMessage("exito", "Insertado correctamente");
-                        JsfUtil.setFlashMessage("important", "Nuevo registro madre PED");
+                        JsfUtil.setFlashMessage("important", "Nuevo registro madre en el PED");
                     } else {
                         model.saveped(consolidator);
                         sumarrowspan(consolidator.getCodigoPO().getCodigopo());
                     }
                 }
-                FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+
             }
             FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
         } catch (Exception e) {
             JsfUtil.setErrorMessage("error", "Error al actualizar PED");
-
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
             e.printStackTrace();
 
         }
@@ -546,6 +567,20 @@ public class PEDbean {
      */
     public void setBoolped(boolean boolped) {
         this.boolped = boolped;
+    }
+
+    /**
+     * @return the boolthereisPOA
+     */
+    public boolean isBoolthereisPOA() {
+        return boolthereisPOA;
+    }
+
+    /**
+     * @param boolthereisPOA the boolthereisPOA to set
+     */
+    public void setBoolthereisPOA(boolean boolthereisPOA) {
+        this.boolthereisPOA = boolthereisPOA;
     }
 
 }

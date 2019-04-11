@@ -35,6 +35,22 @@ public class PEDmodel {
         }
     }
 
+    public boolean findifpo(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNamedQuery("ConsolidatorpoEntity.findByCodigopo").setParameter("cod", cod);
+            List<ConsolidatorpoEntity> list = con.getResultList();
+            if (list.isEmpty()) {
+                return true;
+            }
+            em.close();
+            return false;
+        } catch (Exception e) {
+            em.close();
+            return false;
+        }
+    }
+
     public List findRowspanHigher(int cod1) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
