@@ -62,6 +62,23 @@ public class PEDbean {
         }
     }
 
+    public void updateadmin() throws IOException {
+        try {
+            if (boolped) {
+                model.updatePED(consolidator);
+                JsfUtil.setFlashMessage("update", "Actualizado sin problemas!");
+            } else {
+                model.saveped(consolidator);
+                JsfUtil.setFlashMessage("add", "Ingresado correctamente!");
+            }
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+        } catch (Exception e) {
+            e.printStackTrace();
+            FacesContext.getCurrentInstance().getExternalContext().redirect("PED.xhtml");
+        }
+
+    }
+
     public String versta() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();

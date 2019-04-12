@@ -36,7 +36,7 @@ public class Login {
             UserModel model = new UserModel();
             UsersEntity user;
             user = null;
-            user = model.login(getUser(),getPass());
+            user = model.login(getUser(), getPass());
 //            System.out.print("LOGIN.JAVA. Usuario nivel----> "+user.getTipou().getCodigousertype());
             if (user != null) {
                 if (user.getPass().equals(pass)) {
@@ -48,6 +48,10 @@ public class Login {
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", user);
                         return "user1/index";
 //
+                    } else if (user.getTipou().getCodigousertype().equals(2)) {
+                        System.out.print("Iniciando nivel 2...");
+                        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel2", user);
+                        return "user2/index";
                     }
 
                 }
@@ -57,12 +61,13 @@ public class Login {
             FacesContext.getCurrentInstance().getExternalContext().redirect("index.xhtml?error=ErrU");
             return null;
         } catch (Exception e) {
-            
+
             return "PLEST/index?error=ErrU";
         }
 
     }
-        public String logut() {
+
+    public String logut() {
 //        UsuariosModel model = new UsuariosModel();
 //        UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
 //        System.out.println(us);

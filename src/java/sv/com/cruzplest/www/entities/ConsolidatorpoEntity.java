@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "consolidatorpo")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c order by c.codigoPO.codigopo, c.rowspan2 desc")
+    @NamedQuery(name = "ConsolidatorpoEntity.findAll", query = "SELECT c FROM ConsolidatorpoEntity c order by c.codigoPO.areaest.nombre, c.codigoPO.codigopo, c.rowspan2 desc")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigocon", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigocon = :codigocon")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByCodigopo", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.codigoPO.codigopo = :cod ORDER BY c.year asc")
     , @NamedQuery(name = "ConsolidatorpoEntity.findByTrimestre", query = "SELECT c FROM ConsolidatorpoEntity c WHERE c.trimestre = :trimestre")
@@ -59,7 +59,8 @@ public class ConsolidatorpoEntity implements Serializable {
     private String comentario;
 
     private int rowspan;
-    private int rowspan2;
+    private int rowspan2;    
+    private int rowspan3;
 
     @JoinColumn(name = "codigoPO", referencedColumnName = "codigopo", nullable = false)
     @ManyToOne(optional = false)
@@ -197,6 +198,20 @@ public class ConsolidatorpoEntity implements Serializable {
      */
     public void setRowspan2(int rowspan2) {
         this.rowspan2 = rowspan2;
+    }
+
+    /**
+     * @return the rowspan3
+     */
+    public int getRowspan3() {
+        return rowspan3;
+    }
+
+    /**
+     * @param rowspan3 the rowspan3 to set
+     */
+    public void setRowspan3(int rowspan3) {
+        this.rowspan3 = rowspan3;
     }
 
 }

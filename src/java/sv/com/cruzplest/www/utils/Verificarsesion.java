@@ -16,8 +16,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import sv.com.cruzplest.www.entities.UsersEntity;
-//import sv.com.cruzplest.www.entities.UsersEntity;
-import sv.com.cruzplest.www.model.UserModel;
 
 @ManagedBean
 @ViewScoped
@@ -51,14 +49,38 @@ public class Verificarsesion implements Serializable {
 
     }
 
+    public void verificarsession2() throws IOException {
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nivel2");
+//            UsersEntity usuario = new UsersEntity();
+            String nombre = null;
+
+            if (us == null) {
+                System.out.print("hola que tal");
+//            FacesContext.getCurrentInstance().getExternalContext().redirect("../index?faces-redirect=true");
+                FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml?error=true");
+//            return "/PLEST/inffffdex";
+            } else {
+//                FacesContext.getCurrentInstance().getExternalContext().redirect("user1/index.xhtml");
+            }
+        } catch (Exception e) {
+//            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
+
+            JsfUtil.setErrorMessage(null, "Error interno");
+//            return "sdf";
+        }
+
+    }
+
     public int dameeltipo() {
         int devolver = 0;
         try {
             UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
             devolver = us.getTipou().getCodigousertype();
-            System.out.print("El tipo de usuario es ===> "+devolver);
+            System.out.print("El tipo de usuario es ===> " + devolver);
         } catch (Exception e) {
-            
+
         }
 
         return devolver;
@@ -99,43 +121,6 @@ public class Verificarsesion implements Serializable {
 //        } catch (Exception e) {
 //
 //            FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
-//            JsfUtil.setErrorMessage(null, "Error interno");
-//        }
-//    }
-//    public void verificarsession3() throws IOException {
-//        try {
-//
-//            FacesContext context = FacesContext.getCurrentInstance();
-//            UsersEntity us = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("nivel3");
-////        UsuariosEntity usuario = new UsuariosEntity();
-//            String nombre = null;
-//
-//            if (us == null) {
-//
-//                FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml?error=true");
-//            } else {
-//                //System.out.println("Hasta aqui el estado es: " + us.getActivo().toString()+" en el metodo de veriicarusuario2");
-////                if (us.getActivo() == false) {
-////                    nombre = us.getNombres();
-////                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Bienvenido", nombre));
-////                    UsuariosModel model = new UsuariosModel();
-////                    UsersEntity cambiaractivo = new UsuariosEntity();
-////                    cambiaractivo.setIdusuario(us.getIdusuario());
-////                    cambiaractivo.setNombres(us.getNombres());
-////                    cambiaractivo.setPass(us.getPass());
-////                    cambiaractivo.setTipousuario(us.getTipousuario());
-////                    cambiaractivo.setGenero(us.getGenero());
-////                    cambiaractivo.setActivo(Boolean.TRUE);
-////                    model.modificarUsuarios(cambiaractivo);
-////                    us.setActivo(Boolean.TRUE);
-////                    this.setMensaje(us.getNombres());
-////                }
-//
-//            }
-//
-//        } catch (Exception e) {
-//
-//            FacesContext.getCurrentInstance().getExternalContext().redirect("../index.xhtml?error=true");
 //            JsfUtil.setErrorMessage(null, "Error interno");
 //        }
 //    }

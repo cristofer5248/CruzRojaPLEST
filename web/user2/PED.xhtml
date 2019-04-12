@@ -3,7 +3,7 @@
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition 
     xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-    template="../WEB-INF/template1.xhtml"
+    template="../WEB-INF/admtemplate.xhtml"
     xmlns:h="http://xmlns.jcp.org/jsf/html"
     xmlns:f="http://xmlns.jcp.org/jsf/core"
     xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
@@ -65,13 +65,31 @@
                         <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
                     </b:selectOneMenu>
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
-                    <div class="col-lg-6" style="margin-top: 30px;">
-                        <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px; width: 400px; height: 50px; margin-bottom: 20px;" onclick="verprogress()">
+                    <b:inputText value="#{pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
+                    <h:outputLabel value="¿Ver contorles avanzados?" style="profile"/>
+                    <input type="checkbox" id="controlcheck" onclick="abrircontroles();"/>
+                </b:panelGrid>
+                <h:panelGroup id="advancescontrol" style="display: none;">                        
+                    <b:panelGrid columns="2">
+                        <h:outputLabel value="Rowspan" class="profile" style="margin-bottom: 25px"/>
+                        <b:inputText value="#{pEDbean.consolidator.rowspan}" class="profile"/>
+                        <h:outputLabel value="Rowspan2" class="profile" style="margin-bottom: 25px"/>
+                        <b:inputText value="#{pEDbean.consolidator.rowspan2}" class="profile"/>
+                        <h:outputLabel value="Rowspan3" class="profile" style="margin-bottom: 25px"/>
+                        <b:inputText value="#{pEDbean.consolidator.rowspan3}" class="profile"/>
+                    </b:panelGrid>
+                    <div class="col-lg-6" style="margin-top: 30px; margin-left: 30%">
+                        <p:commandButton action="#{pEDbean.updateadmin()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px; width: 400px; height: 50px; margin-bottom: 20px;" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
                         </p:commandButton>
                     </div>
-                </b:panelGrid>
+                </h:panelGroup>
+                <div class="col-lg-6" style="margin-top: 30px; margin-left: 30%" id="enviarnormal">
+                    <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px; width: 400px; height: 50px; margin-bottom: 20px;" onclick="verprogress()">
+                        <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
+                    </p:commandButton>
+                </div>
+
             </h:form>          
         </div>
 
@@ -88,10 +106,10 @@
             </p:breadCrumb>            
 
             <h:form>                
-                <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" paginator="true" rows="10" 
+                <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" 
                              emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan le 0 ? 'hijos': null}"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
-                             rowKey="#{p.codigocon}">
+                             rowKey="#{p.codigocon}" scrollable="true"  scrollHeight="400" >
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:commandButton value="ACTUALIZAR" action="#{pEDbean.reboot1()}" class="skycolor1"  style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo."
@@ -119,7 +137,7 @@
                     <p:column> 
                         <h:outputText  value="#{p.codigocon}"/>
                     </p:column>
-                    <p:column style="background: white;"> 
+                    <p:column style="vertical-align: text-top" rowspan="#{p.rowspan3}" rendered="#{p.rowspan3!=0}"> 
                         <h:outputText  value="#{p.codigoPO.areaest.nombre}"/>
                     </p:column>
                     <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
@@ -206,6 +224,19 @@
                     filename: "Asistencia"
                 });
             });
+            function abrircontroles() {
+                var a = document.getElementById("form1:advancescontrol");
+                var ch = document.getElementById("controlcheck");
+                var btnn = document.getElementById("enviarnormal");
+                if (ch.checked === true) {
+                    a.style.display = "block";
+                    btnn.style.display = "none";
+                } else {
+                    a.style.display = "none";
+                    btnn.style.display = "block";
+                }
+            }
+
         </script>
 
         <c:if test="#{not empty flash.important}">
@@ -216,3 +247,4 @@
         </c:if>
     </ui:define>
 </ui:composition>
+
