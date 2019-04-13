@@ -64,6 +64,21 @@ public class PEDmodel {
         }
     }
 
+    public int findRowspan3mother(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNamedQuery("select c.codigocon from consolidatorpo c inner join po_table po on po.codigopo = c.codigoPO where areaest=? and rowspan2>0 and rowspan=1 order by rowspan3 DESC limit 1;");
+            con.setParameter(1, cod);
+            List list1 = con.getResultList();
+            em.close();
+            int aja = Integer.parseInt(list1.get(0).toString());
+            return aja;
+        } catch (Exception e) {
+            em.close();
+            return 0;
+        }
+    }
+
     public boolean findyear(int year1, int poa, int ped) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
@@ -89,6 +104,33 @@ public class PEDmodel {
             e.printStackTrace();
             return false;
         }
+    }
+
+    public List nstrategicAreasBind(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan2!=0;");
+            con.setParameter(1, cod);
+            List list1 = con.getResultList();
+            return list1;
+        } catch (Exception e) {
+            em.close();
+            return null;
+        }
+    }
+
+    public List strategicAreasBind(int cod) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query con = em.createNativeQuery("select count(po.areaest) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=?");
+            con.setParameter(1, cod);
+            List list1 = con.getResultList();
+            return list1;
+        } catch (Exception e) {
+            em.close();
+            return null;
+        }
+
     }
     //llenar entity forms
 
@@ -254,7 +296,7 @@ public class PEDmodel {
         System.out.print("eoooooooooooooooooooooooo");
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query consulta = em.createNativeQuery("select codigopo, sum(planificado) as planificado,sum(ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p group by  codigopo order by codigopo, rowspan2 desc");
+            Query consulta = em.createNativeQuery("select p.codigopo, sum(p.planificado) as planificado,sum(p.ejecutado) as ejecutado, sum((p.ejecutado/p.planificado)*100) as total from consolidatorpo p inner join po_table po on po.codigopo=p.codigoPO group by p.codigopo order by po.areaest, p.codigopo, p.rowspan2 desc");
             List<Object[]> list1 = consulta.getResultList();
             if (list1.isEmpty()) {
                 System.out.print("Hee Hee!");

@@ -100,6 +100,17 @@ public class PEDbean {
         }
     }
 
+    public int cantidadaSumaroRestarR3(int area1) {
+        //numero de areas estregicas en comun
+        List list1 = model.nstrategicAreasBind(area1);
+        int contadorR3n = Integer.parseInt(list1.get(0).toString());
+        //numero de areas estregicas con la misma area estregica TOTAL se suman con las comun de arriba
+        List list2 = model.strategicAreasBind(area1);
+        int contadorR3 = Integer.parseInt(list2.get(0).toString());
+        int totalfinal = contadorR3 + contadorR3n;
+        return totalfinal;
+    }
+
     public boolean sumarrowspan(int consocod) {
         try {
             ConsolidatorpoEntity consolidator1 = new ConsolidatorpoEntity();
@@ -107,6 +118,8 @@ public class PEDbean {
             int contador = consolidator1.getRowspan2();
             contador = contador + 1;
             consolidator1.setRowspan2(contador);
+            int R3 = cantidadaSumaroRestarR3(consolidator1.getCodigoPO().getAreaest().getCodigostr());
+            consolidator1.setRowspan3(R3);
             model.updatePED(consolidator1);
             return true;
         } catch (Exception e) {
@@ -130,7 +143,12 @@ public class PEDbean {
             int contador = consolidator1.getRowspan2();
             contador = contador - 1;
             consolidator1.setRowspan2(contador);
+            int R3 = cantidadaSumaroRestarR3(consolidator1.getCodigoPO().getAreaest().getCodigostr());
+            ConsolidatorpoEntity restarR3 = model.findbyIdPED(model.findRowspan3mother(consolidator1.getCodigoPO().getAreaest().getCodigostr()));
+            restarR3.setRowspan3(R3);
             model.updatePED(consolidator1);
+            model.updatePED(restarR3);
+
             return true;
         } catch (Exception e) {
             return false;
@@ -174,8 +192,8 @@ public class PEDbean {
 
     }
 
-    public boolean verificMotherpoa(Integer poaold, Integer poanew) {
-        if (poaold.equals(poanew)) {
+    public boolean verificMotherpoa(int R3) {
+        if (R3 == 0) {
             return true;
         }
         JsfUtil.setFlashMessage("error", "No puedes cambiar la actividad clave, este es el POA principal dentro del PED.");
@@ -195,7 +213,7 @@ public class PEDbean {
                 codigoold = datosold.getCodigoPO().getCodigopo();
 //                setOld_codigopo(datosold.getCodigoPO().getCodigopo());
                 System.out.print("codigoooo viejo(2) " + getOld_codigopo());
-                if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), consolidator.getCodigocon()) && verificMotherpoa(datosold.getCodigoPO().getCodigopo(), consolidator.getCodigoPO().getCodigopo())) {
+                if (findyear(consolidator.getYear(), consolidator.getCodigoPO().getCodigopo(), consolidator.getCodigocon()) && verificMotherpoa(consolidator.getRowspan3())) {
                     if (model.updatePED(consolidator)) {
                         if (codigonew != codigoold) {
                             sumarrowspan(codigonew);

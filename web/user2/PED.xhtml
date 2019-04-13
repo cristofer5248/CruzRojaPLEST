@@ -122,8 +122,8 @@
                     <p:columnGroup type="header">
                         <p:row>
                             <p:column headerText="CODIGO PED" width="5%" />
-                            <p:column headerText="Area Estrategica" width="10%" />
-                            <p:column headerText="Actividad clave" width="24%" />
+                            <p:column headerText="Area Estrategica" width="16%" />
+                            <p:column headerText="Actividad clave" width="18%" />
                             <p:column headerText="Indicadores" width="29%" />
                             <p:column headerText="Meta Global" width="5%" />                            
                             <p:column headerText="Año" width="5%" />
@@ -137,7 +137,7 @@
                     <p:column> 
                         <h:outputText  value="#{p.codigocon}"/>
                     </p:column>
-                    <p:column style="vertical-align: text-top" rowspan="#{p.rowspan3}" rendered="#{p.rowspan3!=0}"> 
+                    <p:column style="vertical-align: text-top; background: gray; color:white" rowspan="#{p.rowspan3}" rendered="#{p.rowspan3!=0}"> 
                         <h:outputText  value="#{p.codigoPO.areaest.nombre}"/>
                     </p:column>
                     <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 

@@ -48,10 +48,11 @@ public class pruebasqueryNativo {
 
             PEDmodel modelo = new PEDmodel();
 //            List<Object[]> list = modelo.updatePEDRowspan(2, 2);
-            List<ConsolidatorpoEntity> list1 = modelo.findbypo(2);
-            list1.forEach((o) -> {
-                System.out.print(o.getPlanificado());
-            });//            for (Object[] list1 : list) {
+            List list1 = modelo.strategicAreasBind(1);
+            System.out.print("Aquiiiii"+ list1.get(0).toString());
+//            list1.forEach((o) -> {
+//                System.out.print(o.getPlanificado());
+//            });//            for (Object[] list1 : list) {
 //                Double eoo = Double.parseDouble(list1[3].toString());
 //                System.out.print("AJA: "+eoo.toString()+" ");
 //            }
