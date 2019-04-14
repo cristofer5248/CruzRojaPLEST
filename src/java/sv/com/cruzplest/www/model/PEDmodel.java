@@ -109,7 +109,7 @@ public class PEDmodel {
     public List nstrategicAreasBind(int cod) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan2!=0;");
+            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan3!=0;");
             con.setParameter(1, cod);
             List list1 = con.getResultList();
             return list1;

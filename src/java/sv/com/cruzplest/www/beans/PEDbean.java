@@ -119,8 +119,10 @@ public class PEDbean {
             contador = contador + 1;
             consolidator1.setRowspan2(contador);
             int R3 = cantidadaSumaroRestarR3(consolidator1.getCodigoPO().getAreaest().getCodigostr());
-            consolidator1.setRowspan3(R3);
+            ConsolidatorpoEntity restarR3 = model.findbyIdPED(model.findRowspan3mother(consolidator1.getCodigoPO().getAreaest().getCodigostr()));
+            restarR3.setRowspan3(R3);
             model.updatePED(consolidator1);
+            model.updatePED(restarR3);
             return true;
         } catch (Exception e) {
             return false;
