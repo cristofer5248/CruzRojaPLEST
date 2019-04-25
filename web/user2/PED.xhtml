@@ -107,9 +107,9 @@
 
             <h:form>                
                 <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" 
-                             emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan le 0 ? 'hijos': null}"
+                             emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan3 le 0 ? null: 'hijos'}"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
-                             rowKey="#{p.codigocon}" scrollable="true"  scrollHeight="400" >
+                             rowKey="#{p.codigocon}" scrollable="true"  scrollHeight="400"  >
                     <f:facet name="header">
                         <p:outputPanel>
                             <p:commandButton value="ACTUALIZAR" action="#{pEDbean.reboot1()}" class="skycolor1"  style="margin-right: 10px;" u:data-step="3" u:data-intro="Si por alguna razon los datos de la tabla PED no estan actualizados, mediante este boton puede forzar la actualizacion del mismo."
@@ -121,8 +121,8 @@
                     </f:facet>
                     <p:columnGroup type="header">
                         <p:row>
-                            <p:column headerText="CODIGO PED" width="5%" />
                             <p:column headerText="Area Estrategica" width="16%" />
+                            <p:column headerText="CODIGO PED" width="5%" />                            
                             <p:column headerText="Actividad clave" width="18%" />
                             <p:column headerText="Indicadores" width="29%" />
                             <p:column headerText="Meta Global" width="5%" />                            
@@ -133,12 +133,11 @@
                             <p:column headerText="Comentario" width="10%" />                                                      
                         </p:row>
                     </p:columnGroup>
-
+                    <p:column style="vertical-align: text-top; background: #c62828; color:white" rowspan="#{p.rowspan3}" rendered="#{p.rowspan3!=0}"> 
+                        <h:outputText  value="#{p.codigoPO.areaest.nombre}"/>
+                    </p:column>
                     <p:column> 
                         <h:outputText  value="#{p.codigocon}"/>
-                    </p:column>
-                    <p:column style="vertical-align: text-top; background: gray; color:white" rowspan="#{p.rowspan3}" rendered="#{p.rowspan3!=0}"> 
-                        <h:outputText  value="#{p.codigoPO.areaest.nombre}"/>
                     </p:column>
                     <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
                         <h:outputText  value="#{p.codigoPO.actividad}"/>
@@ -173,7 +172,7 @@
 
 
                     <p:summaryRow>
-                        <p:column colspan="6" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
+                        <p:column colspan="5" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
                             <h:outputText value="Consolidado:" />
                         </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color: white;">

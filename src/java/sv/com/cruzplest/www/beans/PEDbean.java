@@ -101,14 +101,20 @@ public class PEDbean {
     }
 
     public int cantidadaSumaroRestarR3(int area1) {
-        //numero de areas estregicas en comun
-        List list1 = model.nstrategicAreasBind(area1);
-        int contadorR3n = Integer.parseInt(list1.get(0).toString());
-        //numero de areas estregicas con la misma area estregica TOTAL se suman con las comun de arriba
-        List list2 = model.strategicAreasBind(area1);
-        int contadorR3 = Integer.parseInt(list2.get(0).toString());
-        int totalfinal = contadorR3 + contadorR3n;
-        return totalfinal;
+        try {
+
+            //numero de areas estregicas en comun
+            List list1 = model.nstrategicAreasBind(area1);
+            int contadorR3n = Integer.parseInt(list1.get(0).toString());
+            //numero de areas estregicas con la misma area estregica TOTAL se suman con las comun de arriba
+            List list2 = model.strategicAreasBind(area1);
+            int contadorR3 = Integer.parseInt(list2.get(0).toString());
+            int totalfinal = contadorR3 + contadorR3n;
+            return totalfinal;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public boolean sumarrowspan(int consocod) {
@@ -125,6 +131,7 @@ public class PEDbean {
             model.updatePED(restarR3);
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
     }

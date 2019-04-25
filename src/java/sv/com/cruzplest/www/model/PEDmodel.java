@@ -54,7 +54,7 @@ public class PEDmodel {
     public List findRowspanHigher(int cod1) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query consulta = em.createNativeQuery("select c.codigocon from consolidatorpo c where codigoPO=" + cod1 + " and rowspan2>0 and rowspan=1 order by rowspan2 DESC limit 1");
+            Query consulta = em.createNativeQuery("select c.codigocon from consolidatorpo c where codigoPO=" + cod1 + " and rowspan2>0 order by rowspan2 DESC limit 1");
             List Lconsu = consulta.getResultList();
             em.close();
             return Lconsu;
@@ -67,7 +67,7 @@ public class PEDmodel {
     public int findRowspan3mother(int cod) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNamedQuery("select c.codigocon from consolidatorpo c inner join po_table po on po.codigopo = c.codigoPO where areaest=? and rowspan2>0 and rowspan=1 order by rowspan3 DESC limit 1;");
+            Query con = em.createNamedQuery("select c.codigocon from consolidatorpo c inner join po_table po on po.codigopo = c.codigoPO where areaest=? and rowspan2>0 order by rowspan3 DESC limit 1;");
             con.setParameter(1, cod);
             List list1 = con.getResultList();
             em.close();
@@ -109,7 +109,7 @@ public class PEDmodel {
     public List nstrategicAreasBind(int cod) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan3!=0;");
+            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan2!=0;");
             con.setParameter(1, cod);
             List list1 = con.getResultList();
             return list1;

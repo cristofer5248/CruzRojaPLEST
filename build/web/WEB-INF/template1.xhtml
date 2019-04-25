@@ -107,11 +107,11 @@
                 </div>
             </li>
             <li>
-                <c:if test="${variable==1}">
+                <c:if test="${variable!=1}">
                     <i class="fa fa-search "></i>
                     <div class="animated slideInLeft">Avances</div>
                 </c:if>
-                <c:if test="${variable!=1}">
+                <c:if test="${variable==1}">
                     <i class="fa fa-pencil-square-o"></i>
                     <div class="animated slideInLeft">Enviar progreso</div>
                 </c:if>
@@ -137,7 +137,7 @@
                     <circle class="path" cx="50" cy="50" r="10" fill="none" stroke-width="2" stroke-miterlimit="10"/>
                 </svg>
             </div>
-            <div  class="col-md-12 col-sm-12 card col-lg-auto" style="padding-bottom: 30px; text-align: center; ">
+            <div  class="col-md-12 col-sm-12 card col-lg-auto" style="padding-bottom: 30px; text-align: center; padding-bottom: 60px;">
                 <ui:insert name="contenido" >
                     CONTENIDO POR DEFECTO
                 </ui:insert>                

@@ -410,8 +410,11 @@ display: none;
     background-image: none !important;
     color: #c00000 !important;
 }
+.DataTable table * {
+    border: 2px !important;
+}
 .tdLessPadding td {
-     
-        padding: .2em .2em !important;
-    
+
+    padding: .2em .2em !important;
+
 }
