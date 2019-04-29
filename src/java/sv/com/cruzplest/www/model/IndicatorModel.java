@@ -7,6 +7,7 @@ package sv.com.cruzplest.www.model;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 import sv.com.cruzplest.www.entities.IndicatorpoEntity;
 import sv.com.cruzplest.www.utils.JpaUtil;
@@ -32,6 +33,17 @@ public class IndicatorModel {
             JsfUtil.setErrorMessage("grave", "Error gravisimo");
             em.close();
             return null;
+        }
+    }
+    public void save(IndicatorpoEntity indicador){
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            tran.begin();
+            em.persist(indicador);
+            tran.commit();
+            em.close();
+        } catch (Exception e) {
         }
     }
 

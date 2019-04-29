@@ -19,6 +19,15 @@
 
 
     <ui:define name="contenido">
+        <p:dialog header="Ingreso de nuevo indicardor" widgetVar="newindicatorM" modal="true" showEffect="explode">
+            <b:panelGrid columns="2">
+                <h:outputLabel value="Indicador"/>
+                <b:inputTextarea value="#{indicatorBean.indicator.detalle}"/>
+            </b:panelGrid>
+            <f:facet name="footer">                
+                <p:commandButton value="Guardar" action="#{indicatorBean.saveind()}" ajax="true" update="form1" class="btn-amber"/>
+            </f:facet>
+        </p:dialog>
         <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar una nueva actividad">
             <div class="fab"></div>
             <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
@@ -32,11 +41,15 @@
                 <b:panelGrid columns="2" class="profiles"  style="padding-top: 40px">
                     <h:outputLabel value="Actividad" class="profile"/>
                     <b:inputText value="#{poaBean.poa.actividad}" maxlength="80" class="profile"/>
-                    <h:outputLabel value="Indicadores" class="profile"/>
-
-                    <b:selectOneMenu value="#{poaBean.poa.indicatores}" class="form-control profile" >
-                        <f:selectItems value="#{indicatorBean.listAll()}" var="in" itemLabel="#{in.detalle}" itemValue="#{in}"/>
-                    </b:selectOneMenu>
+                    <h:outputLabel value="Indicador" class="profile" style="padding-bottom: 35px;"/>
+                    <h:panelGroup>
+                        <h:panelGrid columns="2">
+                            <b:selectOneMenu value="#{poaBean.poa.indicatores}" class="form-control profile" >
+                                <f:selectItems value="#{indicatorBean.listAll()}" var="in" itemLabel="#{in.detalle}" itemValue="#{in}"/>
+                            </b:selectOneMenu>        
+                            <b:button value="Nuevo"  style="margin-left: 5px; color:white;" onclick="PF('newindicatorM').show();"/>
+                        </h:panelGrid>
+                    </h:panelGroup> 
 
                     <h:outputLabel value="Meta Global:" class="profile"/>
                     <b:inputText value="#{poaBean.poa.metaGlobal}" maxlength="5" mask="integer" class="profile"/>
@@ -60,7 +73,6 @@
                 </b:panelGrid>
             </h:form>
         </div>
-        
         <div class="content1">
             <div>
                 <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
@@ -91,9 +103,11 @@
                     <p:column headerText="Actividad" filterBy="#{poa.actividad}" width="20%" style="text-align: left;">
                         <h:outputText value="#{poa.actividad}"/>
                     </p:column>
+
                     <p:column headerText="Indicadores" filterBy="#{poa.indicatores.detalle}" style="text-align: left; font-size:  10px">
                         <h:outputText value="#{poa.indicatores.detalle}"/>
                     </p:column>
+
                     <p:column headerText="Meta Global" width="6%">
                         <h:outputText value="#{poa.metaGlobal}%"/>
                     </p:column>

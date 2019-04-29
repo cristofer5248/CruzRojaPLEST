@@ -45,11 +45,10 @@ public class pruebasqueryNativo {
         try {
 
             System.out.print("Iniciando...");
-
-            PEDmodel modelo = new PEDmodel();
-//            List<Object[]> list = modelo.updatePEDRowspan(2, 2);
-            List list1 = modelo.strategicAreasBind(1);
-            System.out.print("Aquiiiii"+ list1.get(0).toString());
+            PEDmodel model = new PEDmodel();
+            int aja = model.findRowspan3mother(17);
+            
+            System.out.print("Imprimiendo" + aja);
 //            list1.forEach((o) -> {
 //                System.out.print(o.getPlanificado());
 //            });//            for (Object[] list1 : list) {
@@ -80,6 +79,23 @@ public class pruebasqueryNativo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public int cantidadaSumaroRestarR3(int area1) {
+        try {
+            PEDmodel model = new PEDmodel();
+            //numero de areas estregicas en comun
+            List list1 = model.nstrategicAreasBind(area1);
+            int contadorR3n = Integer.parseInt(list1.get(0).toString());
+            //numero de areas estregicas con la misma area estregica TOTAL se suman con las comun de arriba
+            List list2 = model.strategicAreasBind(area1);
+            int contadorR3 = Integer.parseInt(list2.get(0).toString());
+            int totalfinal = contadorR3 + contadorR3n;
+            return totalfinal;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 }

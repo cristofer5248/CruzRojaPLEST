@@ -67,13 +67,14 @@ public class PEDmodel {
     public int findRowspan3mother(int cod) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNamedQuery("select c.codigocon from consolidatorpo c inner join po_table po on po.codigopo = c.codigoPO where areaest=? and rowspan2>0 order by rowspan3 DESC limit 1;");
+            Query con = em.createNativeQuery("select c.codigocon from consolidatorpo c inner join po_table po on po.codigopo = c.codigoPO where areaest=? and rowspan2>0 order by rowspan3 DESC limit 1");
             con.setParameter(1, cod);
             List list1 = con.getResultList();
             em.close();
             int aja = Integer.parseInt(list1.get(0).toString());
             return aja;
         } catch (Exception e) {
+            e.printStackTrace();
             em.close();
             return 0;
         }
@@ -109,11 +110,12 @@ public class PEDmodel {
     public List nstrategicAreasBind(int cod) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         try {
-            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan2!=0;");
+            Query con = em.createNativeQuery("select count(c.codigoPO) from consolidatorpo c inner join po_table po on po.codigopo=c.codigoPO where po.areaest=? and c.rowspan2!=0");
             con.setParameter(1, cod);
             List list1 = con.getResultList();
             return list1;
         } catch (Exception e) {
+            e.printStackTrace();
             em.close();
             return null;
         }
@@ -127,6 +129,7 @@ public class PEDmodel {
             List list1 = con.getResultList();
             return list1;
         } catch (Exception e) {
+            e.printStackTrace();
             em.close();
             return null;
         }

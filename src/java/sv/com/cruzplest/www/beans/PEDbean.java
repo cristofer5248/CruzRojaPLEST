@@ -121,11 +121,15 @@ public class PEDbean {
         try {
             ConsolidatorpoEntity consolidator1 = new ConsolidatorpoEntity();
             consolidator1 = model.findbyIdPED(buscarRowspan(consocod));
+            if (consolidator1.getCodigoPO().getAreaest() == null) {
+                System.out.print("no hayyyy khee");
+            }
+
             int contador = consolidator1.getRowspan2();
             contador = contador + 1;
             consolidator1.setRowspan2(contador);
             int R3 = cantidadaSumaroRestarR3(consolidator1.getCodigoPO().getAreaest().getCodigostr());
-            ConsolidatorpoEntity restarR3 = model.findbyIdPED(model.findRowspan3mother(consolidator1.getCodigoPO().getAreaest().getCodigostr()));
+            ConsolidatorpoEntity restarR3 = model.findbyIdPED(model.findRowspan3mother(consolidator1.getCodigoPO().getAreaest().getCodigostr()));            
             restarR3.setRowspan3(R3);
             model.updatePED(consolidator1);
             model.updatePED(restarR3);

@@ -20,7 +20,14 @@ import sv.com.cruzplest.www.model.IndicatorModel;
 public class IndicatorBean {
 
     IndicatorModel model = new IndicatorModel();
-    IndicatorpoEntity indicator;
+    private IndicatorpoEntity indicator;
+
+    public void saveind() {
+        try {
+            model.save(indicator);
+        } catch (Exception e) {
+        }
+    }
 
     /**
      * Creates a new instance of IndicatorBean
@@ -38,4 +45,13 @@ public class IndicatorBean {
             return null;
         }
     }
+
+    public IndicatorpoEntity getIndicator() {
+        return indicator;
+    }
+
+    public void setIndicator(IndicatorpoEntity indicator) {
+        this.indicator = indicator;
+    }
+
 }

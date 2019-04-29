@@ -76,11 +76,12 @@ public class ConsolidatorpoEntity implements Serializable {
         this.codigocon = codigocon;
     }
 
-    public ConsolidatorpoEntity(Integer codigocon, int trimestre, int year, int planificado) {
+    public ConsolidatorpoEntity(Integer codigocon, int trimestre, int year, int planificado, int rowspan3) {
         this.codigocon = codigocon;
         this.trimestre = trimestre;
         this.year = year;
         this.planificado = planificado;
+        this.rowspan3 = rowspan3;
     }
 
     public Integer getCodigocon() {
