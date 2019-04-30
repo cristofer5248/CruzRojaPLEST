@@ -45,10 +45,14 @@ public class pruebasqueryNativo {
         try {
 
             System.out.print("Iniciando...");
+            ConsolidatorpoEntity consolidator1 = new ConsolidatorpoEntity();
             PEDmodel model = new PEDmodel();
-            int aja = model.findRowspan3mother(17);
+            consolidator1 = model.findbyIdPED(6);
+            int contador = consolidator1.getRowspan2();
+            contador = contador + 1;
             
-            System.out.print("Imprimiendo" + aja);
+
+            System.out.print("Imprimiendo" + contador);
 //            list1.forEach((o) -> {
 //                System.out.print(o.getPlanificado());
 //            });//            for (Object[] list1 : list) {

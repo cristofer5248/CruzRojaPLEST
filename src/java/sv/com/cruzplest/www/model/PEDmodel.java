@@ -172,8 +172,8 @@ public class PEDmodel {
         try {
             trans.begin();
             em.merge(conso);
-            trans.commit();
-            JsfUtil.setFlashMessage("update", "PED actualizado correctamente");
+            trans.commit();           
+            JsfUtil.setFlashMessage("update", "PED con codigo " + conso.getCodigocon() + " actualizado correctamente");
             em.close();
             return true;
         } catch (Exception e) {

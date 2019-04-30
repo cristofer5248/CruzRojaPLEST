@@ -7,7 +7,7 @@ package sv.com.cruzplest.www.beans;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import sv.com.cruzplest.www.entities.IndicatorpoEntity;
 import sv.com.cruzplest.www.model.IndicatorModel;
 
@@ -16,15 +16,23 @@ import sv.com.cruzplest.www.model.IndicatorModel;
  * @author RRDESC04
  */
 @ManagedBean
-@RequestScoped
+@ViewScoped
 public class IndicatorBean {
 
     IndicatorModel model = new IndicatorModel();
-    private IndicatorpoEntity indicator;
+    public IndicatorpoEntity indicator;
+    private boolean done1;
+
+    public IndicatorBean() {
+        indicator = new IndicatorpoEntity();
+    }
 
     public void saveind() {
         try {
-            model.save(indicator);
+            getIndicator().setTipou(0);
+            if (model.save(getIndicator())) {
+                setDone1(true);
+            }
         } catch (Exception e) {
         }
     }
@@ -32,10 +40,6 @@ public class IndicatorBean {
     /**
      * Creates a new instance of IndicatorBean
      */
-    public IndicatorBean() {
-        indicator = new IndicatorpoEntity();
-    }
-
     public List<IndicatorpoEntity> listAll() {
         try {
             List<IndicatorpoEntity> indi = model.listAll();
@@ -52,6 +56,14 @@ public class IndicatorBean {
 
     public void setIndicator(IndicatorpoEntity indicator) {
         this.indicator = indicator;
+    }
+
+    public boolean isDone1() {
+        return done1;
+    }
+
+    public void setDone1(boolean done1) {
+        this.done1 = done1;
     }
 
 }

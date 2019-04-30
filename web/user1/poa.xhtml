@@ -20,14 +20,15 @@
 
     <ui:define name="contenido">
         <p:dialog header="Ingreso de nuevo indicardor" widgetVar="newindicatorM" modal="true" showEffect="explode">
-            <b:panelGrid columns="2">
-                <h:outputLabel value="Indicador"/>
-                <b:inputTextarea value="#{indicatorBean.indicator.detalle}"/>
-            </b:panelGrid>
-            <f:facet name="footer">                
-                <p:commandButton value="Guardar" action="#{indicatorBean.saveind()}" ajax="true" update="form1" class="btn-amber"/>
-            </f:facet>
+            <b:form>
+                <b:panelGrid columns="2">
+                    <h:outputLabel value="Indicador"/>
+                    <b:inputTextarea value="#{indicatorBean.indicator.detalle}"/>                
+                </b:panelGrid>
+                <p:commandButton value="Guardar" action="#{indicatorBean.saveind()}" ajax="true" update="form1" class="green1"/>                    
+            </b:form>
         </p:dialog>
+        
         <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar una nueva actividad">
             <div class="fab"></div>
             <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
@@ -38,6 +39,12 @@
         </div>
         <div class="abriteplease2" id="abriteplease2">
             <h:form id="form1" class="abriteplease">
+                <h:outputScript rendered="#{indicatorBean.done1==true}">
+                    alertify
+                    .alert("Agregado correctamente, cierre la ventana de dialogo", function () {
+                    alertify.message('OK');
+                    });
+                </h:outputScript>
                 <b:panelGrid columns="2" class="profiles"  style="padding-top: 40px">
                     <h:outputLabel value="Actividad" class="profile"/>
                     <b:inputText value="#{poaBean.poa.actividad}" maxlength="80" class="profile"/>
@@ -135,6 +142,8 @@
 
         </p:dialog>
 
-        <h:outputScript name="js/selectcool.js"/>
+        <!--        <h:outputScript name="js/selectcool.js"/>-->
+
+
     </ui:define>
 </ui:composition>

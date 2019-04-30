@@ -35,7 +35,8 @@ public class IndicatorModel {
             return null;
         }
     }
-    public void save(IndicatorpoEntity indicador){
+
+    public boolean save(IndicatorpoEntity indicador) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
         EntityTransaction tran = em.getTransaction();
         try {
@@ -43,7 +44,11 @@ public class IndicatorModel {
             em.persist(indicador);
             tran.commit();
             em.close();
+            return true;
         } catch (Exception e) {
+            e.printStackTrace();
+            em.close();
+            return false;
         }
     }
 
