@@ -25,7 +25,7 @@
                     <h:outputLabel value="Indicador"/>
                     <b:inputTextarea value="#{indicatorBean.indicator.detalle}"/>                
                 </b:panelGrid>
-                <p:commandButton value="Guardar" action="#{indicatorBean.saveind()}" ajax="true" update="form1" class="green1"/>                    
+                <p:commandButton value="Guardar" action="#{indicatorBean.saveind()}" ajax="true" update="form1" onclick="return confirm('¿Esta seguro?')" class="green1"/>                    
             </b:form>
         </p:dialog>
         
