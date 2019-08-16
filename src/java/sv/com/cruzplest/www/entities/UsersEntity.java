@@ -30,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UsersEntity.findAll", query = "SELECT u FROM UsersEntity u")
+    ,@NamedQuery(name = "UsersEntity.findAllwithoutAdmins", query = "SELECT u FROM UsersEntity u where u.tipou.codigousertype!=1")
     , @NamedQuery(name = "UsersEntity.findByCodigouser", query = "SELECT u FROM UsersEntity u WHERE u.codigouser = :codigouser")
     , @NamedQuery(name = "UsersEntity.findByNombre", query = "SELECT u FROM UsersEntity u WHERE u.nombre = :nombre")
     , @NamedQuery(name = "UsersEntity.findByApellidos", query = "SELECT u FROM UsersEntity u WHERE u.apellidos = :apellidos")
@@ -56,10 +57,10 @@ public class UsersEntity implements Serializable {
     private String correo;
     @Basic(optional = false)
     private int telefono;
-    
+
     @Basic(optional = true)
     private String img;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<PrivilegesuserEntity> privilegesuserEntityList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "encargado")
@@ -162,7 +163,6 @@ public class UsersEntity implements Serializable {
     public void setTipou(UsertypeEntity tipou) {
         this.tipou = tipou;
     }
-    
 
     @XmlTransient
     public List<IntentosEntity> getIntentosEntityList() {

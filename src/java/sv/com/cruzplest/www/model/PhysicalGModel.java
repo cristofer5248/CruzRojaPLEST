@@ -57,11 +57,12 @@ public class PhysicalGModel {
         EntityTransaction trans = em.getTransaction();
         try {
             trans.begin();
-            em.merge(em.find(PhysicalGoalEntity.class, phy));
+            em.merge(phy);
             trans.commit();
             em.close();
             return true;
         } catch (Exception e) {
+            e.printStackTrace();
             em.close();
             return false;
         }

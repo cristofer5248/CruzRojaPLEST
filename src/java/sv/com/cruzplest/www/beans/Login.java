@@ -46,12 +46,12 @@ public class Login {
                     if (user.getTipou().getCodigousertype() == 1) {
                         System.out.println("Usuario nivel 1 iniciado.....");
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel", user);
-                        return "user1/index";
+                        return "user2/index";
 //
                     } else if (user.getTipou().getCodigousertype().equals(2)) {
                         System.out.print("Iniciando nivel 2...");
                         FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("nivel2", user);
-                        return "user2/index";
+                        return "user1/index";
                     }
 
                 }
@@ -84,7 +84,7 @@ public class Login {
         Object session = externalContext.getSession(false);
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 
-        return "login";
+        return "/index";
 
     }
 

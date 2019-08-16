@@ -7,10 +7,12 @@ package sv.com.cruzplest.www.beans;
 
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
+import javax.faces.view.ViewScoped;
 import javax.faces.context.FacesContext;
+import sv.com.cruzplest.www.entities.GeneroEntity;
 import sv.com.cruzplest.www.model.UserModel;
 import sv.com.cruzplest.www.entities.UsersEntity;
+import sv.com.cruzplest.www.entities.UsertypeEntity;
 import sv.com.cruzplest.www.utils.JsfUtil;
 import sv.com.cruzplest.www.utils.LimitAttempts;
 
@@ -22,19 +24,23 @@ import sv.com.cruzplest.www.utils.LimitAttempts;
 @ViewScoped
 public class UsersBean {
 
-    private UserModel model = new UserModel();
-    private UsersEntity users = new UsersEntity();
+    private final UserModel model = new UserModel();
+    private UsersEntity users;
     private String pass;
     private String pass2;
     private String oldpass;
     private int genero;
-    private UsersEntity userSession;
-    private LimitAttempts limits = new LimitAttempts();
+    private int tipo;
+    private final UsersEntity userSession;
+    public UsersEntity userpo;
+    private final LimitAttempts limits = new LimitAttempts();
 
     /**
      * Creates a new instance of UsersBean
      */
-    public UsersBean() {        
+    public UsersBean() {
+        userpo = new UsersEntity();
+        users = new UsersEntity();
         FacesContext context = FacesContext.getCurrentInstance();
         userSession = (UsersEntity) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("usuario");
         users.setNombre(userSession.getNombre());
@@ -45,23 +51,33 @@ public class UsersBean {
 
     }
 
-    public String redirect2Ped() {        
+    public String redirect2Ped() {
         FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         return "df";
     }
 
-    public List<UsersEntity> listarAll() {
+    public List<UsersEntity> getListarAll() {
         try {
-        List<UsersEntity> user = model.listarAll();
-        return user;
+            List<UsersEntity> user = model.listarAll();
+            return user;
         } catch (Exception e) {
             return null;
         }
-        
+
     }
 
-    public List<UsersEntity> listarInfo() {
-        users = userSession;
+    public List<UsersEntity> getListarAllwithoutAdmin() {
+        try {
+            List<UsersEntity> user = model.listarAllPlanificacion();
+            return user;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    public List<UsersEntity> getListarInfo() {
+        System.out.print("codigouse: " + userSession.getCodigouser());
         return model.listarInfo(userSession.getCodigouser());
     }
 
@@ -74,27 +90,63 @@ public class UsersBean {
     }
 
     public String updateUser() {
+        int newuser;
+        newuser = Integer.parseInt(JsfUtil.getRequest().getParameter("code"));
+        String redirectURL = "users";
+        System.out.print(userpo.getCodigouser());
         try {
-            if (!getPass().equals(getPass2())) {
-                return "about?faces-redirect=true&op=pne";
-            }
-            if (!model.verificarcontraseña(userSession.getCodigouser(), getOldpass())) {
-                return "about?faces-redirect=true&op=one";
-            }
-            //Si se quiere cambiar los limites de intentos para un usuarios se cambia en la clase LimitAttempts
-            int userLimit = limits.getAttemptsUser();
-            if (model.verificarIntentos(userSession.getCodigouser()) >= userLimit) {
-                return "about?faces-redirect=true&op=limit";
+            if (newuser == 1) {
+                redirectURL = "about";
+                if (!getPass().equals(getPass2())) {
+                    return "about?faces-redirect=true&op=pne";
+                }
+                if (!model.verificarcontraseña(userSession.getCodigouser(), getOldpass())) {
+                    return "about?faces-redirect=true&op=one";
+                }
+                //Si se quiere cambiar los limites de intentos para un usuarios se cambia en la clase LimitAttempts
+                int userLimit = limits.getAttemptsUser();
+                if (model.verificarIntentos(userSession.getCodigouser()) >= userLimit) {
+                    return "about?faces-redirect=true&op=limit";
+                }
+
             }
             users.setPass(getPass());
-            model.updateUser(users);
-            return "about?faces-redirect=true&op=yes";
+
+            String answer = "Agregado con exito";
+
+            if (newuser == 2) {
+                userpo.setGenero(new GeneroEntity((long) genero));
+                userpo.setTipou(new UsertypeEntity(tipo));
+                if (!model.guardar(userpo)) {
+                    model.updateUser(userpo);
+                    answer = "Actualizado con exito";
+                }
+            } else {
+                if (!model.guardar(users)) {
+                    model.updateUser(users);
+                    answer = "Actualizado con exito";
+                }
+            }
+            JsfUtil.setFlashMessage("exito", answer);
+            return redirectURL + "?faces-redirect=true&op=yes";
 
         } catch (Exception e) {
             e.printStackTrace();
             return "";
         }
 
+    }
+
+    public String delete() {
+
+        try {
+            model.delete(userpo.getCodigouser());
+            JsfUtil.setFlashMessage("error", "Borrado exitosamente");
+            return "user1/users";
+        } catch (Exception e) {
+            JsfUtil.setFlashMessage("error", "Error al eliminar");
+            return "user1/users";
+        }
     }
 
     /**
@@ -165,6 +217,34 @@ public class UsersBean {
      */
     public void setGenero(int genero) {
         this.genero = genero;
+    }
+
+    /**
+     * @return the userpo
+     */
+    public UsersEntity getUserpo() {
+        return userpo;
+    }
+
+    /**
+     * @param userpo the userpo to set
+     */
+    public void setUserpo(UsersEntity userpo) {
+        this.userpo = userpo;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public int getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
 }

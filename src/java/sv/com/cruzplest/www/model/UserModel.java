@@ -8,7 +8,6 @@ package sv.com.cruzplest.www.model;
 import java.util.List;
 import sv.com.cruzplest.www.utils.JpaUtil;
 import sv.com.cruzplest.www.entities.UsersEntity;
-//import sv.com.cruzplest.www.entities.UsersEntity;C
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
@@ -78,6 +77,15 @@ public class UserModel {
             return null;
         }
     }
+        public List<UsersEntity> listarAllPlanificacion() {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        try {
+            Query consulta = em.createNamedQuery("UsersEntity.findAllwithoutAdmins");
+            return consulta.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
 
     public List<UsersEntity> listarInfo(String codigo) {
         EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
@@ -117,5 +125,36 @@ public class UserModel {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public Boolean guardar(UsersEntity user) {
+        EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+        EntityTransaction tran = em.getTransaction();
+        try {
+            tran.begin();
+            em.persist(user);
+            tran.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    public Boolean delete(String cod){
+        
+            EntityManager em = JpaUtil.getEntityManagerFactory().createEntityManager();
+            EntityTransaction tran = em.getTransaction();
+        try {    
+            tran.begin();
+            em.remove(em.find(UsersEntity.class, cod));
+            tran.commit();
+            em.close();
+            return true;
+        } catch (Exception e) {
+            em.close();
+            e.printStackTrace();
+            return false;
+        }
     }
 }

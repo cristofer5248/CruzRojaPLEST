@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="../WEB-INF/admtemplate.xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"    
+    xmlns:u="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="title">
+        <title>Usuarios - Planificacion y Desarrollo</title>        
+        <!--        <h:outputScript name="js/utils.js"/>-->
+
+
+    </ui:define>
+
+
+    <ui:define name="contenido">
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
+            <div class="fab"></div>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
+            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                <f:ajax render="@form"/>
+                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                            </h:commandButton>-->
+        </div>
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease" u:data-step="4" u:data-intro="Formulario para registro o actualizacion de datos del PED">
+                <b:panelGrid columns="2" class="profiles" style="padding-top: 40px">
+                    <h:outputLabel value="ID:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{usersBean.userpo.codigouser}" class="profile"/>
+                    <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{usersBean.userpo.nombre}" maxlength="30" class="profile"/>
+                    <h:outputLabel value="Apellidos" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{usersBean.userpo.apellidos}" maxlength="30" class="profile" id="apellido"/>
+                    <h:outputLabel value="Password:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText type="password" value="#{usersBean.userpo.pass}" maxlength="40" class="profile"/>
+                    <h:outputLabel value="Genero:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:selectOneMenu value="#{usersBean.genero}">
+                        <f:selectItem itemValue="1" itemLabel="Masculino"/>
+                        <f:selectItem itemValue="2" itemLabel="Femenino"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Rol:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:selectOneMenu value="#{usersBean.tipo}">
+                        <f:selectItem itemValue="1" itemLabel="Administrador"/>
+                        <f:selectItem itemValue="2" itemLabel="Planificacion"/>
+                        <f:selectItem itemValue="3" itemLabel="Usuario"/>
+                    </b:selectOneMenu>
+                    <h:outputLabel value="Telefono:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText type="number" value="#{usersBean.userpo.telefono}" class="profile"/>
+                    <h:outputLabel value="Correo:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText type="email" value="#{usersBean.userpo.correo}" class="profile"/>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton action="#{usersBean.updateUser()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px" onclick="verprogress()">
+                            <f:param name="code" value="2"/>
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form>          
+        </div>
+
+        <div class="content1">
+            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
+                <p:menuitem value="Categories" url="#" />
+                <p:menuitem value="Usuarios" outcome="users" url="#" />
+            </p:breadCrumb>            
+
+            <h:form>
+                <p:dataTable u:data-step="2" u:data-intro="Esta pagina te mostrara el registro de los usuarios que pueden acceder a este sistema, tanto del rol de administrador como del area de planificacion " id="tabla1" value="#{usersBean.getListarAll()}" var="u" paginator="true" rows="10" 
+                             emptyMessage="Usuarios" rowIndexVar="ind" style="text-align: left;"
+                             class="bolado tdLessPadding" selectionMode="single" selection="#{usersBean.userpo}"
+                             rowKey="#{u.codigouser}">
+                    <f:facet name="header">
+                        <p:outputPanel>
+
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:columnGroup type="header">
+                        <p:row>
+                            <p:column headerText="Usuario" width="10%" />
+                            <p:column headerText="Nombres"/>                                                     
+                            <p:column headerText="Apellido"/>                                                     
+                            <p:column headerText="Correo"/>
+                            <p:column headerText="Genero"/>
+                            <p:column headerText="Telefono"/>
+                            <p:column headerText="Rol"/>  
+                        </p:row>
+                    </p:columnGroup>
+
+
+                    <!--DE AQUI COMIENZAN LOS DATOS DIFERENTES-->
+                    <p:column>
+                        <h:outputText  value="#{u.codigouser}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText  value="#{u.nombre}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText  value="#{u.apellidos}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText  value="#{u.correo}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText  value="#{u.genero.nombre}"/>
+                    </p:column>
+                    <p:column>
+                        <h:outputText  value="#{u.telefono}"/>
+                    </p:column>                    
+                    <p:column>
+                        <h:outputText  value="#{u.tipou.tipo}"/>
+                    </p:column>
+                </p:dataTable>  
+                <p:contextMenu for="tabla1">
+                    <p:menuitem class="holiwe" value=" Editar usuario" icon="fa fa-edit" update="form1">
+                        <f:ajax render="form1"/>
+                    </p:menuitem>
+                    <p:menuitem  value="Eliminar" icon="fa fa-remove" update="form1" action="#{usersBean.delete()}" ajax="false"/>
+
+                </p:contextMenu>
+            </h:form>
+            <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
+                            <h1># {item.ejecutado}</h1> 
+                        </ui:repeat>-->
+            <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
+
+        </div>
+        <h:outputScript>
+
+        </h:outputScript>
+        <script>
+            $("#btn1").click(function () {
+                $(".bolado").table2excel({
+                    bootstrap: true,
+                    exclude: ".noExl",
+                    name: "PED",
+                    filename: "Asistencia"
+                });
+            });
+        </script>
+
+        <c:if test="#{not empty flash.important}">
+            alertify
+            .alert("Se registro por primera vez en el PED esta actividad, recuerde que esta mantendra el orden de todos los demas datos de la actividad.", function(){
+            alertify.message('OK :(');
+            });  
+        </c:if>
+    </ui:define>
+</ui:composition>

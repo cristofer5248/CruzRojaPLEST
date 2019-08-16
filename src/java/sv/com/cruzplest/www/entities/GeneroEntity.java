@@ -35,7 +35,7 @@ public class GeneroEntity implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "codgenero", nullable = false)
-    private Integer codgenero;
+    private Long codgenero;
     @Basic(optional = false)
     @Column(name = "nombre", nullable = false, length = 20)
     private String nombre;
@@ -45,20 +45,20 @@ public class GeneroEntity implements Serializable {
     public GeneroEntity() {
     }
 
-    public GeneroEntity(Integer codgenero) {
+    public GeneroEntity(Long codgenero) {
         this.codgenero = codgenero;
     }
 
-    public GeneroEntity(Integer codgenero, String nombre) {
+    public GeneroEntity(Long codgenero, String nombre) {
         this.codgenero = codgenero;
         this.nombre = nombre;
     }
 
-    public Integer getCodgenero() {
+    public Long getCodgenero() {
         return codgenero;
     }
 
-    public void setCodgenero(Integer codgenero) {
+    public void setCodgenero(Long codgenero) {
         this.codgenero = codgenero;
     }
 

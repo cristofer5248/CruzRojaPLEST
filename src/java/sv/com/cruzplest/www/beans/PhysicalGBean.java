@@ -44,7 +44,13 @@ public class PhysicalGBean {
     }
 
     public void insertorupdatePh() throws IOException {
+        String redirectURL="metafisica.xhtml";
+        int fromPed=0;
         try {
+            fromPed = Integer.parseInt(JsfUtil.getRequest().getParameter("redirectURL"));
+            if(fromPed!=0){
+                redirectURL="PED.xhtml";
+            }
             if (boolphy) {
                 if (model.updatephy(physicalGoal)) {
                     JsfUtil.setFlashMessage("update", "Meta fisic actualizada correctamente");
@@ -53,6 +59,18 @@ public class PhysicalGBean {
                 model.insertphy(physicalGoal);
                 JsfUtil.setFlashMessage("add", "Meta fisica agregada satisfactoriamente");
             }
+            FacesContext.getCurrentInstance().getExternalContext().redirect(redirectURL);
+        } catch (Exception e) {
+            JsfUtil.setFlashMessage("error", "Error interno");
+            FacesContext.getCurrentInstance().getExternalContext().redirect(redirectURL);
+        }
+    }
+
+    public void insert() throws IOException {
+        try {
+            model.insertphy(physicalGoal);
+            setBoolphy(true);
+            JsfUtil.setFlashMessage("add", "Meta fisica agregada satisfactoriamente");
             FacesContext.getCurrentInstance().getExternalContext().redirect("metafisica.xhtml");
         } catch (Exception e) {
             JsfUtil.setFlashMessage("error", "Error interno");

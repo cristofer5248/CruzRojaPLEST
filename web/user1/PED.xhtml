@@ -21,6 +21,17 @@
 
 
     <ui:define name="contenido">
+        <p:dialog header="Ingreso de nueva Meta Fisica" widgetVar="newmetamodal" modal="true" showEffect="explode">
+            <b:form>
+                <b:panelGrid columns="2">
+                    <h:outputLabel value="Nombre"/>
+                    <b:inputTextarea value="#{physicalGBean.physicalGoal.meta}"/>                
+                </b:panelGrid>
+                <p:commandButton value="Guardar" action="#{physicalGBean.insertorupdatePh()}" ajax="true" update="form1" onclick="return confirm('¿Esta seguro?')" class="green1">
+                    <f:param name="redirectURL" value="1"/>
+                </p:commandButton>                    
+            </b:form>
+        </p:dialog>
         <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
             <div class="fab"></div>
             <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
@@ -34,6 +45,12 @@
                 <h:outputScript rendered="#{pEDbean.boolthereisPOA==true}">
                     alertify
                     .alert("Tenga en cuenta que la actividad clave selecionada no existe en el PED y esta sera la primera vez que sera ingresada y se convertira en la que mantendra el orden en la tabla del PED de su actividad clave.", function () {
+                    alertify.message('OK');
+                    });
+                </h:outputScript>
+                <h:outputScript rendered="#{physicalGBean.boolphy==true}">
+                    alertify
+                    .alert("Agregado correctamente, cierre la ventana de dialogo", function () {
                     alertify.message('OK');
                     });
                 </h:outputScript>
@@ -61,11 +78,17 @@
                         <f:selectItem itemLabel="2011" itemValue="2011"/>                        
                     </b:selectOneMenu>                                        
                     <h:outputLabel value="Meta Fisica:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
-                        <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
-                    </b:selectOneMenu>
+                    <h:panelGroup>
+                        <h:panelGrid columns="2">
+                            <b:selectOneMenu value="#{pEDbean.consolidator.physicalgoal}" class="profile">
+                                <f:selectItems value="#{physicalGBean.listAll()}" var="ph" itemLabel="#{ph.meta}" itemValue="#{ph}"/>
+                            </b:selectOneMenu>
+                            <b:button value="Nuevo"  style="margin-left: 10px; color:white;" onclick="PF('newmetamodal').show();"/>
+
+                        </h:panelGrid>
+                    </h:panelGroup>
                     <h:outputLabel value="Comentario:" class="profile" style="margin-bottom: 25px;"/>
-                    <b:inputText value="${pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
+                    <b:inputText value="#{pEDbean.consolidator.comentario}" maxlength="150" class="profile"/>
                     <div class="col-lg-6" style="margin-top: 30px;">
                         <p:commandButton action="#{pEDbean.updateOrnew()}" ajax="true" class="green1" value="Enviar" style="margin-top: 30px; width: 400px; height: 50px; margin-bottom: 20px;" onclick="verprogress()">
                             <p:confirm header="Confirmacion" message="¿Esta seguro?" icon="fa fa-check"/>
@@ -87,7 +110,7 @@
                 <p:menuitem value="PED" url="#" />
             </p:breadCrumb>            
 
-            <h:form>                
+            <h:form>                                
                 <p:dataTable u:data-step="2" u:data-intro="Esta seccion muestra los datos del PED con los datos mas actualizados. No olvidar que si posee los permisos necesarios puede dar click derecho en la fila deseada y este le brindara algunas opciones muy utiles" id="tabla1" value="#{pEDbean.listAll()}" var="p" 
                              emptyMessage="No hay datos para generar el PED todavia" rowIndexVar="ind" style="text-align: left;" rowStyleClass="#{p.rowspan3 le 0 ? null: 'hijos'}"
                              class="bolado tdLessPadding" sortBy="#{p.codigoPO.codigopo}" selectionMode="single" selection="#{pEDbean.consolidator}"
@@ -115,19 +138,19 @@
                             <p:column headerText="Comentario" width="10%" />                                                      
                         </p:row>
                     </p:columnGroup>
-                    <p:column style="vertical-align: text-top; background: #c62828; color:white" rowspan="#{p.rowspan3}" rendered="#{p.rowspan3!=0}"> 
+                    <p:column style="vertical-align: text-top; background: #c62828; color:white" class="cambiarRS"> 
                         <h:outputText  value="#{p.codigoPO.areaest.nombre}"/>
                     </p:column>
                     <p:column> 
                         <h:outputText  value="#{p.codigocon}"/>
                     </p:column>
-                    <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}" style="padding: 2px;"> 
+                    <p:column style="padding: 2px;"> 
                         <h:outputText  value="#{p.codigoPO.actividad}"/>
                     </p:column>
-                    <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}"> 
+                    <p:column> 
                         <h:outputText  value="#{p.codigoPO.indicatores.detalle}"/>
                     </p:column>       
-                    <p:column rendered="#{p.rowspan2!=0}" rowspan="#{p.rowspan2}"> 
+                    <p:column> 
                         <h:outputText  value="#{p.codigoPO.metaGlobal}"/>
                     </p:column>   
 
@@ -151,10 +174,8 @@
                     <p:column>
                         <h:outputText value="#{p.comentario}" style="text-overflow: ellipsis;"/>
                     </p:column>
-
-
                     <p:summaryRow>
-                        <p:column colspan="5" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
+                        <p:column colspan="6" style="text-align:right; background: #c62828;  font-weight: 700; color: white;">
                             <h:outputText value="Consolidado:" />
                         </p:column>
                         <p:column style="background:white; font-weight: 700; background: #c62828; color: white;">
@@ -178,6 +199,8 @@
                         </p:column>
 
                     </p:summaryRow>
+
+
                 </p:dataTable>  
                 <p:contextMenu for="tabla1">
                     <p:menuitem class="holiwe" value=" Editar avances" icon="fa fa-edit" update="form1" action="#{pEDbean.boolped()}">
@@ -187,23 +210,31 @@
                     <p:menuitem value="Ver en estadisticas" icon="fa fa-line-chart" action="#{pEDbean.versta()}" ajax="false"/>
                 </p:contextMenu>
             </h:form>
-            
+
             <!--            <ui:repeat var="item" value="# {pEDbean.totales}"> 
                             <h1># {item.ejecutado}</h1> 
                         </ui:repeat>-->
             <button id="btn1" class="btn btn-success" style="margin-top: 10px;"  >Descargar</button>
+            <button class="btn btn-primary" id="action">Normalizar Registros</button>
 
         </div>
         <h:outputScript>
 
         </h:outputScript>
+        <h:outputScript name="js/jquery.rowspanizer.min.js"/>
+        <script>
+            $('#action').on('click', function () {
+
+                $(".bolado").rowspanizer({vertical_align: 'middle'});
+            });
+        </script>
         <script>
             $("#btn1").click(function () {
                 $(".bolado").table2excel({
                     bootstrap: true,
                     exclude: ".noExl",
                     name: "PED",
-                    filename: "Asistencia"
+                    filename: "PED"
                 });
             });
         </script>

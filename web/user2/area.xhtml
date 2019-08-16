@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition 
+    xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+    template="../WEB-INF/admtemplate.xhtml"
+    xmlns:h="http://xmlns.jcp.org/jsf/html"
+    xmlns:f="http://xmlns.jcp.org/jsf/core"
+    xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+    xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="title">
+        <title>Areas Estrategicas - Planificacion y Desarrollo</title>        
+        <!--        <h:outputScript name="js/utils.js"/>-->
+        <!--<h:outputStylesheet name="css/selectcool.css"/>-->
+    </ui:define>
+
+
+    <ui:define name="contenido">
+        <div class="abriteplease2" id="abriteplease2">
+            <h:form id="form1" class="abriteplease">
+                <b:panelGrid columns="2" class="profiles"  style=" padding-top: 40px">
+                    <h:outputLabel value="Nombre:" class="profile" style="margin-bottom: 25px;"/>
+                    <b:inputText value="#{areasBean.strategicareas.nombre}" maxlength="80" class="profile" id="nombreform"/>
+                    <div class="col-lg-6" style="margin-top: 30px;">
+                        <p:commandButton type="submit" ajax="true" class="green1 profile"  action="#{areasBean.newAreaorupdate()}" value="Enviar" style="margin-top: 30px" onclick="verprogress();">
+                            <p:confirm header="Confirmacion" message="¿Esta seguro?"/>
+                        </p:commandButton>
+                    </div>
+                </b:panelGrid>
+            </h:form> 
+        </div>
+        <div class="fabs" data-step="1" data-intro="Dando un click puedes ingresar o actualizar un nuevo avance en el PED">
+            <div class="fab"></div>
+            <i class="avatar zmdi zmdi-plus" id="butonsitoplus" onclick="mostrar('abriteplease2');"></i>
+            <!--                <h:commandButton styleClass="avatar zmdi zmdi-account">
+                                <f:ajax render="@form"/>
+                                DO NOT COMPLICATE WITH IT, IT'S JUST A BUTTON FOR OPENNING A FORM ALREADY WITH DATA
+                            </h:commandButton>-->
+        </div>
+        <div class="content1">
+            <p:breadCrumb id="ownbreadCrumb" class="z-depth-4">
+                <p:menuitem value="Categories" url="#" />
+                <p:menuitem value="Areas Estrategicas" url="#" />
+                <p:menuitem value="Año" url="#" rendered="#{areasBean.yearselected>0}"/>
+            </p:breadCrumb>            
+            <h:form>
+                <p:dataTable id="tabla1" value="#{areasBean.listAll()}" var="a" paginator="true" rows="10" widgetVar="areasvar" 
+                             filteredValue="#{areasBean.areasfiltered}" emptyMessage="No hay Areas Estrategicas" selectionMode="single" selection="#{areasBean.strategicareas}"
+                             rowKey="#{a.codigostr}">
+                    <f:facet name="header">
+                        <p:outputPanel>
+                            <p:commandButton value="PED" type="button" onclick="PF('dlg2').show();" class="red1" style="margin-right: 10px;"/>
+                            <h:outputText value="Filtrar:" />
+                            <p:inputText id="globalFilter" onkeyup="PF('areasvar').filter()" style="width:150px" placeholder=""/>
+                        </p:outputPanel>
+                    </f:facet>
+                    <p:column headerText="ID" filterBy="#{a.codigostr}" id="idcambio" width="7%">
+                        <h:outputText value="#{a.codigostr}" />
+                    </p:column>
+                    <p:column headerText="NOMBRE" filterBy="#{a.nombre}" style="text-align: left;">
+                        <h:outputText  value="#{a.nombre}"/>
+                    </p:column>
+                    <p:column headerText="" width="20%">
+                        <p:commandButton value="ver PO" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
+                            <f:param name="codigo" value="#{a.codigostr}"/>
+                        </p:commandButton>
+                        <p:commandButton value="ver PED" actionListener="#{poaBean.insertPoacod()}" onclick="PF('dlg2').show();" class="green1" ajax="true">
+                            <f:param name="codigo" value="#{a.codigostr}"/>
+                        </p:commandButton>
+
+                    </p:column>
+                    <!--                    <p:column headerText="ACCIONES">
+                                            <h:commandButton action="# {areasBean.loadPoa()}" value="POA">
+                                                <f:param rendered="POA"/>
+                                            </h:commandButton>
+                    
+                                            <p:commandButton value="Modal" type="button" onclick="PF('dlg2').show();" class="red1"/>
+                    
+                    
+                                        </p:column>-->
+                </p:dataTable>
+                <p:contextMenu for="tabla1">
+                    <p:menuitem class="holiwe" value=" Editar area estrategica" icon="fa fa-edit" update="form1" action="#{areasBean.update()}">
+                        <f:ajax render="form1"/>
+                    </p:menuitem>                    
+                </p:contextMenu>
+            </h:form>
+        </div>
+
+
+
+        <h:outputScript>
+            function enableyear(){
+
+            document.getElementById('j_idt50:yearInner').value=0;
+            }
+            function enabletrimestre(){            
+
+            document.getElementById('j_idt50:trimestreInner').value = 0;
+            }             
+        </h:outputScript>
+
+
+
+    </ui:define>
+</ui:composition>

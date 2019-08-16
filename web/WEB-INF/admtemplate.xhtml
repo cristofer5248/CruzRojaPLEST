@@ -16,6 +16,8 @@
         <!--<h:outputStylesheet name="css/bootstrap.min.css" />--> 
         <h:outputStylesheet name="css/mdb.min.css" /> 
 
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
+
         <!--alertefy-->
         <h:outputStylesheet name="css/alertify.default.css" />
         <h:outputScript name="js/alertify.js"/>        
@@ -35,8 +37,9 @@
         <!--jquery for exporting table only using jquery-->
 
         <!--        animacion para eliminar bonita chida-->
-        <h:outputStylesheet name="css/deleteanimated_js.css" /> 
-        <h:outputScript name="js/animeddelete.js"/>
+        <!--no se ocupa borrar-->
+        <!--        <h:outputStylesheet name="css/deleteanimated_js.css" /> 
+                <h:outputScript name="js/animeddelete.js"/>-->
         <!--        animacion para eliminar bonita chida-->
 
         <!--New template menu from code pen and loader-->
@@ -50,7 +53,7 @@
         <h:outputStylesheet name="css/ownChangesStyle.css"/>
         <h:outputStylesheet name="may/css/introjs.css"/>   
 
-        <f:event type="preRenderView" listener="#{verificarsesion.verificarsession2()}"/>
+        <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
 
         <ui:insert name="title">
 
@@ -73,8 +76,9 @@
                 <i class="fa fa-user"></i>
                 <div class="animated slideInLeft " style="padding-bottom: 0px; margin-bottom: 0px; height: 80px">
 
-                    <h:button value="Perfil                  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button>
+                    <h:button value="Perfil                  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button><br></br>                    
                     <h:form id="logout" class="ownform">
+                        <h:button value="Usuarios          " outcome="users" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button><br></br>                    
                         <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" onclick="verprogress();" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton><br></br>
                     </h:form>                    
 
@@ -106,28 +110,29 @@
 
                 </div>
             </li>
+            <!--
             <li>
-                <c:if test="${variable!=1}">
+                <c:if test="$ {variable!=1}">
                     <i class="fa fa-search "></i>
                     <div class="animated slideInLeft">Avances</div>
                 </c:if>
-                <c:if test="${variable==1}">
+                <c:if test="$ {variable==1}">
                     <i class="fa fa-pencil-square-o"></i>
                     <div class="animated slideInLeft">Enviar progreso</div>
                 </c:if>
             </li>
-            <li>
+             <li>
                 <i class="fa fa-frown-o"></i>
                 <div class="animated slideInLeft">
                     <a value="Ayuda" style="" class="ownbutton" href="javascript:void(0);" onclick="javascript:introJs().start();">Iniciar asistente<i class="fa fa-toggle-on"></i></a>
                 </div>
             </li>
-            <li>
+          <li>
                 <i class="fa  fa-bar-chart"></i>
                 <div class="animated slideInLeft">
                     <h:button value="Ver estadisticas" outcome="estadisticas" style="font-size: 15px;"  class="ownbutton" onclick="verprogress();" ><i class="fa fa-line-chart "></i></h:button>
                 </div>
-            </li>
+            </li>-->
 
         </ul>    
 
@@ -144,6 +149,9 @@
             </div>   
         </b:panel>
         <div class="credits">
+            <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
+            <i class="fas fa-user-shield">Bienvenido #{verificarsesion.mensaje} - Administrador </i>
+
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
             <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
@@ -154,7 +162,7 @@
         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
     </p:confirmDialog>
     <!--<h:outputScript name="js/jquery-3.3.1.min.js"/>-->
-    <h:outputScript name="js/bootstrap.min.js"/>
+    <h:outputScript name="js/fontawesome.min.js"/>
     <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/materializeprofile.js"/>
     <h:outputScript name="js/popper.min.js"/>

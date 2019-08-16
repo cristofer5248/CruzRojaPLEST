@@ -10,11 +10,13 @@
     <h:head>
 
         <link rel="shortcut icon"  href="#{resource['images/calendarico.ico']}"  type="image/x-icon"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
         <!--alertefy too-->
         <h:outputStylesheet name="css/alertify.core.css" />
         <!--alertefy too-->
         <!--<h:outputStylesheet name="css/bootstrap.min.css" />--> 
         <h:outputStylesheet name="css/mdb.min.css" /> 
+        
 
         <!--alertefy-->
         <h:outputStylesheet name="css/alertify.default.css" />
@@ -34,10 +36,6 @@
         <h:outputScript name="js/jquery.table2excel.js"/> 
         <!--jquery for exporting table only using jquery-->
 
-        <!--        animacion para eliminar bonita chida-->
-        <h:outputStylesheet name="css/deleteanimated_js.css" /> 
-        <h:outputScript name="js/animeddelete.js"/>
-        <!--        animacion para eliminar bonita chida-->
 
         <!--New template menu from code pen and loader-->
         <h:outputStylesheet name="css/styletemplate.css"/>
@@ -50,7 +48,7 @@
         <h:outputStylesheet name="css/ownChangesStyle.css"/>
         <h:outputStylesheet name="may/css/introjs.css"/>   
 
-        <f:event type="preRenderView" listener="#{verificarsesion.verificarsession()}"/>
+        <f:event type="preRenderView" listener="#{verificarsesion.verificarsession2()}"/>
 
         <ui:insert name="title">
 
@@ -73,8 +71,9 @@
                 <i class="fa fa-user"></i>
                 <div class="animated slideInLeft " style="padding-bottom: 0px; margin-bottom: 0px; height: 80px">
 
-                    <h:button value="Perfil                  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button>
+                    <h:button value="Perfil                  " outcome="about" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button><br></br>                    
                     <h:form id="logout" class="ownform">
+                        <h:button value="Usuarios          " outcome="users" class="ownbutton" onclick="verprogress();" ><i class="fa fa-user-secret"></i></h:button><br></br>                    
                         <h:commandButton action="#{login.logut()}" value="Cerrar Sesion" class="ownbutton" onclick="verprogress();" ><i class="fa fa-sign-out " style="margin: 0px; padding: 0px; "></i></h:commandButton><br></br>
                     </h:form>                    
 
@@ -144,6 +143,10 @@
             </div>   
         </b:panel>
         <div class="credits">
+            <c:set var="variable" scope="session" value="#{verificarsesion.dameeltipo()}"/>
+            
+                <i class="fa fa-twitter">Bienvenido #{verificarsesion.mensaje} - Planificacion y Desarrollo </i>
+            
             <a href="https://twitter.com/cruzrojasal?lang=en"><i class="fa fa-twitter"></i></a>
             <a href="https://es-es.facebook.com/pages/category/Nonprofit-Organization/Cruz-Roja-Salvadore%C3%B1a-975551735836711/"><i class="fa fa-facebook"></i></a>
             <a href="http://www.cruzrojasal.org.sv/"><i class="fa fa-globe"></i></a>
@@ -154,7 +157,7 @@
         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="pi pi-times" />
     </p:confirmDialog>
     <!--<h:outputScript name="js/jquery-3.3.1.min.js"/>-->
-    <h:outputScript name="js/bootstrap.min.js"/>
+
     <h:outputScript name="js/mdb.js"/>
     <h:outputScript name="js/materializeprofile.js"/>
     <h:outputScript name="js/popper.min.js"/>
